@@ -6,7 +6,7 @@
 /*   By: eviana <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/07 10:07:11 by eviana            #+#    #+#             */
-/*   Updated: 2019/02/07 17:24:06 by eviana           ###   ########.fr       */
+/*   Updated: 2019/02/07 18:46:22 by plaurent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,7 @@ int		ft_checkconv(char *tab, int i)
 	return (n);
 }
 
-int		ft_predispatcher(char *tab, va_list ap)
+int		ft_conv_num(char *tab, va_list ap)
 {
 	int i;
 	int n;
@@ -135,20 +135,19 @@ int		ft_predispatcher(char *tab, va_list ap)
 	i = 0;
 	n = 0;
 	if (!tab || !ap)
-		return (0);
+		return (-1);
 	if (tab[0] == '%' && (tab[1] && tab[1] != '%'))
 	{
 		while (tab[i])
 			i++;
 		i--;
 		n = ft_checkconv(tab[i], i);
-
-		ft_dispatcher( // A FINIR
-		return (1);
+		return (n);
 	}
-	ft_putstr(tab);
-	return (1);
+	return (0);
 }
+
+
 
 int		main(int ac, char **av)
 {
@@ -156,33 +155,68 @@ int		main(int ac, char **av)
 	int i;
 
 	i = 0;
-	tab = ft_formattotab(av[1]);
+	int		(*list_ft[8])(char *)(va_list);
+
+	list_ft[1] = &ft_convd;
+	list_ft[2] = &ft_convi;
+	list_ft[3] = &ft_convouxX;
+	list_ft[4] = &ft_convc;
+	list_ft[5] = &convs;
+	list_ft[6] = &convp;
+	list_ft[7] = &convf;
+	ft_printf(av[1], ...);
 	while (tab[i])
 	{
 		ft_putstr(tab[i]);
 		ft_putchar('\n');
 		i++;
 	}
-	
 	(void)ac;
 	(void)av;
 	return (0);
 }
 
-/*
-int		ft_printf0(const char * restrict format, ...)
+int		ft_dispacher(char **tab, va_list ap, int n)
 {
-	
+	int		(*list_ft[8])(char *)(va_list);
 
-	while (format[i])
+	list_ft[0] = &ft_no_conv;
+	list_ft[1] = &ft_convd;
+	list_ft[2] = &ft_convi;
+	list_ft[3] = &ft_convouxX;
+	list_ft[4] = &ft_convc;
+	list_ft[5] = &convs;
+	list_ft[6] = &convp;
+	list_ft[7] = &convf;
+	while (*tab)
 	{
-		ft_readformat;
-		i++;
+		if (ft_conv_num(*tab) >= 0)
+			if (!(list_fd[n](*tab, ap))) // A RACCORDER
+				return (-1);
+		else
+			return (-1);
+		*tab++;
+	}
+	return (1);
+}
+
+int		ft_printf(const char * restrict format, ...)
+{
+	va_list	ap;
+	char	**tab;
+	int		n;
+
+	n = 0;
+	va_start(ap, format);
+	tab = ft_formattotab(format);
+	if (ft_dispatcher(**tab, ap) < 0)
+	{
+		ft_putstr("error\n");
+		return (0);
 	}
 }
-*/
 
-/*
+
 void foo(char *fmt, ...)
 {
 	va_list ap; //ap2;
