@@ -6,7 +6,7 @@
 /*   By: eviana <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/07 10:07:11 by eviana            #+#    #+#             */
-/*   Updated: 2019/02/07 16:00:10 by eviana           ###   ########.fr       */
+/*   Updated: 2019/02/07 17:24:06 by eviana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,36 +24,6 @@
 #include <stdarg.h>
 #include <stdio.h> // A RETIRER
 #include "libft.h"
-
-/*
-char	**ft_strsplit(char const *s, char c)
-{
-	unsigned int	i;
-	unsigned int	j;
-	unsigned int	k;
-	char			**tab;
-
-	i = 0;
-	k = 0;
-	if (!s || !(tab = (char**)malloc(sizeof(char*) * (ft_strcount(s, c) + 1))))
-		return (NULL);
-	while (s[i] != '\0')
-	{
-		j = 0;
-		while (s[i] == c && s[i] != '\0')
-			i++;
-		while (s[i + j] != c && s[i + j] != '\0')
-			j++;
-		if (j != 0)
-		{
-			tab[k] = ft_strsub(s, i, (size_t)j);
-			k++;
-		}
-		i = i + j;
-	}
-	tab[k] = 0;
-	return (tab);
-}*/
 
 int		ft_isconv(char c)
 {
@@ -112,7 +82,6 @@ int		ft_charcount(const char * restrict s, int i, int mode)
 	}
 }
 
-
 char	**ft_formattotab(const char * restrict s)
 {
 	int		i;
@@ -143,45 +112,43 @@ char	**ft_formattotab(const char * restrict s)
 	return (tab);
 }
 
-/*
-char	**ft_formattotab(const char * restrict s)
+int		ft_checkconv(char *tab, int i)
 {
-	int		i;
-	int		j;
-	int		k;
-	char 	**tab;
+	int		n;
 
+	(tab[i] == 'd' ? n = 1 : n = 0);
+	(tab[i] == 'i' ? n = 2 : n = 0);
+	(tab[i] == 'o' || tab[i] == 'u' ||
+	 tab[i] == 'x' || tab[i] == 'X' ? n = 3 : n = 0);
+	(tab[i] == 'c' ? n = 4 : n = 0);
+	(tab[i] == 's' ? n = 5 : n = 0);
+	(tab[i] == 'p' ? n = 6 : n = 0);
+	(tab[i] == 'f' ? n = 7 : n = 0);
+	return (n);
+}
+
+int		ft_predispatcher(char *tab, va_list ap)
+{
+	int i;
+	int n;
+	
 	i = 0;
-	k = 0;
-	if (!s || !(tab = (char**)malloc(sizeof(char*) * (ft_strcountparts(s) + 1))))
-		return (NULL);
-	while (s[i])
+	n = 0;
+	if (!tab || !ap)
+		return (0);
+	if (tab[0] == '%' && (tab[1] && tab[1] != '%'))
 	{
-		j = 0;
-		while ((s[i + j] && s[i + j] != '%') || ((s[i + j] && s[i + j] == '%') && (s[i + j + 1] && s[i + j + 1] == '%')))
-			((s[i + j] && s[i + j] == '%') && (s[i + j + 1] && s[i + j + 1] == '%') == 1 ? j = j + 2 : j++);
-		if (j != 0)
-		{
-			tab[k] = ft_strsub(s, i, (size_t)j);
-			k++;
-		}
-		i = i + j;
-		j = 0;
-		if (s[i] && s[i] == '%')
-			while (s[i + j] && !ft_isconv(s[i + j]))
-				j++;
-		if (s[i + j] && ft_isconv(s[i + j]))
-			j++;
-		if (j != 0)
-		{
-			tab[k] = ft_strsub(s, i, (size_t)j);
-			k++;
-		}
-		i = i + j;
+		while (tab[i])
+			i++;
+		i--;
+		n = ft_checkconv(tab[i], i);
+
+		ft_dispatcher( // A FINIR
+		return (1);
 	}
-	tab[k] = 0;
-	return (tab);
-}*/
+	ft_putstr(tab);
+	return (1);
+}
 
 int		main(int ac, char **av)
 {
@@ -213,7 +180,9 @@ int		ft_printf0(const char * restrict format, ...)
 		i++;
 	}
 }
+*/
 
+/*
 void foo(char *fmt, ...)
 {
 	va_list ap; //ap2;
@@ -226,10 +195,12 @@ void foo(char *fmt, ...)
 		switch(*fmt++) {
 			case 's':
 				s = va_arg(ap, char *);
-				printf("string : %ls\n", s);
+				printf("string : %s\n", s);
 				break;
 			case 'd':
 				d = va_arg(ap, int);
+				ft_putnbr(d);
+				ft_putchar('\n');
 				printf("int : %d\n", d);
 				break;
 			case 'c':
@@ -247,6 +218,6 @@ void foo(char *fmt, ...)
 
 int		main(void)
 {		
-	foo("sdcd", "ohlolol", 2, 'A', 9);
+	foo("sdcdd", "ohlolol", 2, 'A', 9, "a");
 	return (0);
 }*/
