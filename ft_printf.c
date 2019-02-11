@@ -6,7 +6,7 @@
 /*   By: eviana <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/07 10:07:11 by eviana            #+#    #+#             */
-/*   Updated: 2019/02/11 14:43:21 by eviana           ###   ########.fr       */
+/*   Updated: 2019/02/11 15:07:04 by plaurent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -182,7 +182,8 @@ int		ft_conv_num(char *tab, size_t *i) // Pour identifier la conversion
 		}
 		(tab[*i] == 'd' ? n = 1 : 0);
 		(tab[*i] == 'i' ? n = 2 : 0);
-		(tab[*i] == 'o' || tab[*i] == 'u' || tab[*i] == 'x' || tab[*i] == 'X' ? n = 3 : 0);
+		(tab[*i] == 'o' || tab[*i] == 'u' || tab[*i] == 'x' ||
+		 tab[*i] == 'X' ? n = 3 : 0);
 		(tab[*i] == 'c' || tab[*i] == '%' ? n = 4 : 0); // a verifier pour le %%
 		(tab[*i] == 's' ? n = 5 : 0);
 		(tab[*i] == 'p' ? n = 6 : 0);
@@ -265,13 +266,13 @@ int		ft_dispatcher(char **tab) //, va_list ap) // Pour dispatcher par les conver
 	size_t	j;
 
 //	list_ft[0] = &ft_no_conv;
-//	list_ft[1] = &ft_convd;
-//	list_ft[2] = &ft_convi;
-//	list_ft[3] = &ft_convouxX;
-//	list_ft[4] = &ft_convc;
-//	list_ft[5] = &convs;
-//	list_ft[6] = &convp;
-//	list_ft[7] = &convf;
+//	list_ft[1] = &ft_conv_d;
+//	list_ft[2] = &ft_conv_i;
+//	list_ft[3] = &ft_conv_ouxX;
+//	list_ft[4] = &ft_conv_c;
+//	list_ft[5] = &ft_conv_s;
+//	list_ft[6] = &ft_conv_p;
+//	list_ft[7] = &ft_conv_f;
 	i = 0;
 	while (tab[i])
 	{
