@@ -6,7 +6,7 @@
 /*   By: eviana <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/07 10:07:11 by eviana            #+#    #+#             */
-/*   Updated: 2019/02/12 18:54:20 by eviana           ###   ########.fr       */
+/*   Updated: 2019/02/12 19:18:56 by eviana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -230,7 +230,7 @@ char	*ft_applyflags(char *str, t_asset asset, int signmode)
 	char	*str2;
 
 	length = (asset.width > ft_strlen(str) ? asset.width - ft_strlen(str) : 0);
-	if (length > 0 && signmode && !(ft_strchr(asset.flags, ' ') || ft_strchr(asset.flags, '-')))
+	if (length > 0 && signmode && !(ft_strchr(asset.flags, ' ') || ft_strchr(asset.flags, '-')) && !(ft_strchr(asset.flags, '0')) && !ft_strchr(asset.flags, '+'))
 		length--;
 	else if (length == 0 && signmode == 1 && (!!(ft_strchr(asset.flags, '+')) != 
 				!!(ft_strchr(asset.flags, ' '))) && !ft_strchr(asset.flags, '-'))
@@ -263,7 +263,7 @@ char	*ft_buildresult(char *str, t_asset asset, int signmode)
 	if (ft_strchr(asset.flags, '+') && signmode == 1 && 
 			(!(ft_strchr(asset.flags, '0') && asset.width > ft_strlen(str)) || ft_strchr(asset.flags, '-')))
 		str = sp_strnjoin("+", str, ft_strlen(str), 1);
-	else if (ft_strchr(asset.flags, ' ') && ft_strchr(asset.flags, '-'))
+	else if (ft_strchr(asset.flags, ' ') && ft_strchr(asset.flags, '-') && signmode == 1)
 		str = sp_strnjoin(" ", str, ft_strlen(str), 1);
 	if (!(str2 = ft_applyflags(str, asset, signmode)))
 		return (NULL);
