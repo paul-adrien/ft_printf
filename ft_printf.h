@@ -6,7 +6,7 @@
 /*   By: eviana <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 18:08:15 by eviana            #+#    #+#             */
-/*   Updated: 2019/02/11 14:43:38 by eviana           ###   ########.fr       */
+/*   Updated: 2019/02/12 10:31:23 by eviana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 
 typedef struct	s_asset
 {
-	int		complexity;
 	char	*flags;
 	int		width;
 	int		precision;

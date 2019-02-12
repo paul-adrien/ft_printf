@@ -6,7 +6,7 @@
 /*   By: eviana <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/07 10:07:11 by eviana            #+#    #+#             */
-/*   Updated: 2019/02/11 15:07:04 by plaurent         ###   ########.fr       */
+/*   Updated: 2019/02/12 11:04:36 by eviana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ char	**ft_formattotab(const char * restrict s) // ATTENTION A TRAITER LE % comme
 	return (tab);
 }
 
-char	*ft_findflags(char *tab, size_t *i)
+char	*ft_findflags(char *tab, size_t *i) // PLUS ERROR SI PLEIN DE FLAGS +-+ -#-...
 {
 	char	*str;
 
@@ -127,29 +127,21 @@ char	*ft_findflags(char *tab, size_t *i)
 
 int		ft_findwidth(char *tab, size_t *i)
 {
-	//char	*str;
-	//int	j;
 	int		n;
 
-	//j = *i;
 	n = 0;
 	while (tab[*i] && (tab[*i] >= '0' && tab[*i] <= '9'))
 	{
 		n = 10 * n + (tab[*i] - '0'); 
 		*i = *i + 1;
 	}
-	//if (!(str = ft_strsub(tab, j, *i - j)))
-	//	return (NULL);
 	return (n);
 }
 
 int		ft_findprecision(char *tab, size_t *i)
 {
-	//char	*str;
-	//size_t	j;
 	int		n;
 
-	//j = *i;
 	n = 0;
 	if (tab[*i] && (tab[*i] == '.'))
 	{
@@ -160,40 +152,38 @@ int		ft_findprecision(char *tab, size_t *i)
 			*i = *i + 1;
 		}
 	}
-	//if (!(str = ft_strsub(tab, j, *i - j)))
-	//	return (NULL);
 	return (n);
 }
 
-int		ft_conv_num(char *tab, size_t *i) // Pour identifier la conversion
+int		ft_conv_num(char *tab, size_t i) // Pour identifier la conversion
 {
 	int n;
 	
 	n = 0;
 	if (!tab)
 		return (-1);
-	if (tab[0] == '%') // && (tab[1] && tab[1] != '%')) si on ne prend pas en compte le %% en %c
+	if (tab[0] == '%' && (tab[1] && tab[1] != '%'))
 	{
-		if (*i == 0)
+		if (i == 0)
 		{
-			while (tab[*i])
-				*i = *i + 1;
-			*i = *i - 1;
+			while (tab[i])
+				i++;
+			i--;
 		}
-		(tab[*i] == 'd' ? n = 1 : 0);
-		(tab[*i] == 'i' ? n = 2 : 0);
-		(tab[*i] == 'o' || tab[*i] == 'u' || tab[*i] == 'x' ||
-		 tab[*i] == 'X' ? n = 3 : 0);
-		(tab[*i] == 'c' || tab[*i] == '%' ? n = 4 : 0); // a verifier pour le %%
-		(tab[*i] == 's' ? n = 5 : 0);
-		(tab[*i] == 'p' ? n = 6 : 0);
-		(tab[*i] == 'f' ? n = 7 : 0);
+		(tab[i] == 'd' ? n = 1 : 0);
+		(tab[i] == 'i' ? n = 2 : 0);
+		(tab[i] == 'o' || tab[i] == 'u' || tab[i] == 'x' ||
+		 tab[i] == 'X' ? n = 3 : 0);
+		(tab[i] == 'c' || tab[i] == '%' ? n = 4 : 0); // a verifier pour le %%
+		(tab[i] == 's' ? n = 5 : 0);
+		(tab[i] == 'p' ? n = 6 : 0);
+		(tab[i] == 'f' ? n = 7 : 0);
 		return (n);
 	}
-	return (0);
+	return (n);
 }
 /*
-char 	*ft_findcomplexity(t_asset asset) // A MODIFIER POUR LA STRUCTURE
+char 	*ft_findcomplexity(t_asset asset) // A MODIFIER POUR LA STRUCTURE // OLD ON SUPPRIME
 {
 	size_t	i;
 	size_t	j;
@@ -213,35 +203,90 @@ char 	*ft_findcomplexity(t_asset asset) // A MODIFIER POUR LA STRUCTURE
 	return (str);
 }*/
 
-/*
-int		ft_convd(char **asset, va_list *ap) // EN CONSTRUCTION // ap en pointeur ???
+char	*ft_applyflags(int strlen, t_asset asset, int signmode)
 {
-	int		i;
-	int		d;
+	size_t	length;
+	char	*str2;
+
+	length = (asset.width > strlen ? asset.width - strlen : 0);
+	if (signmode && length > 0 && ft_strchr(asset.flags, ' ') && ft_strchr(asset.flags, '-'))
+		length--;
+	if (!(str2 = ft_strnew(length)))
+		return (NULL);
+	if (ft_strchr(asset.flags, '0') && !ft_strchr(asset.flags, '-'))
+	{
+		str2 = ft_memset(str2, '0', length);
+		if (ft_strchr(asset.flags, '+' && signmode))
+			str2[0] = (signmode == 1 ? '+' : '-');
+	}
+	else 
+		str2 = ft_memset(str2, ' ', length);
+	return (str2);
+	//if (ft_strchr(asset.flags, ' ')) // ?
+	//if (ft_strchr(asset.flags, '#')) // ???
+	//if (ft_strchr(asset.flags, '+'))
+	//if (ft_strchr(asset.flags, '-'))
+}
+
+char	*ft_setwidth(char *str, t_asset asset, int signmode)
+{
+	char	*str2;
+	char	*str3;
+	
+	if (signmode)
+   		signmode = (str[0] == '-' ? -1 : 1);
+	if (!(str2 = ft_applyflags(ft_strlen(str), asset, signmode)))
+		return (NULL);
+	if (ft_strchr(asset.flags, '-'))
+	{
+		if (!(str3 = ft_strjoin(str, str2)))
+		{
+			free(str2);
+			free(str);
+			return (NULL);
+		}
+	}
+	else
+	{
+		if (!(str3 = ft_strjoin(str2, str)))
+		{
+			free(str2);
+			free(str);
+			return (NULL);
+		}
+	}
+	free(str2);
+	free(str);
+	return (str3);
+}
+
+char	*ft_conv_d(t_asset asset, va_list ap) // ap pas en pointeur
+{
 	char	*str;
 
-	i = 0;
-	d = va_arg(ap, int);
+	if (!(str = ft_itoa(va_arg(ap, int))))
+		return (NULL);
+	if (!(str = ft_setwidth(str, asset, 1)))
+		return (NULL);
+	ft_putstr(str); // TEST TEST TEST // PRINTING
+	return (str);
+}
 
-	return (0);
-}*/
-
-t_asset		ft_digest(char *tab) // Pour determiner les elements presents dans une conversion (exclure les no_conv)
+t_asset		ft_digest(char *tab) // (no_conv exclus en amont)
 {
-	t_asset	asset; // flags, width, precision, (length : pas pris en compte), type + assets[0] = numbers of non nul assets
+	t_asset	asset;
 	size_t	i;
 
 	i = 0;
 	if (!(asset.flags = ft_findflags(tab, &i)))
 	{
-		asset.complexity = 0;
+		asset.type = -1;
 		return (asset);
-	}	// QUE SE PASSE-T-IL SI I = 0 / si on a pas de flag ?! // je crois que ca passe avec un strnew de taille 1.
+	}
 	asset.width = ft_findwidth(tab, &i);
 	asset.precision = ft_findprecision(tab, &i);
 	//asset.length = ft_findlength(tab, &i);
-	asset.type = ft_conv_num(tab, &i); // IF PAS BON CHAR A LA FIN => wrong format
-	//asset.complexity = ft_findcomplexity(asset);
+	asset.type = ft_conv_num(tab, i); // IF PAS BON CHAR A LA FIN => wrong format
 	return (asset);
 }
 
@@ -257,16 +302,15 @@ void	ft_printasset(t_asset asset)
 	ft_putchar('\n');
 }
 
-int		ft_dispatcher(char **tab) //, va_list ap) // Pour dispatcher par les conversions possibles
+int		ft_dispatcher(char **tab, va_list ap) // Pour dispatcher par les conversions possibles
 {
-//	int		(*list_ft[8])(t_asset)(va_list);
+	char	*(*list_ft[8])(t_asset, va_list);
 	t_asset	asset;
-	int 	n;
+	size_t 	n;
 	int		i;
-	size_t	j;
 
 //	list_ft[0] = &ft_no_conv;
-//	list_ft[1] = &ft_conv_d;
+	list_ft[1] = &ft_conv_d;
 //	list_ft[2] = &ft_conv_i;
 //	list_ft[3] = &ft_conv_ouxX;
 //	list_ft[4] = &ft_conv_c;
@@ -276,17 +320,16 @@ int		ft_dispatcher(char **tab) //, va_list ap) // Pour dispatcher par les conver
 	i = 0;
 	while (tab[i])
 	{
-		j = 0;
-		n = ft_conv_num(tab[i], &j); // SI CONV = 0 faire une condition speciale
-		printf("j'ai mon n : %d \n", n); // TEST TEST TEST
-		if (n != 0)
+		if ((n = ft_conv_num(tab[i], 0)) == -1)
+			return (0);
+		if (n > 0)
 		{
 			asset = ft_digest(tab[i]);
-			if (asset.complexity == 0)
-				return (-1);
-			//if (!(list_fd[n](asset, &ap))) // ATTENTION A INCREMENTER AP AU BON MOMENT / Increment dans la FT
-			//	return (-1);
-			ft_printasset(asset);
+			if (asset.type == -1)
+				return (0);
+			if (!(list_ft[n](asset, ap))) // ATTENTION A INCREMENTER AP AU BON MOMENT / Increment dans la FT
+				return (0);
+			//ft_printasset(asset);
 			free(asset.flags);
 		}
 		else
@@ -294,28 +337,40 @@ int		ft_dispatcher(char **tab) //, va_list ap) // Pour dispatcher par les conver
 			ft_putstr(tab[i]);
 			ft_putchar('\n');
 		}
-		// if (!(ft_atoi(asset[4]) == 0))
+		// if ((asset.type == 0))
 		// FREE ASSET SUR 2 DIMENSIONS
 		i++; // A VERIFIER
 	}
 	return (1);
 }
 
+/*
+void	ft_testprint(va_list ap)
+{
+	int d;
+	
+	d = va_arg(ap, int);
+	ft_putnbr(d);
+}*/
+
 int		ft_printf(const char * restrict format, ...)
 {
 	va_list	ap;
 	char	**tab;
-	//int		n;
+	//char	*str;
 
-	//n = 0;
 	va_start(ap, format);
+	//ft_testprint(ap);
+	//ft_putchar('\n');
+	//ft_testprint(ap);
 	tab = ft_formattotab(format);
-	if (ft_dispatcher(tab) < 0) // remettre ap ou &ap en 2eme argument
+	if (!(ft_dispatcher(tab, ap))) // remettre ap ou &ap en 2eme argument
 	{
-		ft_putstr("error\n");
-		return (-1);
+		ft_putstr("error de dispatcher\n");
+		return (0); // CHECKER LES VALEURS DE RETOUR DE PRINTF
 	}
-	return (0);
+	va_end(ap);
+	return (0); // CHECKER LES VALEURS DE RETOUR DE PRINTF
 }
 
 int		main(int ac, char **av)
@@ -324,7 +379,7 @@ int		main(int ac, char **av)
 //	int i;
 
 //	i = 0;
-	ft_printf(av[1]); //, av[2], av[3], av[4]);
+	ft_printf(av[1], ft_atoi(av[2]));
 //	tab = ft_formattotab(av[1]);
 //	while (tab[i])
 //	{
