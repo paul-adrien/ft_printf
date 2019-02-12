@@ -6,17 +6,19 @@
 /*   By: eviana <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 18:08:15 by eviana            #+#    #+#             */
-/*   Updated: 2019/02/12 10:31:23 by eviana           ###   ########.fr       */
+/*   Updated: 2019/02/12 11:56:38 by eviana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_PRINTF_H
 # define FT_PRINTF_H
 
+#include <unistd.h>
+
 typedef struct	s_asset
 {
 	char	*flags;
-	int		width;
+	size_t	width;
 	int		precision;
 	int		length;
 	int		type;

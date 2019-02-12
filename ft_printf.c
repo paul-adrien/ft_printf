@@ -6,7 +6,7 @@
 /*   By: eviana <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/07 10:07:11 by eviana            #+#    #+#             */
-/*   Updated: 2019/02/12 11:04:36 by eviana           ###   ########.fr       */
+/*   Updated: 2019/02/12 11:57:18 by eviana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -203,12 +203,12 @@ char 	*ft_findcomplexity(t_asset asset) // A MODIFIER POUR LA STRUCTURE // OLD O
 	return (str);
 }*/
 
-char	*ft_applyflags(int strlen, t_asset asset, int signmode)
+char	*ft_applyflags(char *str, t_asset asset, int signmode)
 {
 	size_t	length;
 	char	*str2;
 
-	length = (asset.width > strlen ? asset.width - strlen : 0);
+	length = (asset.width > ft_strlen(str) ? asset.width - ft_strlen(str) : 0);
 	if (signmode && length > 0 && ft_strchr(asset.flags, ' ') && ft_strchr(asset.flags, '-'))
 		length--;
 	if (!(str2 = ft_strnew(length)))
@@ -216,7 +216,8 @@ char	*ft_applyflags(int strlen, t_asset asset, int signmode)
 	if (ft_strchr(asset.flags, '0') && !ft_strchr(asset.flags, '-'))
 	{
 		str2 = ft_memset(str2, '0', length);
-		if (ft_strchr(asset.flags, '+' && signmode))
+		str2[0] = (signmode == -1 ? '-' : str2[0]);
+		if (ft_strchr(asset.flags, '+') && signmode)
 			str2[0] = (signmode == 1 ? '+' : '-');
 	}
 	else 
@@ -235,7 +236,7 @@ char	*ft_setwidth(char *str, t_asset asset, int signmode)
 	
 	if (signmode)
    		signmode = (str[0] == '-' ? -1 : 1);
-	if (!(str2 = ft_applyflags(ft_strlen(str), asset, signmode)))
+	if (!(str2 = ft_applyflags(str, asset, signmode)))
 		return (NULL);
 	if (ft_strchr(asset.flags, '-'))
 	{
@@ -379,7 +380,7 @@ int		main(int ac, char **av)
 //	int i;
 
 //	i = 0;
-	ft_printf(av[1], ft_atoi(av[2]));
+	ft_printf(av[1], ft_atoi(av[2]), ft_atoi(av[3]));
 //	tab = ft_formattotab(av[1]);
 //	while (tab[i])
 //	{
