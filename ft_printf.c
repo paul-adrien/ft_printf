@@ -6,7 +6,7 @@
 /*   By: eviana <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/07 10:07:11 by eviana            #+#    #+#             */
-/*   Updated: 2019/02/12 16:10:16 by eviana           ###   ########.fr       */
+/*   Updated: 2019/02/12 18:54:20 by eviana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -260,8 +260,11 @@ char	*ft_buildresult(char *str, t_asset asset, int signmode)
 	
 	if (signmode)
    		signmode = (str[0] == '-' ? -1 : 1);
-	if (ft_strchr(asset.flags, '+') && signmode == 1 && (!(ft_strchr(asset.flags, '0') && asset.width > ft_strlen(str)) ||ft_strchr(asset.flags, '-')))
-			str = sp_strnjoin("+", str, ft_strlen(str), 1);
+	if (ft_strchr(asset.flags, '+') && signmode == 1 && 
+			(!(ft_strchr(asset.flags, '0') && asset.width > ft_strlen(str)) || ft_strchr(asset.flags, '-')))
+		str = sp_strnjoin("+", str, ft_strlen(str), 1);
+	else if (ft_strchr(asset.flags, ' ') && ft_strchr(asset.flags, '-'))
+		str = sp_strnjoin(" ", str, ft_strlen(str), 1);
 	if (!(str2 = ft_applyflags(str, asset, signmode)))
 		return (NULL);
 	if (ft_strchr(asset.flags, '-'))
@@ -406,15 +409,81 @@ int		ft_printf(const char * restrict format, ...)
 	return (0); // CHECKER LES VALEURS DE RETOUR DE PRINTF
 }
 
+#include <string.h> // A SUPPR
+#include <time.h> // A SUPPR
+
+char *randstring(int length, char *string) {
+	static int mySeed = 25011984;
+	size_t stringLen = strlen(string);        
+	char *randomString = NULL;
+
+	srand(time(NULL) * length + ++mySeed);
+
+	if (length < 1) {
+		length = 1;
+	}
+
+	randomString = malloc(sizeof(char) * (length +1));
+
+	if (randomString) {
+		short key = 0;
+
+		for (int n = 0; n < length; n++) {
+			key = rand() % stringLen;
+			randomString[n] = string[key];
+		}
+
+		randomString[length] = '\0';
+
+		return randomString;
+	}
+	else {
+		printf("No memory");
+		exit(1);
+	}
+}
+
 int		main(int ac, char **av)
 {
 //	char **tab;
-//	int i;
+	//int i;
+	char *str1;
+	char *str2;
+	//char *str3;
+	char *str4;
+	char str5[1] = "d";
+	char *str6;
 
-//	i = 0;
-	ft_printf(av[1], ft_atoi(av[2]));
-	ft_putstr("|\n");
-	printf(av[1], ft_atoi(av[2]));
+	//i = 1;
+	//while (i < 10)
+	//{
+		str1 = randstring(4, "- +0");
+		str1[0] = '%';
+		str2 = randstring(2, "0123456789");
+		//str3 = randstring(3, "0123456789");
+		//str3[0] = '.';
+		str4 = randstring((rand() % 4), "0123456789");
+		if (rand() % 2)
+			str4[0] = '-';
+		str6 = ft_strjoin(str1, ft_strjoin(str2, str5));
+		str6[7] = '\0';
+
+		ft_putstr("RESULTS FOR : ");
+		ft_putstr(str6);
+		ft_putstr(" & ");
+		ft_putstr(str4);
+		ft_putstr("\n");
+		ft_printf(str6, ft_atoi(str4));
+		ft_putstr("|\n");
+		printf(str6, ft_atoi(str4));
+	//	
+	//	free(str1);
+	//	free(str2);
+	//	free(str4);
+	//	free(str6);
+	//	i++;
+	//	sleep(3);
+	//}
 //	tab = ft_formattotab(av[1]);
 //	while (tab[i])
 //	{
@@ -423,7 +492,7 @@ int		main(int ac, char **av)
 //		i++;
 //	}
 	(void)ac;
-//	(void)av;
+	(void)av;
 	return (0);
 }
 
