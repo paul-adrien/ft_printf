@@ -6,7 +6,7 @@
 /*   By: eviana <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/07 10:07:11 by eviana            #+#    #+#             */
-/*   Updated: 2019/02/12 19:18:56 by eviana           ###   ########.fr       */
+/*   Updated: 2019/02/13 21:15:45 by eviana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ char	**ft_formattotab(const char * restrict s) // ATTENTION A TRAITER LE % comme
 			k++;
 		}
 		i = i + j;
-		if ((j = ft_charcount(s, i ,2)))
+		if ((j = ft_charcount(s, i , 2)))
 		{
 			tab[k] = ft_strsub(s, i, (size_t)j);
 			k++;
@@ -125,9 +125,9 @@ char	*ft_findflags(char *tab, size_t *i)
 	return (str);
 }
 
-int		ft_findwidth(char *tab, size_t *i)
+size_t		ft_findwidth(char *tab, size_t *i)
 {
-	int		n;
+	size_t	n;
 
 	n = 0;
 	while (tab[*i] && (tab[*i] >= '0' && tab[*i] <= '9'))
@@ -152,6 +152,8 @@ int		ft_findprecision(char *tab, size_t *i)
 			*i = *i + 1;
 		}
 	}
+	else
+		return (-1); // Pour condition de non prise en charge dans la construction de la conversion
 	return (n);
 }
 
@@ -224,6 +226,163 @@ char    *sp_strnjoin(char const *s1, char const *s2, size_t n, int mode)
 	return (ft_strncat(str, s2, n));
 }
 
+char	*ft_set_precision(char *initial, t_asset asset, int signmode)
+{
+	size_t	l;
+	size_t	length;
+	char	*additional;
+
+	ft_putstr("P1 |"); // TEST
+	ft_putnbr(asset.precision); // TEST
+	ft_putstr("|\n"); // TEST
+	if (asset.precision > 0)
+	{
+		l = ft_strlen(initial) - (signmode == -1 ? 1 : 0); // pour les cas ou asset.precision <= strlen a cause du signe (-)
+		length = ((size_t)asset.precision > l ? asset.precision - l : 0);
+		//if (signmode == -1 && ) par exemple pour (%+ 7.3d / -11)
+		//	length++;
+		if (!(additional = ft_strnew(length)))
+			return (NULL);
+		additional = ft_memset(additional, '0', length);
+		if (signmode == -1 && length > 0)
+		{
+			additional[0] = '-';
+			initial[0] = '0';
+		}
+		return (additional);
+	}
+	return (ft_strnew(0));
+}
+
+char	*ft_set_width(char *initial, t_asset asset, int signmode)
+{
+	size_t	length;
+	char	*additional;
+
+	length = (asset.width > ft_strlen(initial) ? asset.width - ft_strlen(initial) : 0);
+
+	if (length == 0 && ft_strchr(asset.flags, ' ') && !ft_strchr(asset.flags, '-') && !ft_strchr(asset.flags, '+') && signmode == 1)
+		length++; // Pour rajouter l'espace de debut quand length est nul, le num sans signe, et pas cale a gauche
+	if (!(additional = ft_strnew(length)))
+		return (NULL);
+	if (length && ft_strchr(asset.flags, '0') && !ft_strchr(asset.flags, '-') && asset.precision == -1)
+	{
+		additional = ft_memset(additional, '0', length);
+		if (ft_strchr(asset.flags, '+') || signmode == -1)
+		{
+			additional[0] = (signmode == -1 ? '-' : '+');
+			initial[0] = (signmode && length > 0 ? '0' : initial[0]);
+		}
+		else if (ft_strchr(asset.flags, ' '))
+			additional[0] = ' ';
+	}
+	else
+		additional = ft_memset(additional, ' ', length);
+	return (additional);
+}
+
+char	*ft_addbuild(char *initial, char *additional, t_asset asset)
+{
+	char *build;
+	
+	if (ft_strchr(asset.flags, '-'))
+	{
+		if (!(build = ft_strjoin(initial, additional)))
+		{
+			free(additional);
+			free(initial);
+			return (NULL);
+		}
+	}
+	else 
+		if (!(build = ft_strjoin(additional, initial)))
+		{
+			free(additional);
+			free(initial);
+			return (NULL);
+		}
+	return (build);
+}
+
+char	*ft_preparewidth(char *processed, t_asset asset, int signmode)
+{
+	if (signmode == 1)
+	{
+		if (ft_strchr(asset.flags, '+'))
+		{
+			if (!(processed = sp_strnjoin("+", processed, ft_strlen(processed), 1)))
+				return (NULL);
+		}
+		else if (ft_strchr(asset.flags, ' ') && ft_strchr(asset.flags, '-')) // a peut etre sortir du if signmode pour autres types
+			if (!(processed = sp_strnjoin(" ", processed, ft_strlen(processed), 1)))
+				return (NULL);
+	}
+	return (processed);
+}
+
+char	*ft_build(char *initial, t_asset asset, int signmode)
+{
+	char	*additional;
+	char	*final;
+	
+	if (signmode)
+   		signmode = (initial[0] == '-' ? -1 : 1);
+	if (!(additional = ft_set_precision(initial, asset, signmode)))
+		return (NULL);
+	ft_putstr("A1 |"); // TEST
+	ft_putstr(additional); // TEST
+	ft_putstr("|\n"); // TEST
+
+	if (!(asset.precision == 0 && ft_atoi(initial) == 0))
+	{
+		if (!(final = ft_strjoin(additional, initial)))
+			return (NULL);
+		ft_putstr("F1 |"); // TEST
+		ft_putstr(final); // TEST
+		ft_putstr("|\n"); // TEST
+	}
+	else
+		if (!(final = ft_strnew(0)))
+			return (NULL);
+	if (!(final = ft_preparewidth(final, asset, signmode)))
+		return (NULL);
+	ft_putstr("F2 |"); // TEST
+	ft_putstr(final); // TEST
+	ft_putstr("|\n"); // TEST
+	//ft_putstr("Final apres la precision : "); // TEST TEST TEST
+	//ft_putendl(final); // TEST TEST TEST
+	free(additional);
+	if (!(additional = ft_set_width(final, asset, signmode)))
+		return (NULL);
+	ft_putstr("A2 |"); // TEST
+	ft_putstr(additional); // TEST
+	ft_putstr("|\n"); // TEST
+
+	if (!(final = ft_addbuild(final, additional, asset)))
+		return (NULL);
+	free(additional);
+	free(initial);
+	return (final);
+}
+
+/*	if (signmode == 1)
+ *	{
+ *		if (ft_strchr(asset.flags, '-'))
+		{
+			if (ft_strchr(asset.flags, '+'))
+				initial = sp_strnjoin("+", initial, ft_strlen(initial), 1);
+			else if (ft_strchr(asset.flags, ' '))
+				initial = sp_strnjoin(" ", initial, ft_strlen(initial), 1);
+		}
+		else if (ft_strchr(asset.flags, '+'))
+			initial = sp_strnjoin("+", initial, ft_strlen(initial), 1);
+	}
+*/
+	// j'ai un nb positif, je demande le +, je n'ai pas de flag -, 
+	// j'ai un 0 : je mettrai le + dans additional qu'importe la width
+	// && (!(ft_strchr(asset.flags, '0') && asset.width > ft_strlen(initial))))
+
+/*
 char	*ft_applyflags(char *str, t_asset asset, int signmode)
 {
 	size_t	length;
@@ -286,15 +445,40 @@ char	*ft_buildresult(char *str, t_asset asset, int signmode)
 	free(str2);
 	free(str);
 	return (str3);
-}
+}*/
 
 char	*ft_conv_d(t_asset asset, va_list ap) // ap pas en pointeur
 {
-	char	*str;
+	char		*str;
+//	long		l;
+//	long long	ll;
+//	short		h;
+//	signed char hh;
 
-	if (!(str = ft_itoa(va_arg(ap, int))))
-		return (NULL);
-	if (!(str = ft_buildresult(str, asset, 1)))
+
+	if (asset.length == 1)
+	{
+		if (!(str = ft_itoa(va_arg(ap, long))))
+			return (NULL);
+	}
+	else if (asset.length == 2)
+	{
+		if (!(str = ft_itoa(va_arg(ap, long long))))
+			return (NULL);
+	}
+//	else if (asset.length == 3)
+//	{
+//		if(!(str = ft_itoa(va_arg(ap, short))))
+//			return (NULL);
+//	}
+//	else if (asset.length == 4)
+//		str = 
+	else
+	{
+ 		if (!(str = ft_itoa(va_arg(ap, int))))
+			return (NULL);
+	}
+	if (!(str = ft_build(str, asset, 1)))
 		return (NULL);
 	return (str);
 }
@@ -404,6 +588,7 @@ int		ft_printf(const char * restrict format, ...)
 		ft_putstr("error de dispatcher\n");
 		return (0); // CHECKER LES VALEURS DE RETOUR DE PRINTF
 	}
+	ft_putstr("R1 |"); // TEST
 	ft_putstr(print);
 	va_end(ap);
 	return (0); // CHECKER LES VALEURS DE RETOUR DE PRINTF
@@ -449,48 +634,43 @@ int		main(int ac, char **av)
 	//int i;
 	char *str1;
 	char *str2;
-	//char *str3;
+	char *str3;
 	char *str4;
 	char str5[1] = "d";
 	char *str6;
 
-	//i = 1;
-	//while (i < 10)
-	//{
+	if (ac == 1)
+	{
 		str1 = randstring(4, "- +0");
 		str1[0] = '%';
 		str2 = randstring(2, "0123456789");
-		//str3 = randstring(3, "0123456789");
-		//str3[0] = '.';
-		str4 = randstring((rand() % 4), "0123456789");
-		if (rand() % 2)
+		str3 = randstring(3, "0123456789");
+		str3[0] = '.';
+		str4 = randstring((rand() % 5), "0123456789");
+		if (!(rand() % 3))
 			str4[0] = '-';
-		str6 = ft_strjoin(str1, ft_strjoin(str2, str5));
-		str6[7] = '\0';
+		str6 = ft_strjoin(str1, ft_strjoin(str2, ft_strjoin(str3, str5)));
+		str6[10] = '\0';
 
 		ft_putstr("RESULTS FOR : ");
 		ft_putstr(str6);
-		ft_putstr(" & ");
+		ft_putstr(" && ");
 		ft_putstr(str4);
 		ft_putstr("\n");
 		ft_printf(str6, ft_atoi(str4));
 		ft_putstr("|\n");
+		ft_putstr("R2 |");
 		printf(str6, ft_atoi(str4));
-	//	
-	//	free(str1);
-	//	free(str2);
-	//	free(str4);
-	//	free(str6);
-	//	i++;
-	//	sleep(3);
-	//}
-//	tab = ft_formattotab(av[1]);
-//	while (tab[i])
-//	{
-//		ft_putstr(tab[i]);
-//		ft_putchar('\n');
-//		i++;
-//	}
+	}
+	else if (ac == 3)
+	{
+		ft_putstr("MANUAL MODE :\n");
+		ft_printf(av[1], 3000000000);
+		ft_putstr("|\nR2 |");
+		printf(av[1], 3000000000);
+	}
+	else
+		ft_putstr("wrong number of inputs");
 	(void)ac;
 	(void)av;
 	return (0);
