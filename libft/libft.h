@@ -6,7 +6,7 @@
 /*   By: plaurent <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/08 10:40:57 by plaurent          #+#    #+#             */
-/*   Updated: 2019/02/14 17:19:51 by eviana           ###   ########.fr       */
+/*   Updated: 2019/02/14 17:30:01 by eviana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,13 @@
 # include <unistd.h>
 # include <string.h>
 # include <stdlib.h>
+
+typedef struct  s_list
+{
+	void                    *content;
+	size_t                  content_size;
+	struct s_list   *next;
+}				t_list;
 
 char			*ft_strrev(char *str);
 char			*ft_lltoa(long long n);
