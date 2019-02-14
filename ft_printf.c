@@ -6,7 +6,7 @@
 /*   By: eviana <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/07 10:07:11 by eviana            #+#    #+#             */
-/*   Updated: 2019/02/13 22:38:52 by eviana           ###   ########.fr       */
+/*   Updated: 2019/02/14 13:20:51 by eviana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -520,6 +520,7 @@ char	*ft_buildresult(char *str, t_asset asset, int signmode)
 char	*ft_conv_d(t_asset asset, va_list ap) // ap pas en pointeur
 {
 	char		*str;
+//	va_list		ap2;
 //	long		l;
 //	long long	ll;
 //	short		h;
@@ -528,6 +529,7 @@ char	*ft_conv_d(t_asset asset, va_list ap) // ap pas en pointeur
 	ft_putstr("L1 |"); // TEST
 	ft_putnbr(asset.length); // TEST
 	ft_putstr("|\n"); // TEST
+
 	if (asset.length == 1)
 	{
 		if (!(str = ft_ltoa(va_arg(ap, long)))) // FAIRE NOTRE PROPRE LTOA
@@ -743,7 +745,8 @@ int		main(int ac, char **av)
 	else if (ac == 3)
 	{
 		ft_putstr("MANUAL MODE :\n");
-		ft_printf(av[1], atol(av[2]));
+		//ft_printf(av[1], atol(av[2]));
+		ft_printf("% 0074.3hd", 30825);
 		ft_putstr("|\nR2 |");
 		printf(av[1], atol(av[2]));
 	}
