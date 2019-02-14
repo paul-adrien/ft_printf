@@ -6,7 +6,7 @@
 /*   By: eviana <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/14 13:39:38 by eviana            #+#    #+#             */
-/*   Updated: 2019/02/14 16:47:43 by plaurent         ###   ########.fr       */
+/*   Updated: 2019/02/14 20:17:49 by plaurent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int             main(int ac, char **av)
 	char    *str5;
 	char    str6[1] = "d";
 	char    *str7;
-
+	double i= -2.5613;
 	if (ac == 1)
 	{
 		str1 = randstring(4, "- +0");
@@ -84,9 +84,9 @@ int             main(int ac, char **av)
 	else if (ac == 3)
 	{
 		ft_putstr("MANUAL MODE :\n");
-		ft_printf(av[1], str6);
+		ft_printf(av[1], i);
 		ft_putstr("|\nR2 |");
-		printf(av[1], str6);
+		printf(av[1], i);
 	}
 	else
 		ft_putstr("wrong number of inputs");

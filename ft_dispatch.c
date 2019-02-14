@@ -6,7 +6,7 @@
 /*   By: plaurent <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/14 14:38:09 by plaurent          #+#    #+#             */
-/*   Updated: 2019/02/14 16:11:54 by plaurent         ###   ########.fr       */
+/*   Updated: 2019/02/14 19:43:21 by plaurent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ char	*ft_dispatcher(char **tab, va_list ap) // Pour dispatcher par les conversio
 	list_ft[4] = &ft_conv_c;
 	list_ft[5] = &ft_conv_s;
 	list_ft[6] = &ft_conv_p;
-	//list_ft[7] = &ft_conv_f;
+	list_ft[7] = &ft_conv_f;
 	i = 0;
 	if (!(print[0] = ft_strnew(0)))
 		return (NULL);

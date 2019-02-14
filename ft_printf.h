@@ -6,7 +6,7 @@
 /*   By: eviana <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 18:08:15 by eviana            #+#    #+#             */
-/*   Updated: 2019/02/14 15:30:29 by plaurent         ###   ########.fr       */
+/*   Updated: 2019/02/14 19:44:44 by plaurent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ typedef struct	s_asset
 	int		type;
 }				t_asset;
 
+char			*ft_conv_f(t_asset asset, va_list ap);
 char			*ft_conv_p(t_asset asset, va_list ap);
 char			*ft_conv_s(t_asset asset, va_list ap);
 char			*ft_conv_c(t_asset asset, va_list ap);
