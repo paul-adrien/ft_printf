@@ -1,41 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_conv_p.c                                        :+:      :+:    :+:   */
+/*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: plaurent <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/14 12:05:22 by plaurent          #+#    #+#             */
-/*   Updated: 2019/02/14 14:20:29 by plaurent         ###   ########.fr       */
+/*   Created: 2018/11/08 13:33:24 by plaurent          #+#    #+#             */
+/*   Updated: 2018/11/29 10:38:23 by plaurent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
-char	*ft_conv_p(t_asset asset, va_list ap)
+void	*ft_memmove(void *dest, const void *src, size_t n)
 {
-	long	adr;
-	char	*base;
-	char	res[9];
-	int		i;
+	unsigned char		*dest2;
+	unsigned const char	*src2;
+	int					i;
 
-	adr = va_arg(ap, long);
-	base = "0123456789abcdef";
-	i = 8;
-	while ((adr / 16) > 0 || i >= 8)
+	dest2 = dest;
+	src2 = src;
+	i = 0;
+	if (dest2 < src2)
 	{
-		res[i] = base[(adr % 16)];
-		adr /= 16;
-		i--;
+		while (n-- > 0)
+		{
+			dest2[i] = src2[i];
+			i++;
+		}
 	}
-	res[i] = base[(adr % 16)];
-	if (asset.width > 8)
-		ft_putstr(ft_convp_width(asset, res));
 	else
 	{
-		//ft_putstr("0x7fff");
-		while (i < 9)
-			ft_putchar(res[i++]);
+		dest2 += n;
+		src2 += n;
+		while (n-- > 0)
+			*--dest2 = *--src2;
 	}
-	return (base);
+	return (dest2);
 }

@@ -1,41 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_conv_p.c                                        :+:      :+:    :+:   */
+/*   ft_special.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: plaurent <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/14 12:05:22 by plaurent          #+#    #+#             */
-/*   Updated: 2019/02/14 14:20:29 by plaurent         ###   ########.fr       */
+/*   Created: 2019/02/14 14:30:31 by plaurent          #+#    #+#             */
+/*   Updated: 2019/02/14 14:33:10 by plaurent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-char	*ft_conv_p(t_asset asset, va_list ap)
+char    *sp_strnjoin(char const *s1, char const *s2, size_t n, int mode)
 {
-	long	adr;
-	char	*base;
-	char	res[9];
-	int		i;
+	char    *str;
 
-	adr = va_arg(ap, long);
-	base = "0123456789abcdef";
-	i = 8;
-	while ((adr / 16) > 0 || i >= 8)
-	{
-		res[i] = base[(adr % 16)];
-		adr /= 16;
-		i--;
-	}
-	res[i] = base[(adr % 16)];
-	if (asset.width > 8)
-		ft_putstr(ft_convp_width(asset, res));
-	else
-	{
-		//ft_putstr("0x7fff");
-		while (i < 9)
-			ft_putchar(res[i++]);
-	}
-	return (base);
+	if (!s1 || !s2 || !(str = ft_strnew(ft_strlen(s1) + ft_strlen(s2))))
+		return (NULL);
+	str = ft_strcpy(str, s1);
+	(mode == 0 ? free((void*)s1) : free((void*)s2));
+	return (ft_strncat(str, s2, n));
 }
