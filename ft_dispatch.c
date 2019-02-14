@@ -6,7 +6,7 @@
 /*   By: plaurent <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/14 14:38:09 by plaurent          #+#    #+#             */
-/*   Updated: 2019/02/14 16:11:54 by plaurent         ###   ########.fr       */
+/*   Updated: 2019/02/14 18:40:31 by eviana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,20 +32,19 @@ t_asset		ft_digest(char *tab) // (no_conv exclus en amont)
 
 char	*ft_dispatcher(char **tab, va_list ap) // Pour dispatcher par les conversions possibles
 {
-	char	*(*list_ft[8])(t_asset, va_list);
+	char	*(*list_ft[7])(t_asset, va_list);
 	char	*print[2];
 	t_asset	asset;
 	size_t	n;
 	int		i;
 
 	//list_ft[0] = &ft_no_conv;
-	list_ft[1] = &ft_conv_d;
-	//list_ft[2] = &ft_conv_i;
-	//list_ft[3] = &ft_conv_ouxX;
-	list_ft[4] = &ft_conv_c;
-	list_ft[5] = &ft_conv_s;
-	list_ft[6] = &ft_conv_p;
-	//list_ft[7] = &ft_conv_f;
+	list_ft[1] = &ft_conv_di;
+	//list_ft[2] = &ft_conv_ouxX;
+	list_ft[3] = &ft_conv_c;
+	list_ft[4] = &ft_conv_s;
+	list_ft[5] = &ft_conv_p;
+	//list_ft[6] = &ft_conv_f;
 	i = 0;
 	if (!(print[0] = ft_strnew(0)))
 		return (NULL);
@@ -53,6 +52,7 @@ char	*ft_dispatcher(char **tab, va_list ap) // Pour dispatcher par les conversio
 	{
 		if ((n = ft_findtype(tab[i], 0)) == -1)
 			return (NULL);
+		n = (n == 2 || n == 3 || n == 4 || n == 5 ? 2 : n);
 		if (n > 0)
 		{
 			asset = ft_digest(tab[i]);
