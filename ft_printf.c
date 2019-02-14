@@ -6,7 +6,7 @@
 /*   By: eviana <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/07 10:07:11 by eviana            #+#    #+#             */
-/*   Updated: 2019/02/13 21:15:45 by eviana           ###   ########.fr       */
+/*   Updated: 2019/02/13 22:38:52 by eviana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,76 @@
 #include <stdio.h> // A RETIRER
 #include "libft.h"
 #include "ft_printf.h"
+
+// A METTRE DANS LIBFT // l'un avec long l'autre avec long long
+static int	st_countsize(long long n)
+{
+	int i;
+
+	i = 0;
+	if (n <= 0)
+		i++;
+	while (n != 0)
+	{
+		n = n / 10;
+		i++;
+	}
+	return (i);
+}
+
+// A METTRE DANS LIBFT
+char		*ft_ltoa(long n)
+{
+	long	newnb;
+	int		i;
+	char	*str;
+
+	newnb = n;
+	i = st_countsize(n);
+	if (!(str = ft_strnew(i)))
+		return (NULL);
+	if (n < 0)
+	{
+		newnb = -newnb;
+		str[0] = '-';
+	}
+	if (n == 0)
+		str[0] = '0';
+	while (newnb != 0)
+	{
+		str[i - 1] = (newnb % 10) + '0';
+		newnb = newnb / 10;
+		i--;
+	}
+	return (str);
+}
+
+// A METTRE DANS LIBFT
+char		*ft_lltoa(long long n)
+{
+	long long	newnb;
+	int			i;
+	char		*str;
+
+	newnb = n;
+	i = st_countsize(n);
+	if (!(str = ft_strnew(i)))
+		return (NULL);
+	if (n < 0)
+	{
+		newnb = -newnb;
+		str[0] = '-';
+	}
+	if (n == 0)
+		str[0] = '0';
+	while (newnb != 0)
+	{
+		str[i - 1] = (newnb % 10) + '0';
+		newnb = newnb / 10;
+		i--;
+	}
+	return (str);
+}
 
 int		ft_isconv(char c)
 {
@@ -455,24 +525,29 @@ char	*ft_conv_d(t_asset asset, va_list ap) // ap pas en pointeur
 //	short		h;
 //	signed char hh;
 
-
+	ft_putstr("L1 |"); // TEST
+	ft_putnbr(asset.length); // TEST
+	ft_putstr("|\n"); // TEST
 	if (asset.length == 1)
 	{
-		if (!(str = ft_itoa(va_arg(ap, long))))
+		if (!(str = ft_ltoa(va_arg(ap, long)))) // FAIRE NOTRE PROPRE LTOA
 			return (NULL);
 	}
 	else if (asset.length == 2)
 	{
-		if (!(str = ft_itoa(va_arg(ap, long long))))
+		if (!(str = ft_lltoa(va_arg(ap, long long))))
 			return (NULL);
 	}
-//	else if (asset.length == 3)
-//	{
-//		if(!(str = ft_itoa(va_arg(ap, short))))
-//			return (NULL);
-//	}
-//	else if (asset.length == 4)
-//		str = 
+	else if (asset.length == 3)
+	{
+		if (!(str = ft_itoa((short)va_arg(ap, int)))) // PAS LA MM SORTIE QUE PRINTF QUI SORT UN INT NORMAL
+			return (NULL);
+	}
+	else if (asset.length == 4)
+	{
+		if (!(str = ft_itoa((char)va_arg(ap, int)))) // A VERIFIER // PRINTF DONNE INVALID DIRECTIVE
+		   return (NULL);
+	}
 	else
 	{
  		if (!(str = ft_itoa(va_arg(ap, int))))
@@ -632,42 +707,45 @@ int		main(int ac, char **av)
 {
 //	char **tab;
 	//int i;
-	char *str1;
-	char *str2;
-	char *str3;
-	char *str4;
-	char str5[1] = "d";
-	char *str6;
+	char	*str1;
+	char	*str2;
+	char	*str3;
+	char	*str4;
+	char	*str5;
+	char	str6[1] = "d";
+	char	*str7;
 
 	if (ac == 1)
 	{
 		str1 = randstring(4, "- +0");
 		str1[0] = '%';
 		str2 = randstring(2, "0123456789");
-		str3 = randstring(3, "0123456789");
+		str3 = randstring(2, "0123456789");
 		str3[0] = '.';
-		str4 = randstring((rand() % 5), "0123456789");
+		str4 = randstring(1, "hl");
+		str5 = randstring((rand() % 7), "0123456789");
 		if (!(rand() % 3))
-			str4[0] = '-';
-		str6 = ft_strjoin(str1, ft_strjoin(str2, ft_strjoin(str3, str5)));
-		str6[10] = '\0';
+			str5[0] = '-';
+
+		str7 = ft_strjoin(str1, ft_strjoin(str2, ft_strjoin(str3, ft_strjoin(str4, str6))));
+		str7[10] = '\0';
 
 		ft_putstr("RESULTS FOR : ");
-		ft_putstr(str6);
+		ft_putstr(str7);
 		ft_putstr(" && ");
-		ft_putstr(str4);
+		ft_putstr(str5);
 		ft_putstr("\n");
-		ft_printf(str6, ft_atoi(str4));
+		ft_printf(str7, atol(str5));
 		ft_putstr("|\n");
 		ft_putstr("R2 |");
-		printf(str6, ft_atoi(str4));
+		printf(str7, atol(str5));
 	}
 	else if (ac == 3)
 	{
 		ft_putstr("MANUAL MODE :\n");
-		ft_printf(av[1], 3000000000);
+		ft_printf(av[1], atol(av[2]));
 		ft_putstr("|\nR2 |");
-		printf(av[1], 3000000000);
+		printf(av[1], atol(av[2]));
 	}
 	else
 		ft_putstr("wrong number of inputs");
