@@ -6,11 +6,31 @@
 /*   By: plaurent <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 15:04:48 by plaurent          #+#    #+#             */
-/*   Updated: 2019/02/12 18:50:08 by plaurent         ###   ########.fr       */
+/*   Updated: 2019/02/14 13:20:48 by plaurent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+
+char	*ft_strrev(char *str)
+{
+	char	u;
+	int		i;
+	int		n;
+
+	i = 0;
+	n = 0;
+	while (str[n] != '\0')
+		n++;
+	while (i < (n / 2))
+	{
+		u = str[i];
+		str[i] = str[n - i - 1];
+		str[n - i - 1] = u;
+		i++;
+	}
+	return (str);
+}
 
 char	*ft_convp_width(t_asset asset, char *res)
 {
@@ -41,34 +61,6 @@ char	*ft_convp_width(t_asset asset, char *res)
 			str[i++ - 8] = res[j++];
 	}
 	return (str);
-}
-
-char	*ft_conv_p(t_asset asset, va_list ap)
-{
-	unsigned int  adr;
-	char          *base;
-	char          res[9];
-	int           i;
-
-	adr = va_arg(ap, unsigned int);
-	base = "0123456789abcdef";
-	i = 8;
-	while ((adr / 16) > 0 || i >= 8)
-	{
-		res[i] = base[(adr % 16)];
-		adr /= 16;
-		i--;
-	}
-	res[i] = base[(adr % 16)];
-	if (asset.width > 8)
-		ft_putstr(ft_convp_width(asset, res));
-	else
-	{
-		ft_putstr("0x7fff");
-		while (i < 9)
-			ft_putchar(res[i++]);
-	}
-	return (base);
 }
 
 char	*ft_s_width_preci(t_asset asset, char *str, int i, int j)
@@ -102,32 +94,6 @@ char	*ft_s_width_preci(t_asset asset, char *str, int i, int j)
 }
 
 // ne pas oublier wchar!!!!!!!!
-char	*ft_conv_s(t_asset asset, va_list ap)
-{
-	char	*str;
-	int		i;//taille de str
-	int		k;//taille final de str
-	int		j;//taille de str a ecrire
-
-	i = 0;
-	k = 0;
-	j = asset.precision;
-	str = va_arg(ap, char*);
-	i = ft_strlen(str);
-	if (asset.width > i ||
-			(asset.precision < i && asset.precision < asset.width && asset.width > i))
-		k = asset.width;
-	if (asset.precision >= asset.width && asset.precision < i)
-		k = asset.precision;
-	if (k == 0)
-		k = i;
-	if (j == -1 || j >= i)
-		j = i;
-	str = ft_s_width_preci(asset, str, k, j);
-	ft_putstr(str);
-	return (str);
-}
-
 
 // GERER LE CAS OU LE CARACTERE NULL EST ENVOYER
 char	*ft_conv_c(t_asset asset, va_list ap)
