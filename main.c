@@ -6,7 +6,7 @@
 /*   By: eviana <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/14 13:39:38 by eviana            #+#    #+#             */
-/*   Updated: 2019/02/14 15:40:56 by plaurent         ###   ########.fr       */
+/*   Updated: 2019/02/14 16:47:43 by plaurent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,9 +84,9 @@ int             main(int ac, char **av)
 	else if (ac == 3)
 	{
 		ft_putstr("MANUAL MODE :\n");
-		ft_printf(av[1], "abc");
+		ft_printf(av[1], str6);
 		ft_putstr("|\nR2 |");
-		printf(av[1], "abc");
+		printf(av[1], str6);
 	}
 	else
 		ft_putstr("wrong number of inputs");

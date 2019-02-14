@@ -6,25 +6,24 @@
 /*   By: plaurent <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 15:04:48 by plaurent          #+#    #+#             */
-/*   Updated: 2019/02/14 16:27:18 by plaurent         ###   ########.fr       */
+/*   Updated: 2019/02/14 17:26:43 by plaurent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-char	*ft_convp_width(t_asset asset, char *res)
+/*char	*ft_convp_width(t_asset asset, char *res)
 {
 	char	*str;
-	int		i;
+	int		k;
 	int		j;
 
-	i = asset.width;
+	k = asset.width;
 	j = 0;
-	str = ft_strnew(i - 1);
+	str = ft_strnew(k - 1);
 	if (ft_strchr(asset.flags, '-'))
 	{
-		ft_putstr("0x7fff");
-		while (++j < 9)
+		while (++j < i)
 			str[j - 1] = res[j];
 		j--;
 		while (j < i)
@@ -33,7 +32,6 @@ char	*ft_convp_width(t_asset asset, char *res)
 	}
 	else
 	{
-		ft_putstr("0x7fff");
 		while (j < i)
 			str[j++] = ' ';
 		j = 1;
@@ -41,7 +39,7 @@ char	*ft_convp_width(t_asset asset, char *res)
 			str[i++ - 8] = res[j++];
 	}
 	return (str);
-}
+}*/
 
 char	*ft_s_width_preci(t_asset asset, char *str, int i, int j)
 {
@@ -49,10 +47,10 @@ char	*ft_s_width_preci(t_asset asset, char *str, int i, int j)
 	int		k;
 	int		n;
 
+	// i = taille final de str
+	// j = taille de str a ecrire
 	n = 0;
 	k = -1;
-	ft_putnbr(i);
-	ft_putnbr(j);
 	if (i < j && i != 0)
 		i = j;
 	str2 = malloc(sizeof(char) * (i + 1));
