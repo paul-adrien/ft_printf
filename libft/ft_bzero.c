@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_bzero.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plaurent <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: eviana <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/08 11:15:17 by plaurent          #+#    #+#             */
-/*   Updated: 2018/11/29 10:36:03 by plaurent         ###   ########.fr       */
+/*   Created: 2018/11/08 13:20:04 by eviana            #+#    #+#             */
+/*   Updated: 2018/11/11 17:29:43 by eviana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,14 @@
 
 void	ft_bzero(void *s, size_t n)
 {
-	int		i;
+	size_t	i;
 	char	*str;
 
+	str = (char*)s;
 	i = 0;
-	str = s;
-	while (n-- > 0)
-		str[i++] = '\0';
+	while (i < n)
+	{
+		str[i] = '\0';
+		i++;
+	}
 }

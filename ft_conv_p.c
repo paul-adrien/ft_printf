@@ -6,7 +6,7 @@
 /*   By: plaurent <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/14 12:05:22 by plaurent          #+#    #+#             */
-/*   Updated: 2019/02/14 17:25:28 by plaurent         ###   ########.fr       */
+/*   Updated: 2019/02/19 18:10:54 by eviana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,10 @@ char		*ft_conv_p(t_asset asset, va_list ap)
 	long	adr;
 	char	*base;
 	char	*res;
-	int		i;
+	size_t	i;
 
 	adr = va_arg(ap, long);
-	res = ft_strnew(i = ft_compt(adr) + 2);
+	res = ft_strnew(i = ft_compt(adr) + 2); // Pourquoi i = ft_compt ?
 	base = "0123456789abcdef";
 	i = 0;
 	while ((adr / 16) > 0)

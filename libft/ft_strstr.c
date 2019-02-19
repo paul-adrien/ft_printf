@@ -3,29 +3,33 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strstr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pa <marvin@42.fr>                          +#+  +:+       +#+        */
+/*   By: eviana <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/10 16:55:08 by pa                #+#    #+#             */
-/*   Updated: 2018/11/29 10:43:49 by plaurent         ###   ########.fr       */
+/*   Created: 2018/11/09 13:47:39 by eviana            #+#    #+#             */
+/*   Updated: 2018/11/11 14:39:50 by eviana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strstr(const char *s1, const char *s2)
+char	*ft_strstr(const char *haystack, const char *needle)
 {
+	size_t i;
 	size_t j;
 
-	if (*s2 == '\0')
-		return ((char *)s1);
-	if (!s2)
-		return ((char *)s1);
-	j = ft_strlen((char*)s2);
-	while (*s1 != '\0')
+	i = 0;
+	if (needle[0] == '\0')
+		return ((char*)haystack);
+	while (haystack[i] != '\0')
 	{
-		if (ft_strncmp(s1, s2, j) == 0)
-			return ((char *)s1);
-		s1++;
+		j = 0;
+		while (haystack[i + j] == needle[j])
+		{
+			if (needle[j + 1] == '\0')
+				return ((char*)&haystack[i]);
+			j++;
+		}
+		i++;
 	}
 	return (NULL);
 }

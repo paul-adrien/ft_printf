@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   ft_isprint.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pa <marvin@42.fr>                          +#+  +:+       +#+        */
+/*   By: eviana <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/13 20:23:24 by pa                #+#    #+#             */
-/*   Updated: 2018/11/15 13:29:49 by plaurent         ###   ########.fr       */
+/*   Created: 2018/11/09 16:36:46 by eviana            #+#    #+#             */
+/*   Updated: 2018/11/16 21:10:32 by eviana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_isprint(int c)
+int		ft_isprint(int c)
 {
-	if (c <= 126 && c >= 32)
+	if (c >= 32 && c <= 126)
 		return (1);
 	else
 		return (0);

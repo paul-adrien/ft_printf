@@ -3,74 +3,40 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strsplit.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pa <marvin@42.fr>                          +#+  +:+       +#+        */
+/*   By: eviana <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/14 10:30:13 by pa                #+#    #+#             */
-/*   Updated: 2018/11/29 10:51:29 by plaurent         ###   ########.fr       */
+/*   Created: 2018/11/13 21:32:34 by eviana            #+#    #+#             */
+/*   Updated: 2018/11/26 21:20:28 by eviana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int		get_word_len(char const *str, char c)
+char	**ft_strsplit(char const *s, char c)
 {
-	int	i;
-	int	len;
+	unsigned int	i;
+	unsigned int	j;
+	unsigned int	k;
+	char			**tab;
 
 	i = 0;
-	len = 0;
-	while (str[i] == c)
-		i++;
-	while (str[i] != c && str[i] != '\0')
-	{
-		i++;
-		len++;
-	}
-	return (len);
-}
-
-static int		ft_countwords(char const *str, char c)
-{
-	int count;
-	int	i;
-
-	i = 0;
-	count = 0;
-	while (str[i])
-	{
-		while (str[i] == c)
-			i++;
-		if (str[i] != c && str[i] != '\0')
-			count++;
-		while (str[i] != c && str[i] != '\0')
-			i++;
-	}
-	return (count);
-}
-
-char			**ft_strsplit(char const *s, char c)
-{
-	int		i;
-	int		j;
-	int		k;
-	char	**str2;
-
-	if (!s || !(str2 = (char **)malloc(sizeof(*str2) *
-		(ft_countwords(s, c) + 1))))
+	k = 0;
+	if (!s || !(tab = (char**)malloc(sizeof(char*) * (ft_strcount(s, c) + 1))))
 		return (NULL);
-	i = -1;
-	j = 0;
-	while (++i < ft_countwords(s, c))
+	while (s[i] != '\0')
 	{
-		k = 0;
-		if (!(str2[i] = ft_strnew(get_word_len(&s[j], c) + 1)))
-			str2[i] = NULL;
-		while (s[j] == c)
+		j = 0;
+		while (s[i] == c && s[i] != '\0')
+			i++;
+		while (s[i + j] != c && s[i + j] != '\0')
 			j++;
-		while (s[j] != c && s[j])
-			str2[i][k++] = s[j++];
-		str2[i][k] = '\0';
+		if (j != 0)
+		{
+			tab[k] = ft_strsub(s, i, (size_t)j);
+			k++;
+		}
+		i = i + j;
 	}
-	str2[i] = 0;
-	return (str2);
+	tab[k] = 0;
+	return (tab);
 }

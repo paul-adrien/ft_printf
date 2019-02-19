@@ -6,7 +6,7 @@
 /*   By: plaurent <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/14 14:38:09 by plaurent          #+#    #+#             */
-/*   Updated: 2019/02/19 16:22:48 by eviana           ###   ########.fr       */
+/*   Updated: 2019/02/19 17:36:46 by eviana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ t_asset		ft_digest(char *tab) // (no_conv exclus en amont)
 char	*ft_dispatcher(char **tab, va_list ap) // Pour dispatcher par les conversions possibles
 {
 	char	*(*list_ft[7])(t_asset, va_list);
-	char	*print[2];
+	char	*print[2]; // ne pas oublier de free print[1] qui est temporaire
 	t_asset	asset;
 	size_t	n;
 	int		i;
@@ -56,13 +56,14 @@ char	*ft_dispatcher(char **tab, va_list ap) // Pour dispatcher par les conversio
 		if (n > 0)
 		{
 			asset = ft_digest(tab[i]);
+			ft_printasset(asset); // TEST TEST TEST
 			if (asset.type == -1)
 				return (NULL);
 			if (!(print[1] = list_ft[n](asset, ap)))
 				return (NULL);
 			if (!(print[0] = sp_strnjoin(print[0], print[1], ft_strlen(print[0]) + ft_strlen(print[1]), 0)))
-				return (NULL);
-			//ft_printasset(asset);
+				return (NULL); // free print[1] avant de return ?
+			free(print[1]);
 			free(asset.flags);
 		}
 		else

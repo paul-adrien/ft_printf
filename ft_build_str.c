@@ -6,7 +6,7 @@
 /*   By: plaurent <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/14 14:19:12 by plaurent          #+#    #+#             */
-/*   Updated: 2019/02/19 16:30:59 by eviana           ###   ########.fr       */
+/*   Updated: 2019/02/19 18:00:34 by eviana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char	*ft_set_precision(char *initial, t_asset asset, int signmode)
 	ft_putstr("|\n"); // TEST
 	l = ft_strlen(initial);
 	if (asset.type == 2 && ft_strchr(asset.flags, '#'))
-		asset.precision = (asset.precision <= l ? l + 1 : asset.precision);
+		asset.precision = ((size_t)asset.precision <= l ? l + 1 : asset.precision);
 	if (asset.precision > 0)
 	{
 		l = ft_strlen(initial) - (signmode == -1 ? 1 : 0); // pour les cas ou asset.precision <= strlen a cause du signe (-)

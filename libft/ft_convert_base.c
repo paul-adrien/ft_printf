@@ -6,7 +6,7 @@
 /*   By: eviana <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/14 15:17:51 by eviana            #+#    #+#             */
-/*   Updated: 2019/02/19 16:34:54 by eviana           ###   ########.fr       */
+/*   Updated: 2019/02/19 17:33:52 by eviana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,10 @@ static char		*ft_nbr_analysis(char *str, int *pos_neg, int mode)
 
 	i = 0;
 	j = 0;
-	str2 = (char*)malloc(sizeof(char) * 1000);
-	if (str[i] == '-')
-		*pos_neg = -1;
-	if (str[i] == '-' || str[i] == '+')
-		i++;
+	if (!(str2 = (char*)malloc(sizeof(char) * 1000)))
+		return (NULL);
+	*pos_neg = (str[i] == '-' ? -1 : *pos_neg);
+	((str[i] == '-' || str[i] == '+') ? i++ : i);
 	while (str[i + j] != '\0')
 	{
 		str2[j] = str[i + j];
@@ -119,17 +118,16 @@ char	*ft_convert_base(char *nbr, char *base_from, char *base_to)
 			|| ft_compute(nbr, base_from, 0) == -1)
 		return (0);
 	res1 = ft_compute(nbr, base_from, 0);
-	nbr = (char*)malloc(sizeof(char) * (res1 / bcheck(base_to) + 1));
-	if (res1 == 0)
-		nbr[0] = base_to[0];
+	if (!(nbr = (char*)malloc(sizeof(char) * (res1 / bcheck(base_to) + 1))))
+		return (NULL);
+	nbr[0] = (res1 == 0 ? base_to[0] : nbr[0]);
 	while (res1 != 0)
 	{
 		nbr[i] = base_to[res1 % bcheck(base_to)];
 		res1 = res1 / bcheck(base_to);
 		i++;
 	}
-	if (pos_neg == -1)
-		nbr[i] = '-';
+	nbr[i] = (pos_neg == -1 ? '-' : nbr[i]);
 	nbr = ft_nbr_analysis(nbr, &pos_neg, 2);
 	return (nbr);
 }
