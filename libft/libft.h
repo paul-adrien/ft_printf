@@ -6,7 +6,7 @@
 /*   By: plaurent <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/08 10:40:57 by plaurent          #+#    #+#             */
-/*   Updated: 2019/02/14 19:13:45 by eviana           ###   ########.fr       */
+/*   Updated: 2019/02/19 16:33:53 by eviana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,5 +94,6 @@ int				ft_sqrt(int nb);
 int				ft_is_prime(int nb);
 char			*ft_ultoa(unsigned long n);
 char			*ft_ulltoa(unsigned long long n);
+char			*ft_convert_base(char *nbr, char *base_from, char *base_to);
 
 #endif

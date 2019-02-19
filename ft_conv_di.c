@@ -6,7 +6,7 @@
 /*   By: eviana <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/14 18:26:11 by eviana            #+#    #+#             */
-/*   Updated: 2019/02/14 18:26:13 by eviana           ###   ########.fr       */
+/*   Updated: 2019/02/19 15:42:16 by eviana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ char	*ft_conv_di(t_asset asset, va_list ap) // ap pas en pointeur
 		if (!(str = ft_itoa(va_arg(ap, int))))
 			return (NULL);
 	}
-	if (!(str = ft_build(str, asset, 1)))
+	if (!(str = ft_build_str(str, asset, 1)))
 		return (NULL);
 	return (str);
 }

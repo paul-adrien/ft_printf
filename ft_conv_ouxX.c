@@ -6,7 +6,7 @@
 /*   By: eviana <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/14 18:26:52 by eviana            #+#    #+#             */
-/*   Updated: 2019/02/14 19:22:54 by eviana           ###   ########.fr       */
+/*   Updated: 2019/02/19 16:36:00 by eviana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,20 +18,26 @@ char	*ft_converter(t_asset asset, char *str)
 
 	str2 = str;
 	if (asset.type == 2)
+	{
 		if (!(str == ft_convert_base(str, "0123456789", "01234567")))
 			return (NULL);
 		else 
 			free(str2);
+	}
 	else if (asset.type == 4)
+	{
 		if (!(str == ft_convert_base(str, "0123456789", "0123456789abcdef")))
 			return (NULL);
 		else 
 			free(str2);
+	}
 	else if (asset.type == 5)
+	{
 		if (!(str == ft_convert_base(str, "0123456789", "0123456789ABCDEF")))
 			return (NULL);
 		else 
 			free(str2);
+	}
 	return (str);
 }
 
@@ -45,7 +51,7 @@ char	*ft_conv_ouxX(t_asset asset, va_list ap)
 	
 	if (asset.length == 1)
 	{
-		if (!(str = ft_ultoa(va_arg(ap, unsigned long)))
+		if (!(str = ft_ultoa(va_arg(ap, unsigned long))))
 			return (NULL);
 	}
 	else if (asset.length == 2)
@@ -68,7 +74,9 @@ char	*ft_conv_ouxX(t_asset asset, va_list ap)
 		if (!(str = ft_itoa(va_arg(ap, unsigned int))))
 			return (NULL);
 	}
-	if (!(str = ft_build(str, asset, 1)))
+	if (!(str = ft_converter(asset, str)))
+		return (NULL);
+	if (!(str = ft_build_str(str, asset, 0))) // signmode = 0 / on ne le traite pas car on traite des unsigned
 		return (NULL);
 	return (str);
 }

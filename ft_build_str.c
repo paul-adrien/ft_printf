@@ -6,7 +6,7 @@
 /*   By: plaurent <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/14 14:19:12 by plaurent          #+#    #+#             */
-/*   Updated: 2019/02/14 14:33:12 by plaurent         ###   ########.fr       */
+/*   Updated: 2019/02/19 16:30:59 by eviana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,9 @@ char	*ft_set_precision(char *initial, t_asset asset, int signmode)
 	ft_putstr("P1 |"); // TEST
 	ft_putnbr(asset.precision); // TEST
 	ft_putstr("|\n"); // TEST
+	l = ft_strlen(initial);
+	if (asset.type == 2 && ft_strchr(asset.flags, '#'))
+		asset.precision = (asset.precision <= l ? l + 1 : asset.precision);
 	if (asset.precision > 0)
 	{
 		l = ft_strlen(initial) - (signmode == -1 ? 1 : 0); // pour les cas ou asset.precision <= strlen a cause du signe (-)
@@ -92,7 +95,13 @@ char	*ft_addbuild(char *initial, char *additional, t_asset asset)
 
 char	*ft_preparewidth(char *processed, t_asset asset, int signmode)
 {
-	if (signmode == 1)
+	if ((asset.type == 4 || asset.type == 5) && ft_strchr(asset.flags, '#'))
+	{
+		if (!(processed = sp_strnjoin((asset.type == 4 ? "0x" : "0X"), processed,
+						ft_strlen(processed), 1)))
+			return (NULL);
+	}
+	else if (signmode == 1)
 	{
 		if (ft_strchr(asset.flags, '+'))
 		{
@@ -106,7 +115,7 @@ char	*ft_preparewidth(char *processed, t_asset asset, int signmode)
 	return (processed);
 }
 
-char	*ft_build(char *initial, t_asset asset, int signmode)
+char	*ft_build_str(char *initial, t_asset asset, int signmode)
 {
 	char	*additional;
 	char	*final;

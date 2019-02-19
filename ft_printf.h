@@ -6,7 +6,7 @@
 /*   By: eviana <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 18:08:15 by eviana            #+#    #+#             */
-/*   Updated: 2019/02/14 18:11:04 by eviana           ###   ########.fr       */
+/*   Updated: 2019/02/19 16:24:35 by eviana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,9 @@ char			*ft_set_precision(char *initial, t_asset asset, int signmode);
 char			*ft_set_width(char *initial, t_asset asset, int signmode);
 char			*ft_addbuild(char *initial, char *additional, t_asset asset);
 char			*ft_preparewidth(char *processed, t_asset asset, int signmode);
-char			*ft_build(char *initial, t_asset asset, int signmode);
+char			*ft_build_str(char *initial, t_asset asset, int signmode);
 char			*ft_conv_di(t_asset asset, va_list ap);
+char			*ft_conv_ouxX(t_asset asset, va_list ap);
 t_asset			ft_digest(char *tab);
 char			*ft_dispatcher(char **tab, va_list ap);
 void			ft_printasset(t_asset asset);
