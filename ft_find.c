@@ -6,7 +6,7 @@
 /*   By: eviana <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/14 13:49:55 by eviana            #+#    #+#             */
-/*   Updated: 2019/02/14 18:37:20 by eviana           ###   ########.fr       */
+/*   Updated: 2019/02/20 12:11:01 by eviana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,14 +81,14 @@ int             ft_findtype(char *tab, size_t i) // Pour identifier la conversio
 			i--;
 		}
 		(tab[i] == 'd' || tab[i] == 'i' ? n = 1 : 0);
-		(tab[i] == 'o' ? n = 2 : 0);
-	  	(tab[i] == 'u' ? n = 3 : 0);
-		(tab[i] == 'x' ? n = 4 : 0);
-		(tab[i] == 'X' ? n = 5 : 0);
-		(tab[i] == 'c' ? n = 6 : 0); // a verifier pour le %%
-		(tab[i] == 's' ? n = 7 : 0);
-		(tab[i] == 'p' ? n = 8 : 0);
-		(tab[i] == 'f' ? n = 9 : 0);
+		(tab[i] == 'o' ? n = 21 : 0);
+	  	(tab[i] == 'u' ? n = 22 : 0);
+		(tab[i] == 'x' ? n = 23 : 0);
+		(tab[i] == 'X' ? n = 24 : 0);
+		(tab[i] == 'c' ? n = 3 : 0); // a verifier pour le %%
+		(tab[i] == 's' ? n = 4 : 0);
+		(tab[i] == 'p' ? n = 5 : 0);
+		(tab[i] == 'f' ? n = 6 : 0);
 		return (n);
 	}
 	return (n);

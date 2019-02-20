@@ -6,7 +6,7 @@
 /*   By: plaurent <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/14 14:38:09 by plaurent          #+#    #+#             */
-/*   Updated: 2019/02/19 17:36:46 by eviana           ###   ########.fr       */
+/*   Updated: 2019/02/20 11:43:09 by eviana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ char	*ft_dispatcher(char **tab, va_list ap) // Pour dispatcher par les conversio
 	{
 		if ((n = ft_findtype(tab[i], 0)) == -1)
 			return (NULL);
-		n = (n == 2 || n == 3 || n == 4 || n == 5 ? 2 : n);
+		n = (n == 21 || n == 22 || n == 23 || n == 24 ? 2 : n);
 		if (n > 0)
 		{
 			asset = ft_digest(tab[i]);
@@ -65,6 +65,7 @@ char	*ft_dispatcher(char **tab, va_list ap) // Pour dispatcher par les conversio
 				return (NULL); // free print[1] avant de return ?
 			free(print[1]);
 			free(asset.flags);
+			ft_putstr("test dispatch\n"); // TEST
 		}
 		else
 			if (!(print[0] = sp_strnjoin(print[0], tab[i], ft_strlen(print[0]) + ft_strlen(tab[i]), 0)))

@@ -6,7 +6,7 @@
 /*   By: plaurent <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/14 12:05:22 by plaurent          #+#    #+#             */
-/*   Updated: 2019/02/19 18:10:54 by eviana           ###   ########.fr       */
+/*   Updated: 2019/02/20 12:14:22 by eviana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static int	ft_compt(long adr)
 	return (i);
 }
 
-char		*ft_conv_p(t_asset asset, va_list ap)
+char		*ft_conv_p(t_asset asset, va_list ap) // Remarque Etienne : pas sur que ca marche
 {
 	long	adr;
 	char	*base;

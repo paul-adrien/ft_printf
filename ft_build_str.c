@@ -6,7 +6,7 @@
 /*   By: plaurent <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/14 14:19:12 by plaurent          #+#    #+#             */
-/*   Updated: 2019/02/19 18:00:34 by eviana           ###   ########.fr       */
+/*   Updated: 2019/02/20 12:13:39 by eviana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,11 @@ char	*ft_set_precision(char *initial, t_asset asset, int signmode)
 	ft_putnbr(asset.precision); // TEST
 	ft_putstr("|\n"); // TEST
 	l = ft_strlen(initial);
-	if (asset.type == 2 && ft_strchr(asset.flags, '#'))
-		asset.precision = ((size_t)asset.precision <= l ? l + 1 : asset.precision);
+	if (asset.type == 21 && ft_strchr(asset.flags, '#') && ft_atoi(initial) != 0)
+		asset.precision = (asset.precision <= (int)l ? l + 1 : asset.precision);
+	ft_putstr("P2 |"); // TEST
+	ft_putnbr(asset.precision); // TEST
+	ft_putstr("|\n"); // TEST
 	if (asset.precision > 0)
 	{
 		l = ft_strlen(initial) - (signmode == -1 ? 1 : 0); // pour les cas ou asset.precision <= strlen a cause du signe (-)
@@ -95,9 +98,10 @@ char	*ft_addbuild(char *initial, char *additional, t_asset asset)
 
 char	*ft_preparewidth(char *processed, t_asset asset, int signmode)
 {
-	if ((asset.type == 4 || asset.type == 5) && ft_strchr(asset.flags, '#'))
+	if ((asset.type == 23 || asset.type == 24) && ft_strchr(asset.flags, '#') &&
+			ft_atoi(processed) != 0)
 	{
-		if (!(processed = sp_strnjoin((asset.type == 4 ? "0x" : "0X"), processed,
+		if (!(processed = sp_strnjoin((asset.type == 23 ? "0x" : "0X"), processed,
 						ft_strlen(processed), 1)))
 			return (NULL);
 	}

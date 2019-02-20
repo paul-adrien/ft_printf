@@ -6,7 +6,7 @@
 /*   By: plaurent <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 15:04:48 by plaurent          #+#    #+#             */
-/*   Updated: 2019/02/14 17:26:43 by plaurent         ###   ########.fr       */
+/*   Updated: 2019/02/19 18:54:37 by eviana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ char	*ft_s_width_preci(t_asset asset, char *str, int i, int j)
 	k = -1;
 	if (i < j && i != 0)
 		i = j;
-	str2 = malloc(sizeof(char) * (i + 1));
+	str2 = malloc(sizeof(char) * (i + 1)); // malloc non protege
 	str2[i] = '\0';
 	if (ft_strchr(asset.flags, '-') || i == j)
 	{
