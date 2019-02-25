@@ -6,7 +6,7 @@
 /*   By: eviana <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/14 18:26:11 by eviana            #+#    #+#             */
-/*   Updated: 2019/02/19 15:42:16 by eviana           ###   ########.fr       */
+/*   Updated: 2019/02/20 16:50:28 by eviana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,22 +15,15 @@
 char	*ft_conv_di(t_asset asset, va_list ap) // ap pas en pointeur
 {
 	char		*str;
-	//	long		l;
-	//	long long	ll;
-	//	short		h;
-	//	signed char hh;
 
-	ft_putstr("L1 |"); // TEST
-	ft_putnbr(asset.length); // TEST
-	ft_putstr("|\n"); // TEST
 	if (asset.length == 1)
 	{
-		if (!(str = ft_ltoa(va_arg(ap, long)))) // FAIRE NOTRE PROPRE LTOA
+		if (!(str = ft_ltoa(va_arg(ap, long int)))) // FAIRE NOTRE PROPRE LTOA
 			return (NULL);
 	}
 	else if (asset.length == 2)
 	{
-		if (!(str = ft_lltoa(va_arg(ap, long long))))
+		if (!(str = ft_lltoa(va_arg(ap, long long)))) // REFAIRE LLTOA CAR PAS NORME
 			return (NULL);
 	}
 	else if (asset.length == 3)

@@ -6,7 +6,7 @@
 /*   By: plaurent <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/08 10:40:57 by plaurent          #+#    #+#             */
-/*   Updated: 2019/02/19 18:08:03 by eviana           ###   ########.fr       */
+/*   Updated: 2019/02/25 12:09:30 by eviana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,11 @@
 # include <string.h>
 # include <stdlib.h>
 
-typedef struct  s_list
+typedef struct	s_list
 {
-	void                    *content;
-	size_t                  content_size;
-	struct s_list   *next;
+	void			*content;
+	size_t			content_size;
+	struct s_list	*next;
 }				t_list;
 
 char			*ft_strrev(char *str);
@@ -36,7 +36,7 @@ void			ft_putnbr(int n);
 void			ft_putendl(char const *s);
 void			ft_putstr(char const *s);
 void			ft_putchar(char c);
-unsigned int    ft_strcount(const char *s, char c);
+unsigned int	ft_strcount(const char *s, char c);
 char			*ft_itoa(int n);
 char			**ft_strsplit(char const *s, char c);
 char			*ft_strtrim(char const *s);
@@ -87,11 +87,12 @@ void			ft_lstadd(t_list **alst, t_list *new);
 void			ft_lstiter(t_list *lst, void (*f)(t_list *elem));
 t_list			*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
 void			ft_foreach(int *tab, int length, void (*f)(int));
-int				ft_recursive_factorial(int nb);
-int				ft_recursive_power(int nb, int power);
+int				ft_factorial(int nb);
+int				ft_power(int nb, int power);
 int				ft_fibonacci(int index);
 int				ft_sqrt(int nb);
 int				ft_is_prime(int nb);
+char			*ft_utoa(unsigned int n);
 char			*ft_ultoa(unsigned long n);
 char			*ft_ulltoa(unsigned long long n);
 char			*ft_convert_base(char *nbr, char *base_from, char *base_to);

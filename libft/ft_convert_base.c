@@ -6,13 +6,13 @@
 /*   By: eviana <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/14 15:17:51 by eviana            #+#    #+#             */
-/*   Updated: 2019/02/19 17:33:52 by eviana           ###   ########.fr       */
+/*   Updated: 2019/02/25 15:09:15 by eviana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int		ft_power(int nb, int power)
+static long long	sp_power(long long nb, long long power)
 {
 	if (power < 0)
 		return (0);
@@ -24,35 +24,7 @@ static int		ft_power(int nb, int power)
 		return (nb * ft_power(nb, power - 1));
 }
 
-static char		*ft_nbr_analysis(char *str, int *pos_neg, int mode)
-{
-	int		i;
-	int		j;
-	char	*str2;
-
-	i = 0;
-	j = 0;
-	if (!(str2 = (char*)malloc(sizeof(char) * 1000)))
-		return (NULL);
-	*pos_neg = (str[i] == '-' ? -1 : *pos_neg);
-	((str[i] == '-' || str[i] == '+') ? i++ : i);
-	while (str[i + j] != '\0')
-	{
-		str2[j] = str[i + j];
-		j++;
-	}
-	i = 0;
-	while (j > 0 && mode == 2)
-	{
-		str2[i] = str[j - 1];
-		i++;
-		j--;
-	}
-	str2[i + j] = '\0';
-	return (str2);
-}
-
-static int		bcheck(char *base)
+static int			ft_base_analysis(char *base)
 {
 	int	i;
 	int j;
@@ -76,58 +48,73 @@ static int		bcheck(char *base)
 	return (i);
 }
 
-static int		ft_compute(char *nbr, char *base, long res)
+static long long	sp_atoll_base(char *str, char *base)
 {
-	int i;
-	int j;
-	int k;
-	int n;
+	long long	res;
+	size_t		str_len;
+	size_t		base_len;
+	size_t		i;
+	size_t		j;
 
 	i = 0;
-	n = 0;
-	while (nbr[i] != '\0')
-		i++;
-	while (i > 0)
+	res = 0;
+	if (str[0] == '-' || str[0] == '+')
+		str = ft_strncpy(str, str + 1, ft_strlen(str));
+	str_len = ft_strlen(str);
+	base_len = ft_strlen(base);
+	while (str_len > 0)
 	{
 		j = 0;
-		k = 0;
-		while (base[j] != '\0')
+		while (base[j] && base[j] != str[str_len - 1])
 			j++;
-		while (nbr[i - 1] != base[k] && base[k] != '\0')
-			k++;
-		if (k == j)
+		if (j == base_len)
 			return (-1);
-		res = res + (k * ft_power(bcheck(base), n));
-		n++;
-		i--;
+		res = res + (j * sp_power(base_len, i));
+		i++;
+		str_len--;
 	}
 	return (res);
 }
 
-char	*ft_convert_base(char *nbr, char *base_from, char *base_to)
+static int			sp_strlen_base(long long nbr, size_t base)
 {
-	int		pos_neg;
-	long	res1;
-	int		i;
+	int res;
 
-	res1 = 0;
-	pos_neg = 1;
-	i = 0;
-	nbr = ft_nbr_analysis(nbr, &pos_neg, 1);
-	if (bcheck(base_from) == 0 || bcheck(base_to) == 0 || nbr[0] == '\0'
-			|| ft_compute(nbr, base_from, 0) == -1)
-		return (0);
-	res1 = ft_compute(nbr, base_from, 0);
-	if (!(nbr = (char*)malloc(sizeof(char) * (res1 / bcheck(base_to) + 1))))
-		return (NULL);
-	nbr[0] = (res1 == 0 ? base_to[0] : nbr[0]);
-	while (res1 != 0)
+	res = 0;
+	if (base)
 	{
-		nbr[i] = base_to[res1 % bcheck(base_to)];
-		res1 = res1 / bcheck(base_to);
-		i++;
+		while (nbr)
+		{
+			nbr = nbr / base;
+			res++;
+		}
 	}
-	nbr[i] = (pos_neg == -1 ? '-' : nbr[i]);
-	nbr = ft_nbr_analysis(nbr, &pos_neg, 2);
-	return (nbr);
+	return (res);
+}
+
+char				*ft_convert_base(char *nbr, char *base_from, char *base_to)
+{
+	char		*str;
+	long long	decimal_nb;
+	size_t		base_to_len;
+	size_t		str_len;
+	int			is_neg;
+
+	is_neg = (nbr[0] == '-' ? 1 : 0);
+	if (!(ft_base_analysis(base_from)) || !(ft_base_analysis(base_to)) ||
+			!nbr || (decimal_nb = sp_atoll_base(nbr, base_from)) == -1)
+		return (0);
+	base_to_len = ft_strlen(base_to);
+	str_len = sp_strlen_base(decimal_nb, base_to_len) + is_neg;
+	if (!(str = ft_strnew(str_len)))
+		return (NULL);
+	str[0] = (decimal_nb == 0 ? base_to[0] : str[0]);
+	while (decimal_nb != 0)
+	{
+		str[str_len - 1] = base_to[decimal_nb % base_to_len];
+		decimal_nb = decimal_nb / base_to_len;
+		str_len--;
+	}
+	str[0] = (is_neg == 1 ? '-' : str[0]);
+	return (str);
 }

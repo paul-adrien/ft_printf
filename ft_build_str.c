@@ -6,31 +6,28 @@
 /*   By: plaurent <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/14 14:19:12 by plaurent          #+#    #+#             */
-/*   Updated: 2019/02/20 12:13:39 by eviana           ###   ########.fr       */
+/*   Updated: 2019/02/20 16:13:18 by eviana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-char	*ft_set_precision(char *initial, t_asset asset, int signmode)
+char	*ft_set_precision(char *initial, t_asset *asset, int signmode)
 {
 	size_t	l;
 	size_t	length;
 	char	*additional;
 
-	ft_putstr("P1 |"); // TEST
-	ft_putnbr(asset.precision); // TEST
-	ft_putstr("|\n"); // TEST
 	l = ft_strlen(initial);
-	if (asset.type == 21 && ft_strchr(asset.flags, '#') && ft_atoi(initial) != 0)
-		asset.precision = (asset.precision <= (int)l ? l + 1 : asset.precision);
-	ft_putstr("P2 |"); // TEST
-	ft_putnbr(asset.precision); // TEST
-	ft_putstr("|\n"); // TEST
-	if (asset.precision > 0)
+	if (asset->type == 21 && ft_strchr(asset->flags, '#'))
+	{
+		asset->precision = (asset->precision <= (int)l ? l + 1 : asset->precision);
+		asset->precision = (ft_atoi(initial) == 0 ? 1 : asset->precision);
+	}
+	if (asset->precision > 0)
 	{
 		l = ft_strlen(initial) - (signmode == -1 ? 1 : 0); // pour les cas ou asset.precision <= strlen a cause du signe (-)
-		length = ((size_t)asset.precision > l ? asset.precision - l : 0);
+		length = ((size_t)asset->precision > l ? asset->precision - l : 0);
 		//if (signmode == -1 && ) par exemple pour (%+ 7.3d / -11)
 		//		//	length++;
 		if (!(additional = ft_strnew(length)))
@@ -41,6 +38,9 @@ char	*ft_set_precision(char *initial, t_asset asset, int signmode)
 			additional[0] = '-';
 			initial[0] = '0';
 		}
+		//ft_putstr("---");
+		//ft_putstr(additional);
+		//ft_putstr("---");
 		return (additional);
 	}
 	return (ft_strnew(0));
@@ -64,6 +64,14 @@ char	*ft_set_width(char *initial, t_asset asset, int signmode)
 		{
 			additional[0] = (signmode == -1 ? '-' : '+');
 			initial[0] = (signmode && length > 0 ? '0' : initial[0]);
+		}
+		else if ((asset.type == 23 || asset.type == 24) && ft_strchr(asset.flags, '#') &&
+				(initial[1] == 'x' || initial[1] == 'X'))
+		{
+			additional[0] = '0';
+			additional[1] = (asset.type == 23 ? 'x' : 'X');
+			initial[0] = (length > 0 ? '0' : initial[0]); // condition alarach a verifier / blinder
+			initial[1] = (length > 0 ? '0' : initial[0]); // condition alarach a verifier / blinder
 		}
 		else if (ft_strchr(asset.flags, ' '))
 			additional[0] = ' ';
@@ -126,36 +134,21 @@ char	*ft_build_str(char *initial, t_asset asset, int signmode)
 
 	if (signmode)
 		signmode = (initial[0] == '-' ? -1 : 1);
-	if (!(additional = ft_set_precision(initial, asset, signmode)))
+	if (!(additional = ft_set_precision(initial, &asset, signmode)))
 		return (NULL);
-	ft_putstr("A1 |"); // TEST
-	ft_putstr(additional); // TEST
-	ft_putstr("|\n"); // TEST
 	if (!(asset.precision == 0 && ft_atoi(initial) == 0))
 	{
 		if (!(final = ft_strjoin(additional, initial)))
 			return (NULL);
-		ft_putstr("F1 |"); // TEST
-		ft_putstr(final); // TEST
-		ft_putstr("|\n"); // TEST
 	}
 	else
 		if (!(final = ft_strnew(0)))
 			return (NULL);
 	if (!(final = ft_preparewidth(final, asset, signmode)))
 		return (NULL);
-	ft_putstr("F2 |"); // TEST
-	ft_putstr(final); // TEST
-	ft_putstr("|\n"); // TEST
-	//ft_putstr("Final apres la precision : "); // TEST TEST TEST
-	//ft_putendl(final); // TEST TEST TEST
 	free(additional);
 	if (!(additional = ft_set_width(final, asset, signmode)))
 		return (NULL);
-	ft_putstr("A2 |"); // TEST
-	ft_putstr(additional); // TEST
-	ft_putstr("|\n"); // TEST
-	//
 	if (!(final = ft_addbuild(final, additional, asset)))
 		return (NULL);
 	free(additional);

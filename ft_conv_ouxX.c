@@ -6,7 +6,7 @@
 /*   By: eviana <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/14 18:26:52 by eviana            #+#    #+#             */
-/*   Updated: 2019/02/20 12:04:26 by eviana           ###   ########.fr       */
+/*   Updated: 2019/02/20 17:29:44 by eviana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,6 @@ char	*ft_conv_ouxX(t_asset asset, va_list ap)
 {
 	char		*str;
 
-	ft_putstr("L1 |"); // TEST
-	ft_putnbr(asset.length); // TEST
-	ft_putstr("|\n"); // TEST
-	
 	if (asset.length == 1)
 	{
 		if (!(str = ft_ultoa(va_arg(ap, unsigned long))))
@@ -71,7 +67,7 @@ char	*ft_conv_ouxX(t_asset asset, va_list ap)
 	}
 	else
 	{
-		if (!(str = ft_itoa(va_arg(ap, unsigned int))))
+		if (!(str = ft_utoa(va_arg(ap, unsigned int))))
 			return (NULL);
 	}
 	if (!(str = ft_converter(asset, str)))

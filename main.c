@@ -6,7 +6,7 @@
 /*   By: eviana <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/14 13:39:38 by eviana            #+#    #+#             */
-/*   Updated: 2019/02/20 11:53:30 by eviana           ###   ########.fr       */
+/*   Updated: 2019/02/20 13:22:14 by eviana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 char *randstring(int length, char *string)
 {
 	static int mySeed = 25011984;
-	size_t stringLen = strlen(string);
+	size_t stringLen = ft_strlen(string);
 	char *randomString = NULL;
 
 	srand(time(NULL) * length + ++mySeed);

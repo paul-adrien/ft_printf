@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_ltoa.c                                          :+:      :+:    :+:   */
+/*   ft_utoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eviana <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/14 13:31:38 by eviana            #+#    #+#             */
-/*   Updated: 2019/02/14 13:38:49 by eviana           ###   ########.fr       */
+/*   Created: 2019/02/20 13:43:45 by eviana            #+#    #+#             */
+/*   Updated: 2019/02/20 13:44:16 by eviana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	st_countsize(long n)
+static int	st_countsize(unsigned int n)
 {
 	int i;
 
@@ -27,21 +27,16 @@ static int	st_countsize(long n)
 	return (i);
 }
 
-char		*ft_ltoa(long n)
+char		*ft_utoa(unsigned int n)
 {
-	long	newnb;
-	int		i;
-	char	*str;
+	unsigned int	newnb;
+	int				i;
+	char			*str;
 
 	newnb = n;
 	i = st_countsize(n);
 	if (!(str = ft_strnew(i)))
 		return (NULL);
-	if (n < 0)
-	{
-		newnb = -newnb;
-		str[0] = '-';
-	}
 	if (n == 0)
 		str[0] = '0';
 	while (newnb != 0)

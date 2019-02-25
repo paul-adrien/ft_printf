@@ -6,7 +6,7 @@
 /*   By: eviana <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 18:08:15 by eviana            #+#    #+#             */
-/*   Updated: 2019/02/19 16:24:35 by eviana           ###   ########.fr       */
+/*   Updated: 2019/02/20 16:11:31 by eviana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ char			**ft_formattotab(const char * restrict s);
 int				ft_charcount(const char * restrict s, int i, int mode);
 unsigned int	ft_strcountparts(const char *s);
 int				ft_isconv(char c);
-char			*ft_set_precision(char *initial, t_asset asset, int signmode);
+char			*ft_set_precision(char *initial, t_asset *asset, int signmode);
 char			*ft_set_width(char *initial, t_asset asset, int signmode);
 char			*ft_addbuild(char *initial, char *additional, t_asset asset);
 char			*ft_preparewidth(char *processed, t_asset asset, int signmode);

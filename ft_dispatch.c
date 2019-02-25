@@ -6,7 +6,7 @@
 /*   By: plaurent <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/14 14:38:09 by plaurent          #+#    #+#             */
-/*   Updated: 2019/02/20 11:43:09 by eviana           ###   ########.fr       */
+/*   Updated: 2019/02/20 15:22:58 by eviana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ t_asset		ft_digest(char *tab) // (no_conv exclus en amont)
 	asset.width = ft_findwidth(tab, &i);
 	asset.precision = ft_findprecision(tab, &i);
 	asset.length = ft_findlength(tab, &i);
-	asset.type = ft_findtype(tab, i); // IF PAS BON CHAR A LA FIN => wrong format
+	asset.type = ft_findtype(tab, 0); // IF PAS BON CHAR A LA FIN => wrong format
 	return (asset);
 }
 
@@ -56,7 +56,6 @@ char	*ft_dispatcher(char **tab, va_list ap) // Pour dispatcher par les conversio
 		if (n > 0)
 		{
 			asset = ft_digest(tab[i]);
-			ft_printasset(asset); // TEST TEST TEST
 			if (asset.type == -1)
 				return (NULL);
 			if (!(print[1] = list_ft[n](asset, ap)))
@@ -65,7 +64,6 @@ char	*ft_dispatcher(char **tab, va_list ap) // Pour dispatcher par les conversio
 				return (NULL); // free print[1] avant de return ?
 			free(print[1]);
 			free(asset.flags);
-			ft_putstr("test dispatch\n"); // TEST
 		}
 		else
 			if (!(print[0] = sp_strnjoin(print[0], tab[i], ft_strlen(print[0]) + ft_strlen(tab[i]), 0)))

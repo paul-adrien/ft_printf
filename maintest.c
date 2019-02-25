@@ -1,25 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_recursive_power.c                               :+:      :+:    :+:   */
+/*   maintest.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eviana <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/12/01 16:14:21 by eviana            #+#    #+#             */
-/*   Updated: 2018/12/01 16:18:22 by eviana           ###   ########.fr       */
+/*   Created: 2019/02/20 14:37:21 by eviana            #+#    #+#             */
+/*   Updated: 2019/02/25 15:04:28 by eviana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
-int		ft_recursive_power(int nb, int power)
+int		main(int argc, char **argv)
 {
-	if (power < 0)
-		return (0);
-	else if (power == 0)
-		return (1);
-	else if (power == 1)
-		return (nb);
+	//ft_putstr(ft_convert_base(ft_ulltoa(4294967296), "0123456789", "0123456789abcdef"));
+	//long long ll;
+	
+	//ll = -9223372036854775808;
+	//ft_putstr(ft_lltoa(ll));
+	if (argc == 4)
+		ft_putstr(ft_convert_base(argv[1], argv[2], argv[3]));
 	else
-		return (nb * ft_recursive_power(nb, power - 1));
+		ft_putstr("il faut 3 arguments");
+	return (0);
 }

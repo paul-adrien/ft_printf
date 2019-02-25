@@ -6,7 +6,7 @@
 /*   By: plaurent <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/14 12:07:13 by plaurent          #+#    #+#             */
-/*   Updated: 2019/02/20 11:32:33 by eviana           ###   ########.fr       */
+/*   Updated: 2019/02/20 17:42:00 by eviana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ char	*ft_conv_s(t_asset asset, va_list ap)
 	j = asset.precision;
 	str = va_arg(ap, char*);
 	i = ft_strlen(str);
-	ft_putstr("test conv s\n"); // TEST
 	if ((int)asset.width > i ||
 			(asset.precision < i && asset.precision < (int)asset.width && (int)asset.width > i))
 		k = asset.width;
@@ -35,6 +34,5 @@ char	*ft_conv_s(t_asset asset, va_list ap)
 	if (j == -1 || j >= i)
 		j = i;
 	str = ft_s_width_preci(asset, str, k, j);
-	//ft_putstr(str);
 	return (str);
 }
