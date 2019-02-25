@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_conv_ouxX.c                                     :+:      :+:    :+:   */
+/*   ft_conv_oux.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eviana <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/14 18:26:52 by eviana            #+#    #+#             */
-/*   Updated: 2019/02/20 17:29:44 by eviana           ###   ########.fr       */
+/*   Created: 2019/02/25 17:32:11 by eviana            #+#    #+#             */
+/*   Updated: 2019/02/25 17:37:46 by eviana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-char	*ft_converter(t_asset asset, char *str) // MODIFIER ABSOLUMENT FT_CONVERT_BASE (FUCKED UP)
+char	*ft_converter(t_asset asset, char *str)
 {
 	char *str2;
 
@@ -41,7 +41,7 @@ char	*ft_converter(t_asset asset, char *str) // MODIFIER ABSOLUMENT FT_CONVERT_B
 	return (str);
 }
 
-char	*ft_conv_ouxX(t_asset asset, va_list ap)
+char	*ft_conv_oux(t_asset asset, va_list ap)
 {
 	char		*str;
 
@@ -57,12 +57,12 @@ char	*ft_conv_ouxX(t_asset asset, va_list ap)
 	}
 	else if (asset.length == 3)
 	{
-		if (!(str = ft_itoa((unsigned short)va_arg(ap, int)))) // PAS LA MM SORTIE QUE PRINTF QUI SORT UN INT NORMAL
+		if (!(str = ft_itoa((unsigned short)va_arg(ap, int))))
 			return (NULL);
 	}
 	else if (asset.length == 4)
 	{
-		if (!(str = ft_itoa((unsigned char)va_arg(ap, int)))) // A VERIFIER // PRINTF DONNE INVALID DIRECTIVE
+		if (!(str = ft_itoa((unsigned char)va_arg(ap, int))))
 			return (NULL);
 	}
 	else
@@ -72,7 +72,7 @@ char	*ft_conv_ouxX(t_asset asset, va_list ap)
 	}
 	if (!(str = ft_converter(asset, str)))
 		return (NULL);
-	if (!(str = ft_build_str(str, asset, 0))) // signmode = 0 / car on traite des unsigned
+	if (!(str = ft_build_str(str, asset, 0)))
 		return (NULL);
 	return (str);
 }

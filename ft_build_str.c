@@ -6,7 +6,7 @@
 /*   By: plaurent <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/14 14:19:12 by plaurent          #+#    #+#             */
-/*   Updated: 2019/02/20 16:13:18 by eviana           ###   ########.fr       */
+/*   Updated: 2019/02/25 17:39:22 by eviana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,8 @@ char	*ft_set_precision(char *initial, t_asset *asset, int signmode)
 	}
 	if (asset->precision > 0)
 	{
-		l = ft_strlen(initial) - (signmode == -1 ? 1 : 0); // pour les cas ou asset.precision <= strlen a cause du signe (-)
+		l = ft_strlen(initial) - (signmode == -1 ? 1 : 0); // pour les cas ou asset.precision <= strlen a cause du (-)
 		length = ((size_t)asset->precision > l ? asset->precision - l : 0);
-		//if (signmode == -1 && ) par exemple pour (%+ 7.3d / -11)
-		//		//	length++;
 		if (!(additional = ft_strnew(length)))
 			return (NULL);
 		additional = ft_memset(additional, '0', length);
@@ -38,9 +36,6 @@ char	*ft_set_precision(char *initial, t_asset *asset, int signmode)
 			additional[0] = '-';
 			initial[0] = '0';
 		}
-		//ft_putstr("---");
-		//ft_putstr(additional);
-		//ft_putstr("---");
 		return (additional);
 	}
 	return (ft_strnew(0));

@@ -6,15 +6,15 @@
 /*   By: eviana <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/14 13:49:55 by eviana            #+#    #+#             */
-/*   Updated: 2019/02/25 16:22:34 by eviana           ###   ########.fr       */
+/*   Updated: 2019/02/25 17:34:51 by eviana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-char    *ft_findflags(char *tab, size_t *i)
+char	*ft_findflags(char *tab, size_t *i)
 {
-	char    *str;
+	char	*str;
 
 	*i = *i + 1;
 	while (tab[*i] && (tab[*i] == '-' || tab[*i] == '+' || tab[*i] == ' ' || tab[*i] == '0' || tab[*i] == '#'))
@@ -24,9 +24,9 @@ char    *ft_findflags(char *tab, size_t *i)
 	return (str);
 }
 
-size_t          ft_findwidth(char *tab, size_t *i)
+size_t	ft_findwidth(char *tab, size_t *i)
 {
-	size_t  n;
+	size_t	n;
 
 	n = 0;
 	while (tab[*i] && (tab[*i] >= '0' && tab[*i] <= '9'))
@@ -37,9 +37,9 @@ size_t          ft_findwidth(char *tab, size_t *i)
 	return (n);
 }
 
-int             ft_findprecision(char *tab, size_t *i)
+int		ft_findprecision(char *tab, size_t *i)
 {
-	int             n;
+	int	n;
 
 	n = 0;
 	if (tab[*i] && (tab[*i] == '.'))
@@ -56,7 +56,7 @@ int             ft_findprecision(char *tab, size_t *i)
 	return (n);
 }
 
-int             ft_findlength(char *tab, size_t *i)
+int		ft_findlength(char *tab, size_t *i)
 {
 	if (tab[*i] && tab[*i] == 'l')
 		return ((tab[*i + 1] && tab[*i + 1] == 'l' ? 2 : 1));
@@ -65,9 +65,9 @@ int             ft_findlength(char *tab, size_t *i)
 	return (0);
 }
 
-int             ft_findtype(char *tab, size_t i) // Pour identifier la conversion
+int		ft_findtype(char *tab, size_t i) // Pour identifier la conversion
 {
-	int n;
+	int	n;
 
 	n = 0;
 	if (!tab)

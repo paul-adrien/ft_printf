@@ -6,13 +6,13 @@
 /*   By: plaurent <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/14 14:30:31 by plaurent          #+#    #+#             */
-/*   Updated: 2019/02/14 14:33:10 by plaurent         ###   ########.fr       */
+/*   Updated: 2019/02/25 17:33:15 by eviana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-char    *sp_strnjoin(char const *s1, char const *s2, size_t n, int mode)
+char	*sp_strnjoin(char const *s1, char const *s2, size_t n, int mode)
 {
 	char    *str;
 
