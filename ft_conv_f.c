@@ -6,7 +6,7 @@
 /*   By: plaurent <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/14 17:43:02 by plaurent          #+#    #+#             */
-/*   Updated: 2019/02/14 20:26:12 by plaurent         ###   ########.fr       */
+/*   Updated: 2019/02/25 18:45:56 by plaurent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static long	ft_power(long nb, int power)
 {
 	if (power > 1)
-		return (nb * ft_recursive_power(nb, (power - 1)));
+		return (nb * ft_power(nb, (power - 1)));
 	if (power < 0)
 		return (0);
 	if (power == 0)
@@ -23,7 +23,7 @@ static long	ft_power(long nb, int power)
 	return (nb);
 }
 
-static int	st_countsize(int n)
+static int	st_countsize(long n)
 {
 	int i;
 
@@ -38,16 +38,33 @@ static int	st_countsize(int n)
 	return (i);
 }
 
+static char		*ft_conv(char *str, long k, int p, int i)
+{
+	if ((k % 10) > 4 && p < 16)
+		k = (k / 10) + 1;
+	else if (p < 16)
+		k = k / 10;
+	while (k != 0)
+	{
+		str[i--] = (k % 10) + '0';
+		k = k / 10;
+		if (--p == 0)
+		{
+			str[i--] = '.';
+			if (k == 0)
+				str[i] = '0';
+		}
+	}
+	return (str);
+}
+
+
 static char		*ft_ftoa(double n, int p)
 {
 	int		i;
-	int		j;
-	long	k;
 	char	*str;
 
-	j = 0;
-	k = 1;
-	i = st_countsize(n * ft_recursive_power(10, p)) + 1;
+	i = st_countsize(n * ft_power(10, p)) + 1;
 	if (!(str = ft_strnew(i)))
 		return (NULL);
 	if (n < 0)
@@ -55,52 +72,102 @@ static char		*ft_ftoa(double n, int p)
 		n = -n;
 		str[0] = '-';
 	}
+	if (n < 1 && n > -1)
+		i++;
 	if (n == 0)
 	{
 		str[0] = '0';
 		str[1] = '.';
-		while (j < p)
-			str[j++ + 2] = '0';
+		i = 0;
+		while (i < p)
+			str[i++ + 2] = '0';
 		return (str);
 	}
+	if (p < 16)
+		str = ft_conv(str, n * ft_power(10, p + 1), p, i - 1);
 	else
-		k = n * ft_power(10, p);
+		str = ft_conv(str, n * ft_power(10, p), p, i - 1);
+	return (str);
+}
+
+static char		*ft_preci_0(t_asset asset, long k)
+{
+	int		i;
+	char	*str;
+
+	i = st_countsize(k);
+	if (!(str = ft_strnew(i + 1)))
+		return (NULL);
+	if (ft_strchr(asset.flags, '#'))
+		str[i] = '.';
+	if (k < 0)
+	{
+		k = -k;
+		str[0] = '-';
+	}
 	while (k != 0)
 	{
-		str[i - 1] = (k % 10) + '0';
+		str[--i] = (k % 10) + '0';
 		k = k / 10;
-		i--;
-		j++;
-		if (j == p)
-			str[i-- - 1] = '.';
-	}
-	if (k == 0)
-	{
-		ft_putnbr(p);
-		ft_putchar('k');
-		k = k*100;
-		ft_putnbr(k);
 	}
 	return (str);
 }
 
-char	*ft_conv_f(t_asset asset, va_list ap)
+char			*ft_width(t_asset asset, char *str, int i/*width*/, int j/*strlen*/)
+{
+	char	*str2;
+	int		k;
+	int		n;
+
+	n = 0;
+	k = -1;
+	if (!(str2 = ft_strnew(asset.width + 1)))
+		return (NULL);
+	if (ft_strchr(asset.flags, '-') || i == j)
+	{
+		if (ft_strchr(asset.flags, '+'))
+			str2[n++] = '+';
+		else if (ft_strchr(asset.flags, ' '))
+			str2[n++] = ' ';
+		while (++k < j)
+			str2[k + n] = str[k];
+		while (k + n < i)
+			str2[k++ + n] = ' ';
+	}
+	else
+	{
+		n = i - j;
+		k = i;
+		while (--j >= 0)
+			str2[--k] = str[j];
+		while (k > 0)
+		{
+			if (ft_strchr(asset.flags, '0'))
+				str2[--k] = '0';
+			else
+				str2[--k] = ' ';
+		}
+		if (ft_strchr(asset.flags, '+') && ft_strchr(asset.flags, '0'))
+			str2[0] = '+';
+		else if (ft_strchr(asset.flags, '+'))
+			str2[n - 1] = '+';
+	}
+	return (str2);
+}
+
+char			*ft_conv_f(t_asset asset, va_list ap)
 {
 	char	*str;
-	char	*str2;
-	int		i;
+	size_t	i;
 
 	i = asset.precision;
 	if (asset.precision == -1)
 		i = 6;
 	if (asset.precision == 0)
-		i = 1;
-	/*if (asset.precision >= 10)
-	{
-		str = ft_ftoa(va_arg(ap, double), 9);
-		str2 = ft_strnew(st_countsize(ft_strlen(str)));
-	}
-	else*/
+		str = ft_preci_0(asset,asset,  va_arg(ap, double));
+	else
 		str = ft_ftoa(va_arg(ap, double), i);
+	if (asset.width > i)
+		str = ft_width(asset, str, asset.width, ft_strlen(str));
 	return (str);
 }
