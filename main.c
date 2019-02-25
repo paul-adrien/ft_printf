@@ -55,7 +55,7 @@ int             main(int ac, char **av)
 	char    *str5;
 	char    str6[1] = "d";
 	char    *str7;
-	double i= -2.5613;
+	double i= -2.123456789012345678901234567;
 	if (ac == 1)
 	{
 		str1 = randstring(4, "- +0");

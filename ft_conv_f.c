@@ -12,7 +12,7 @@
 
 #include "ft_printf.h"
 
-/*static int	ft_recursive_power(int nb, int power)
+static long	ft_power(long nb, int power)
 {
 	if (power > 1)
 		return (nb * ft_recursive_power(nb, (power - 1)));
@@ -21,7 +21,7 @@
 	if (power == 0)
 		return (1);
 	return (nb);
-}*/
+}
 
 static int	st_countsize(int n)
 {
@@ -46,6 +46,7 @@ static char		*ft_ftoa(double n, int p)
 	char	*str;
 
 	j = 0;
+	k = 1;
 	i = st_countsize(n * ft_recursive_power(10, p)) + 1;
 	if (!(str = ft_strnew(i)))
 		return (NULL);
@@ -62,7 +63,8 @@ static char		*ft_ftoa(double n, int p)
 			str[j++ + 2] = '0';
 		return (str);
 	}
-	k = n * ft_recursive_power(10, p);
+	else
+		k = n * ft_power(10, p);
 	while (k != 0)
 	{
 		str[i - 1] = (k % 10) + '0';
@@ -71,6 +73,13 @@ static char		*ft_ftoa(double n, int p)
 		j++;
 		if (j == p)
 			str[i-- - 1] = '.';
+	}
+	if (k == 0)
+	{
+		ft_putnbr(p);
+		ft_putchar('k');
+		k = k*100;
+		ft_putnbr(k);
 	}
 	return (str);
 }
@@ -86,12 +95,12 @@ char	*ft_conv_f(t_asset asset, va_list ap)
 		i = 6;
 	if (asset.precision == 0)
 		i = 1;
-	if (asset.precision >= 10)
+	/*if (asset.precision >= 10)
 	{
 		str = ft_ftoa(va_arg(ap, double), 9);
-		str2 = ft_strnew(st_countsize(//rajouter quand on veut plus que 10 
-					//de precision pour rajouter des zeros
-	else
+		str2 = ft_strnew(st_countsize(ft_strlen(str)));
+	}
+	else*/
 		str = ft_ftoa(va_arg(ap, double), i);
 	return (str);
 }
