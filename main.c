@@ -6,7 +6,7 @@
 /*   By: eviana <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/14 13:39:38 by eviana            #+#    #+#             */
-/*   Updated: 2019/02/20 13:22:14 by eviana           ###   ########.fr       */
+/*   Updated: 2019/02/25 18:08:29 by eviana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,17 +76,25 @@ int             main(int ac, char **av)
 		ft_putstr(" && ");
 		ft_putstr(str5);
 		ft_putstr("\n");
+		ft_putstr("R1 |");
 		ft_printf(str7, atol(str5));
 		ft_putstr("|\n");
 		ft_putstr("R2 |");
 		printf(str7, atol(str5));
 	}
+	else if (ac == 2)
+	{
+		ft_putstr("MANUAL MODE :\n");
+		ft_putstr("R1 |");
+		ft_printf(av[1]);
+	}
 	else if (ac == 3)
 	{
 		ft_putstr("MANUAL MODE :\n");
-		ft_printf(av[1], atoi(av[2]));
+		ft_putstr("R1 |");
+		ft_printf(av[1], av[2]);
 		ft_putstr("|\nR2 |");
-		printf(av[1], atoi(av[2]));
+		printf(av[1], av[2]);
 	}
 	else
 		ft_putstr("wrong number of inputs");

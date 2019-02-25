@@ -6,7 +6,7 @@
 /*   By: eviana <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 18:08:15 by eviana            #+#    #+#             */
-/*   Updated: 2019/02/25 17:31:34 by eviana           ###   ########.fr       */
+/*   Updated: 2019/02/25 18:26:44 by eviana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ typedef struct	s_asset
 	int		precision;
 	int		length;
 	int		type;
+	char	*copy;
 }				t_asset;
 
 char			*ft_conv_p(t_asset asset, va_list ap);

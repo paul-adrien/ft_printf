@@ -6,7 +6,7 @@
 /*   By: eviana <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/14 13:36:44 by eviana            #+#    #+#             */
-/*   Updated: 2019/02/25 12:11:54 by eviana           ###   ########.fr       */
+/*   Updated: 2019/02/25 17:53:43 by eviana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,24 @@ static int	st_countsize(long long int n)
 	return (i);
 }
 
+static char	*st_set_str(char *str, long long newnb, int i, int limitmemory)
+{
+	while (newnb != 0)
+	{
+		str[i - 1] = (newnb % 10) + '0' + limitmemory;
+		limitmemory = 0;
+		newnb = newnb / 10;
+		i--;
+	}
+	return (str);
+}
+
 char		*ft_lltoa(long long int n)
 {
-	long long int	newnb;
-	int				i;
 	char			*str;
+	long long int	newnb;
 	int				limitmemory;
+	int				i;
 
 	limitmemory = 0;
 	newnb = n;
@@ -52,12 +64,6 @@ char		*ft_lltoa(long long int n)
 	}
 	if (n == 0)
 		str[0] = '0';
-	while (newnb != 0)
-	{
-		str[i - 1] = (newnb % 10) + '0' + limitmemory;
-		limitmemory = 0;
-		newnb = newnb / 10;
-		i--;
-	}
+	str = st_set_str(str, newnb, i, limitmemory);
 	return (str);
 }

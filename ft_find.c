@@ -6,7 +6,7 @@
 /*   By: eviana <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/14 13:49:55 by eviana            #+#    #+#             */
-/*   Updated: 2019/02/25 17:34:51 by eviana           ###   ########.fr       */
+/*   Updated: 2019/02/25 18:16:28 by eviana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int		ft_findtype(char *tab, size_t i) // Pour identifier la conversion
 		return (-1);
 	if (tab[0] == '%') //&& (tab[1] && tab[1] != '%')) // a verifier pour le %%
 	{
-		if (i == 0)
+		if (i == 0) // condition useless car i tjrs == 0 ? a verifier
 		{
 			while (tab[i])
 				i++;
