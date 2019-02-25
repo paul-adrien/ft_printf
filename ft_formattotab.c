@@ -6,7 +6,7 @@
 /*   By: eviana <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/14 13:46:34 by eviana            #+#    #+#             */
-/*   Updated: 2019/02/20 13:07:37 by eviana           ###   ########.fr       */
+/*   Updated: 2019/02/25 16:10:04 by eviana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 int				ft_isconv(char c)
 {
 	if (c == 'c' || c == 's' || c == 'p' || c == 'd' || c == 'i'
-			|| c == 'o' || c == 'u' || c == 'x' || c == 'X' || c == 'f')
+			|| c == 'o' || c == 'u' || c == 'x' || c == 'X' || c == 'f'
+			|| c == '%')
 		return (1);
 	return (0);
 }
@@ -31,13 +32,17 @@ unsigned int	ft_strcountparts(const char *s) // ATTENTION AU DOUBLE %% / A TRAIT
 	while (s[i])
 	{
 		j = 0;
-		while ((s[i] && s[i] != '%') || ((s[i] && s[i] == '%') && (s[i + 1] && s[i + 1] == '%')))
-			((s[i] && s[i] == '%') && (s[i + 1] && s[i + 1] == '%') == 1 ? i = i + 2 : i++);
+		while (s[i] && s[i] != '%')// || ((s[i] && s[i] == '%') && (s[i + 1] && s[i + 1] == '%')))
+			i++;
+			//((s[i] && s[i] == '%') && (s[i + 1] && s[i + 1] == '%') == 1 ? i = i + 2 : i++);
 		if (i != 0)
 			k++;
 		if (s[i] && s[i] == '%')
+		{
+			j++;
 			while (s[i + j] && !ft_isconv(s[i + j]))
 				j++;
+		}
 		if (s[i + j] && ft_isconv(s[i + j]))
 			j++;
 		if (j != 0)
@@ -54,15 +59,19 @@ int				ft_charcount(const char * restrict s, int i, int mode)
 	j = 0;
 	if (mode == 1)
 	{
-		while ((s[i + j] && s[i + j] != '%') || ((s[i + j] && s[i + j] == '%') && (s[i + j + 1] && s[i + j + 1] == '%')))
-			((s[i + j] && s[i + j] == '%') && (s[i + j + 1] && s[i + j + 1] == '%') == 1 ? j = j + 2 : j++);
+		while (s[i + j] && s[i + j] != '%')// || ((s[i + j] && s[i + j] == '%') && (s[i + j + 1] && s[i + j + 1] == '%')))
+			j++;
+			//((s[i + j] && s[i + j] == '%') && (s[i + j + 1] && s[i + j + 1] == '%') == 1 ? j = j + 2 : j++);
 		return (j);
 	}
 	else
 	{
 		if (s[i] && s[i] == '%')
+		{
+			j++;
 			while (s[i + j] && !ft_isconv(s[i + j]))
 				j++;
+		}
 		if (s[i + j] && ft_isconv(s[i + j]))
 			j++;
 		return (j);

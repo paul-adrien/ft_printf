@@ -6,7 +6,7 @@
 /*   By: eviana <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/07 10:07:11 by eviana            #+#    #+#             */
-/*   Updated: 2019/02/20 13:21:34 by eviana           ###   ########.fr       */
+/*   Updated: 2019/02/25 15:48:50 by eviana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ int		ft_printf(const char * restrict format, ...)
 	va_start(ap, format);
 	tab = ft_formattotab(format);
 	if (!(print = ft_dispatcher(tab, ap)))
-		return (-1); // CHECKER LES VALEURS DE RETOUR DE PRINTF
+		return (-1);
 	ft_putstr(print);
 	printlength = ft_strlen(print);
 	va_end(ap);
-	return (printlength); // CHECKER LES VALEURS DE RETOUR DE PRINTF
+	return (printlength);
 }

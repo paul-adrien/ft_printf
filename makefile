@@ -6,7 +6,7 @@
 #    By: plaurent <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/14 14:54:18 by plaurent          #+#    #+#              #
-#    Updated: 2019/02/25 15:15:45 by eviana           ###   ########.fr        #
+#    Updated: 2019/02/25 16:34:52 by eviana           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ CFLAGS = -Wall -Werror -Wextra
 
 SRC1 = ft_build_str.c ft_conv_di.c ft_conv_p.c ft_conv_s.c				\
 	  ft_conv_c.c ft_dispatch.c ft_find.c ft_formattotab.c ft_printf.c	\
-	  ft_print_asset.c ft_special.c ft_conv_ouxX.c
+	  ft_print_asset.c ft_special.c ft_conv_ouxX.c ft_conv_percent.c	\
 
 SRC2 = libft/ft_putchar_fd.c libft/ft_putnbr.c libft/ft_putendl.c libft/ft_putstr.c libft/ft_putchar.c	\
 	  libft/ft_itoa.c libft/ft_strsplit.c libft/ft_strtrim.c libft/ft_strjoin.c libft/ft_strsub.c		\
@@ -40,7 +40,7 @@ HEADER = ft_printf.h libft/libft.h
 
 OBJ1 = ft_build_str.o ft_conv_di.o ft_conv_p.o ft_conv_s.o				\
 	  ft_conv_c.o ft_dispatch.o ft_find.o ft_formattotab.o ft_printf.o	\
-	  ft_print_asset.o ft_special.o ft_conv_ouxX.o
+	  ft_print_asset.o ft_special.o ft_conv_ouxX.o ft_conv_percent.o	\
 
 OBJ2 = ft_putchar_fd.o ft_putnbr.o ft_putendl.o ft_putstr.o ft_putchar.o\
 	  ft_itoa.o ft_strsplit.o ft_strtrim.o ft_strjoin.o ft_strsub.o		\

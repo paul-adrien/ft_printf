@@ -6,7 +6,7 @@
 /*   By: eviana <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 18:08:15 by eviana            #+#    #+#             */
-/*   Updated: 2019/02/20 16:11:31 by eviana           ###   ########.fr       */
+/*   Updated: 2019/02/25 16:29:44 by eviana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ char			*ft_preparewidth(char *processed, t_asset asset, int signmode);
 char			*ft_build_str(char *initial, t_asset asset, int signmode);
 char			*ft_conv_di(t_asset asset, va_list ap);
 char			*ft_conv_ouxX(t_asset asset, va_list ap);
+char			*ft_conv_percent(t_asset asset, va_list ap);
 t_asset			ft_digest(char *tab);
 char			*ft_dispatcher(char **tab, va_list ap);
 void			ft_printasset(t_asset asset);

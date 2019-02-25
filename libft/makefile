@@ -6,7 +6,7 @@
 #    By: pa <marvin@42.fr>                          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/14 18:08:54 by pa                #+#    #+#              #
-#    Updated: 2019/02/25 12:04:18 by eviana           ###   ########.fr        #
+#    Updated: 2019/02/25 15:50:58 by eviana           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,8 +44,8 @@ OBJ = ft_putchar_fd.o ft_putnbr.o ft_putendl.o ft_putstr.o ft_putchar.o	\
 	  ft_bzero.o ft_strlen.o ft_memset.o ft_putnbr_fd.o ft_putendl_fd.o	\
 	  ft_putstr_fd.o ft_strdup.o ft_ltoa.o ft_lltoa.o ft_strrev.o		\
 	  ft_lstnew.o ft_lstdelone.o ft_lstdel.o ft_lstadd.o ft_lstiter.o	\
-	  ft_lstmap.o ft_foreach.o ft_recursive_factorial.o	ft_strcount.o	\
-	  ft_recursive_power.o ft_fibonacci.o ft_sqrt.o ft_is_prime.o		\
+	  ft_lstmap.o ft_foreach.o ft_factorial.o	ft_strcount.o			\
+	  ft_power.o ft_fibonacci.o ft_sqrt.o ft_is_prime.o					\
 	  ft_utoa.o ft_ultoa.o ft_ulltoa.o ft_convert_base.o				\
 
 all: $(NAME)
