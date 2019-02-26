@@ -6,13 +6,13 @@
 /*   By: plaurent <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/14 17:43:02 by plaurent          #+#    #+#             */
-/*   Updated: 2019/02/25 18:45:56 by plaurent         ###   ########.fr       */
+/*   Updated: 2019/02/26 11:07:21 by plaurent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static long	ft_power(long nb, int power)
+static long	sp_power(long nb, int power)
 {
 	if (power > 1)
 		return (nb * ft_power(nb, (power - 1)));
@@ -64,7 +64,7 @@ static char		*ft_ftoa(double n, int p)
 	int		i;
 	char	*str;
 
-	i = st_countsize(n * ft_power(10, p)) + 1;
+	i = st_countsize(n * sp_power(10, p)) + 1;
 	if (!(str = ft_strnew(i)))
 		return (NULL);
 	if (n < 0)
