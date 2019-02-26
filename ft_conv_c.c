@@ -6,7 +6,7 @@
 /*   By: plaurent <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 15:04:48 by plaurent          #+#    #+#             */
-/*   Updated: 2019/02/19 18:54:37 by eviana           ###   ########.fr       */
+/*   Updated: 2019/02/26 17:31:28 by plaurent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,8 @@ char	*ft_s_width_preci(t_asset asset, char *str, int i, int j)
 	k = -1;
 	if (i < j && i != 0)
 		i = j;
-	str2 = malloc(sizeof(char) * (i + 1)); // malloc non protege
+	if (!(str2 = malloc(sizeof(char) * (i + 1))))
+		return (NULL);
 	str2[i] = '\0';
 	if (ft_strchr(asset.flags, '-') || i == j)
 	{
@@ -68,7 +69,7 @@ char	*ft_s_width_preci(t_asset asset, char *str, int i, int j)
 		while (--j >= 0)
 			str2[--k] = str[j];
 		while (k > 0)
-			str2[--k] = ' ';
+			str2[--k] = '0';
 	}
 	return (str2);
 }
@@ -91,7 +92,8 @@ char	*ft_conv_c(t_asset asset, va_list ap)
 	str = ft_strnew(i + 2);
 	if (ft_strchr(asset.flags, 'l'))
 	{
-		w = va_arg(ap, wint_t);
+		if(!(w = va_arg(ap, wint_t)))
+			return ("(null)");
 		while (j < i)
 			str[j++] = ' ';
 		if (ft_strchr(asset.flags, '-') || i == 0)
@@ -101,9 +103,14 @@ char	*ft_conv_c(t_asset asset, va_list ap)
 	}
 	else
 	{
-		c = va_arg(ap, int);
-		while (j < i)
-			str[j++] = ' ';
+		if(!(c = va_arg(ap, int)))
+			return("(null)");
+		if (ft_strchr(asset.flags, '0') && !ft_strchr(asset.flags, '-'))
+			while (j < i)
+				str[j++] = '0';
+		else
+			while (j < i)
+				str[j++] = ' ';
 		if (ft_strchr(asset.flags, '-') || i == 0)
 			str[0] = c;
 		else

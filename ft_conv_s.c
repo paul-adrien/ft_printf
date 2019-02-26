@@ -6,7 +6,7 @@
 /*   By: plaurent <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/14 12:07:13 by plaurent          #+#    #+#             */
-/*   Updated: 2019/02/20 17:42:00 by eviana           ###   ########.fr       */
+/*   Updated: 2019/02/26 17:27:37 by plaurent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,11 @@ char	*ft_conv_s(t_asset asset, va_list ap)
 	i = 0;
 	k = 0;
 	j = asset.precision;
-	str = va_arg(ap, char*);
+	if(!(str = va_arg(ap, char*)))
+		return ("(null)");
 	i = ft_strlen(str);
-	if ((int)asset.width > i ||
-			(asset.precision < i && asset.precision < (int)asset.width && (int)asset.width > i))
+	if ((int)asset.width > i || (asset.precision < i &&
+				asset.precision < (int)asset.width && (int)asset.width > i))
 		k = asset.width;
 	if (asset.precision >= (int)asset.width && asset.precision < i)
 		k = asset.precision;
