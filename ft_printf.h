@@ -6,7 +6,7 @@
 /*   By: eviana <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 18:08:15 by eviana            #+#    #+#             */
-/*   Updated: 2019/02/26 13:36:56 by eviana           ###   ########.fr       */
+/*   Updated: 2019/02/26 16:58:08 by eviana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,11 @@ char			*ft_noconv(t_asset asset, va_list ap);
 char			*ft_s_width_preci(t_asset asset, char *str, int i, int j);
 char			*ft_convp_width(t_asset asset, char *res);
 char			*ft_s_width_preci(t_asset asset, char *str, int i, int j);
-char			*ft_findflags(char *tab, size_t *i);
 int				ft_findtype(char *tab, size_t i);
-int				ft_findlength(char *tab, size_t *i);
-int				ft_findprecision(char *tab, size_t *i);
-size_t			ft_findwidth(char *tab, size_t *i);
+char			*ft_findflags(char *tab, size_t i);
+int				ft_findlength(char *tab, size_t i);
+int				ft_findprecision(char *tab, size_t i);
+size_t			ft_findwidth(char *tab, size_t i);
 char			*ft_set_precision(char *initial, t_asset *asset, int signmode);
 char			*ft_set_width(char *initial, t_asset asset, int signmode);
 char			*ft_addbuild(char *initial, char *additional, t_asset asset);
