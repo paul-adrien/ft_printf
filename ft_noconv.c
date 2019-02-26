@@ -6,7 +6,7 @@
 /*   By: eviana <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/25 18:16:43 by eviana            #+#    #+#             */
-/*   Updated: 2019/02/26 12:34:44 by eviana           ###   ########.fr       */
+/*   Updated: 2019/02/26 17:18:44 by eviana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ char	*ft_noconv(t_asset asset, va_list ap)
 			return (NULL);
 		return (str);
 	}
+	//else if (asset.copy == '%' && asset.type == 0)
+
 	/*while (asset.copy[i] && asset.copy[i] != 'Z')
 		i++;
 	if (asset.copy[i] == 'Z')
