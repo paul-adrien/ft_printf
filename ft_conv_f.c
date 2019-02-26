@@ -6,7 +6,7 @@
 /*   By: plaurent <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/14 17:43:02 by plaurent          #+#    #+#             */
-/*   Updated: 2019/02/26 11:10:11 by eviana           ###   ########.fr       */
+/*   Updated: 2019/02/26 16:16:56 by plaurent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static long	sp_power(long nb, int power)
 {
 	if (power > 1)
-		return (nb * ft_power(nb, (power - 1)));
+		return (nb * sp_power(nb, (power - 1)));
 	if (power < 0)
 		return (0);
 	if (power == 0)
@@ -84,9 +84,9 @@ static char		*ft_ftoa(double n, int p)
 		return (str);
 	}
 	if (p < 16)
-		str = ft_conv(str, n * ft_power(10, p + 1), p, i - 1);
+		str = ft_conv(str, n * sp_power(10, p + 1), p, i - 1);
 	else
-		str = ft_conv(str, n * ft_power(10, p), p, i - 1);
+		str = ft_conv(str, n * sp_power(10, p), p, i - 1);
 	return (str);
 }
 
@@ -121,8 +121,17 @@ char			*ft_width(t_asset asset, char *str, int i/*width*/, int j/*strlen*/)
 
 	n = 0;
 	k = -1;
-	if (!(str2 = ft_strnew(asset.width + 1)))
-		return (NULL);
+	if (i > j)
+	{
+		if (!(str2 = ft_strnew(i + 1)))
+			return (NULL);
+	}
+	else
+	{
+		if(!(str2 = ft_strnew(j + 1)))
+			return (NULL);
+		i = j;
+	}
 	if (ft_strchr(asset.flags, '-') || i == j)
 	{
 		if (ft_strchr(asset.flags, '+'))
@@ -167,7 +176,6 @@ char			*ft_conv_f(t_asset asset, va_list ap)
 		str = ft_preci_0(asset, va_arg(ap, double));
 	else
 		str = ft_ftoa(va_arg(ap, double), i);
-	if (asset.width > i)
-		str = ft_width(asset, str, asset.width, ft_strlen(str));
+	str = ft_width(asset, str, asset.width, ft_strlen(str));
 	return (str);
 }

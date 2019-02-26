@@ -6,7 +6,7 @@
 /*   By: plaurent <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/14 14:38:09 by plaurent          #+#    #+#             */
-/*   Updated: 2019/02/26 12:06:21 by eviana           ###   ########.fr       */
+/*   Updated: 2019/02/26 15:31:11 by plaurent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,16 @@ t_asset		ft_digest(char *tab) // (no_conv exclus en amont)
 	size_t	i;
 
 	i = 0;
-	if (!(asset.flags = ft_findflags(tab, &i)))
+	if (!(asset.flags = ft_findflags(tab, i)))
 	{
 		asset.type = -1;
 		return (asset);
 	}
-	asset.width = ft_findwidth(tab, &i);
-	asset.precision = ft_findprecision(tab, &i);
-	asset.length = ft_findlength(tab, &i);
-	asset.type = ft_findtype(tab, 0); // IF PAS BON CHAR A LA FIN => wrong format
+	//ft_putstr(asset.flags);
+	asset.width = ft_findwidth(tab, i);
+	asset.precision = ft_findprecision(tab, i);
+	asset.length = ft_findlength(tab, i);
+	asset.type = ft_findtype(tab, i); // IF PAS BON CHAR A LA FIN => wrong format
 	if (!(asset.copy = ft_strsub(tab, 0, ft_strlen(tab)))) // NE PAS OUBLIER DE LE FREE
 		asset.copy = ft_strnew(0);
 	return (asset);
