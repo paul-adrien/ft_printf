@@ -6,7 +6,7 @@
 /*   By: plaurent <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/14 14:38:09 by plaurent          #+#    #+#             */
-/*   Updated: 2019/02/25 18:47:38 by eviana           ###   ########.fr       */
+/*   Updated: 2019/02/26 10:50:15 by eviana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ t_asset		ft_digest(char *tab) // (no_conv exclus en amont)
 	asset.length = ft_findlength(tab, &i);
 	asset.type = ft_findtype(tab, 0); // IF PAS BON CHAR A LA FIN => wrong format
 	if (!(asset.copy = ft_strsub(tab, 0, ft_strlen(tab)))) // NE PAS OUBLIER DE LE FREE
-		return (NULL);
+		asset.copy = ft_strnew(0);
 	return (asset);
 }
 
@@ -56,8 +56,8 @@ char	*ft_dispatcher(char **tab, va_list ap) // Pour dispatcher par les conversio
 		if ((n = ft_findtype(tab[i], 0)) == -1)
 			return (NULL);
 		n = (n == 21 || n == 22 || n == 23 || n == 24 ? 2 : n);
-		if (n >= 0)
-		{
+//		if (n >= 0)
+//		{
 			asset = ft_digest(tab[i]);
 			if (asset.type == -1)
 				return (NULL);
@@ -67,10 +67,10 @@ char	*ft_dispatcher(char **tab, va_list ap) // Pour dispatcher par les conversio
 				return (NULL); // free print[1] avant de return ?
 			free(print[1]);
 			free(asset.flags);
-		}
-		else
-			if (!(print[0] = sp_strnjoin(print[0], tab[i], ft_strlen(print[0]) + ft_strlen(tab[i]), 0)))
-				return (NULL);
+//		}
+//		else
+//			if (!(print[0] = sp_strnjoin(print[0], tab[i], ft_strlen(print[0]) + ft_strlen(tab[i]), 0)))
+//				return (NULL);
 		// if ((asset.type == 0))
 		//		// FREE ASSET SUR 2 DIMENSIONS
 		i++; // A VERIFIER

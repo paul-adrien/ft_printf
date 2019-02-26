@@ -6,11 +6,11 @@
 /*   By: eviana <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/25 18:16:43 by eviana            #+#    #+#             */
-/*   Updated: 2019/02/25 18:47:32 by eviana           ###   ########.fr       */
+/*   Updated: 2019/02/26 11:10:31 by eviana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_prinft.h"
+#include "ft_printf.h"
 
 char	*ft_noconv(t_asset asset, va_list ap)
 {
@@ -29,8 +29,9 @@ char	*ft_noconv(t_asset asset, va_list ap)
 	if (asset.copy[i - 1] == 'Z')
 	{
 		if (!(str = ft_strsub(asset.copy, i, ft_strlen(asset.copy + i))))
-				return (NULL);
+			return (NULL);
 		str = ft_memset(str, 90, 1);
 	}
+	(void)ap;
 	return (ft_strnew(0));
 }
