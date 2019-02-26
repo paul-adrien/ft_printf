@@ -6,7 +6,7 @@
 /*   By: plaurent <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/08 10:40:57 by plaurent          #+#    #+#             */
-/*   Updated: 2019/02/25 12:09:30 by eviana           ###   ########.fr       */
+/*   Updated: 2019/02/26 15:08:00 by eviana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,12 @@ char			*ft_strrev(char *str);
 char			*ft_lltoa(long long n);
 char			*ft_ltoa(long n);
 char			*ft_strdup(const char *src);
+void			ft_putnbr(int n);
+void			ft_putull(unsigned long long n);
 void			ft_putnbr_fd(int n, int fd);
 void			ft_putendl_fd(char const *s, int fd);
 void			ft_putstr_fd(char const *s, int fd);
 void			ft_putchar_fd(char c, int fd);
-void			ft_putnbr(int n);
 void			ft_putendl(char const *s);
 void			ft_putstr(char const *s);
 void			ft_putchar(char c);

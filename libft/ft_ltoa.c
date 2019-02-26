@@ -5,14 +5,14 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: eviana <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/14 13:31:38 by eviana            #+#    #+#             */
-/*   Updated: 2019/02/14 19:09:55 by eviana           ###   ########.fr       */
+/*   Created: 2019/02/26 14:03:07 by eviana            #+#    #+#             */
+/*   Updated: 2019/02/26 14:04:19 by eviana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	st_countsize(long n)
+static int	st_countsize(long int n)
 {
 	int i;
 
@@ -27,28 +27,43 @@ static int	st_countsize(long n)
 	return (i);
 }
 
-char		*ft_ltoa(long n)
+static char	*st_set_str(char *str, long newnb, int i, int limitmemory)
 {
-	long	newnb;
-	int		i;
-	char	*str;
+	while (newnb != 0)
+	{
+		str[i - 1] = (newnb % 10) + '0' + limitmemory;
+		limitmemory = 0;
+		newnb = newnb / 10;
+		i--;
+	}
+	return (str);
+}
 
+char		*ft_ltoa(long int n)
+{
+	char			*str;
+	long int	newnb;
+	int				limitmemory;
+	int				i;
+
+	limitmemory = 0;
 	newnb = n;
 	i = st_countsize(n);
 	if (!(str = ft_strnew(i)))
 		return (NULL);
-	if (n < 0)
+	if (n < 0 && newnb >= -9223372036854775807)
 	{
 		newnb = -newnb;
 		str[0] = '-';
 	}
+	else if (n < 0 && newnb < -9223372036854775807)
+	{
+		newnb = -(newnb + 1);
+		str[0] = '-';
+		limitmemory = 1;
+	}
 	if (n == 0)
 		str[0] = '0';
-	while (newnb != 0)
-	{
-		str[i - 1] = (newnb % 10) + '0';
-		newnb = newnb / 10;
-		i--;
-	}
+	str = st_set_str(str, newnb, i, limitmemory);
 	return (str);
 }

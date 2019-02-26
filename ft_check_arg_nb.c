@@ -1,38 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*   ft_check_arg_nb.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eviana <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/07 10:07:11 by eviana            #+#    #+#             */
-/*   Updated: 2019/02/26 13:42:56 by eviana           ###   ########.fr       */
+/*   Created: 2019/02/26 12:40:10 by eviana            #+#    #+#             */
+/*   Updated: 2019/02/26 13:42:01 by eviana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int		ft_printf(const char * restrict format, ...)
+int		ft_check_arg_nb(char **tab, va_list ap)
 {
-	va_list	ap;
-	char	**tab;
-	char	*print;
-	int		printlength;
+	va_list	ap2;
+	int		type;
+	int		i;
+	int		j;
+	int		k;
 
-	va_start(ap, format);
-	tab = ft_formattotab(format);
-	//if (!(ft_check_arg_nb(tab, ap)))
-	//{
-	//	va_end(ap);
-	//	return (-1);
-	//}
-	if (!(print = ft_dispatcher(tab, ap)))
+	i = 0;
+	j = 0;
+	k = 0;
+	va_copy(ap2, ap);
+	while (tab[i])
 	{
-		va_end(ap);
-		return (-1);
+		type = ft_findtype(tab[i], 0);
+		if (type && type != 7)
+			j++;
+		i++;
 	}
-	ft_putstr(print);
-	printlength = ft_strlen(print);
-	va_end(ap);
-	return (printlength);
+	while (va_arg(ap2, int))
+		k++;
+	va_end(ap2);
+	if (j != k)
+		return (0);	
+	return (1);
 }

@@ -6,13 +6,14 @@
 /*   By: eviana <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/14 13:39:38 by eviana            #+#    #+#             */
-/*   Updated: 2019/02/25 18:08:29 by eviana           ###   ########.fr       */
+/*   Updated: 2019/02/26 14:27:38 by eviana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 #include <string.h>
 #include <time.h>
+#include <limits.h>
 
 char *randstring(int length, char *string)
 {
@@ -86,9 +87,11 @@ int             main(int ac, char **av)
 	{
 		ft_putstr("MANUAL MODE :\n");
 		ft_putstr("R1 |");
-		ft_printf(av[1]);
+		ft_printf("%lo, %lo", 0, ULONG_MAX);
+		ft_putstr("|\nR2 |");	
+		printf("%lo, %lo", (unsigned long)0, ULONG_MAX);
 	}
-	else if (ac == 3)
+	else if (ac >= 3)
 	{
 		ft_putstr("MANUAL MODE :\n");
 		ft_putstr("R1 |");
@@ -96,8 +99,8 @@ int             main(int ac, char **av)
 		ft_putstr("|\nR2 |");
 		printf(av[1], av[2]);
 	}
-	else
-		ft_putstr("wrong number of inputs");
+	//else
+	//	ft_putstr("wrong number of inputs");
 	(void)ac;
 	(void)av;
 	return (0);

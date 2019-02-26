@@ -6,13 +6,13 @@
 /*   By: eviana <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/14 15:17:51 by eviana            #+#    #+#             */
-/*   Updated: 2019/02/25 15:09:15 by eviana           ###   ########.fr       */
+/*   Updated: 2019/02/26 16:07:33 by eviana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static long long	sp_power(long long nb, long long power)
+static unsigned long long	sp_power(unsigned long long nb, int power)
 {
 	if (power < 0)
 		return (0);
@@ -21,10 +21,10 @@ static long long	sp_power(long long nb, long long power)
 	else if (power == 1)
 		return (nb);
 	else
-		return (nb * ft_power(nb, power - 1));
+		return (nb * sp_power(nb, power - 1));
 }
 
-static int			ft_base_analysis(char *base)
+static int					ft_base_analysis(char *base, char *nbr, int mode)
 {
 	int	i;
 	int j;
@@ -45,16 +45,21 @@ static int			ft_base_analysis(char *base)
 	}
 	if (i <= 1)
 		return (0);
+	j = (nbr[0] == '-' || nbr[0] == '+' ? 0 : -1);
+	if (mode == 1)
+		while (nbr[++j])
+			if (!(ft_strchr(base, nbr[j])))
+				return (0);
 	return (i);
 }
 
-static long long	sp_atoll_base(char *str, char *base)
+static unsigned long long	sp_atoull_base(char *str, char *base)
 {
-	long long	res;
-	size_t		str_len;
-	size_t		base_len;
-	size_t		i;
-	size_t		j;
+	unsigned long long	res;
+	size_t				str_len;
+	size_t				base_len;
+	size_t				i;
+	size_t				j;
 
 	i = 0;
 	res = 0;
@@ -65,10 +70,15 @@ static long long	sp_atoll_base(char *str, char *base)
 	while (str_len > 0)
 	{
 		j = 0;
+	/*	while (str_len > 0 && base[0] == str[str_len - 1])
+		{
+			i++;
+			str_len--;
+		}
+		if (str_len == 0)
+			break;*/
 		while (base[j] && base[j] != str[str_len - 1])
 			j++;
-		if (j == base_len)
-			return (-1);
 		res = res + (j * sp_power(base_len, i));
 		i++;
 		str_len--;
@@ -76,7 +86,7 @@ static long long	sp_atoll_base(char *str, char *base)
 	return (res);
 }
 
-static int			sp_strlen_base(long long nbr, size_t base)
+static int					sp_strlen_base(unsigned long long nbr, size_t base)
 {
 	int res;
 
@@ -94,16 +104,17 @@ static int			sp_strlen_base(long long nbr, size_t base)
 
 char				*ft_convert_base(char *nbr, char *base_from, char *base_to)
 {
-	char		*str;
-	long long	decimal_nb;
-	size_t		base_to_len;
-	size_t		str_len;
-	int			is_neg;
+	char				*str;
+	unsigned long long	decimal_nb;
+	size_t				base_to_len;
+	size_t				str_len;
+	int					is_neg;
 
 	is_neg = (nbr[0] == '-' ? 1 : 0);
-	if (!(ft_base_analysis(base_from)) || !(ft_base_analysis(base_to)) ||
-			!nbr || (decimal_nb = sp_atoll_base(nbr, base_from)) == -1)
+	if (!nbr || !(ft_base_analysis(base_from, nbr, 1)) ||
+			!(ft_base_analysis(base_to, nbr, 0)))
 		return (0);
+	decimal_nb = sp_atoull_base(nbr, base_from);
 	base_to_len = ft_strlen(base_to);
 	str_len = sp_strlen_base(decimal_nb, base_to_len) + is_neg;
 	if (!(str = ft_strnew(str_len)))
