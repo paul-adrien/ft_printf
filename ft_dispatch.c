@@ -6,7 +6,7 @@
 /*   By: plaurent <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/14 14:38:09 by plaurent          #+#    #+#             */
-/*   Updated: 2019/02/26 15:31:11 by plaurent         ###   ########.fr       */
+/*   Updated: 2019/02/27 14:27:47 by plaurent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ t_asset		ft_digest(char *tab) // (no_conv exclus en amont)
 		asset.type = -1;
 		return (asset);
 	}
-	//ft_putstr(asset.flags);
 	asset.width = ft_findwidth(tab, i);
 	asset.precision = ft_findprecision(tab, i);
 	asset.length = ft_findlength(tab, i);
@@ -66,7 +65,7 @@ char	*ft_dispatcher(char **tab, va_list ap) // Pour dispatcher par les conversio
 				return (NULL);
 			if (!(print[0] = sp_strnjoin(print[0], print[1], ft_strlen(print[0]) + ft_strlen(print[1]), 0)))
 				return (NULL); // free print[1] avant de return ?
-			free(print[1]);
+			//free(print[1]);
 			free(asset.flags);
 //		}
 //		else

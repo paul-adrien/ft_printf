@@ -6,7 +6,7 @@
 /*   By: plaurent <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 15:04:48 by plaurent          #+#    #+#             */
-/*   Updated: 2019/02/26 17:31:28 by plaurent         ###   ########.fr       */
+/*   Updated: 2019/02/26 18:07:53 by plaurent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,12 @@ char	*ft_s_width_preci(t_asset asset, char *str, int i, int j)
 		k = i;
 		while (--j >= 0)
 			str2[--k] = str[j];
-		while (k > 0)
-			str2[--k] = '0';
+		if (ft_strchr(asset.flags, '0'))
+			while (k > 0)
+				str2[--k] = '0';
+		else
+			while (k > 0)
+				str2[--k] = ' ';
 	}
 	return (str2);
 }
@@ -93,7 +97,7 @@ char	*ft_conv_c(t_asset asset, va_list ap)
 	if (ft_strchr(asset.flags, 'l'))
 	{
 		if(!(w = va_arg(ap, wint_t)))
-			return ("(null)");
+			return (0);
 		while (j < i)
 			str[j++] = ' ';
 		if (ft_strchr(asset.flags, '-') || i == 0)
@@ -103,15 +107,15 @@ char	*ft_conv_c(t_asset asset, va_list ap)
 	}
 	else
 	{
-		if(!(c = va_arg(ap, int)))
-			return("(null)");
+		if(!(c = va_arg(ap, int)) && asset.width < 1)
+			return(0);
 		if (ft_strchr(asset.flags, '0') && !ft_strchr(asset.flags, '-'))
 			while (j < i)
 				str[j++] = '0';
-		else
+		else //if (ft_strchr(asset.flags, '0')
 			while (j < i)
 				str[j++] = ' ';
-		if (ft_strchr(asset.flags, '-') || i == 0)
+		if ((ft_strchr(asset.flags, '-') || i == 0) && c)
 			str[0] = c;
 		else
 			str[--i] = c;
