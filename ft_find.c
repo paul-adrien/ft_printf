@@ -6,7 +6,7 @@
 /*   By: eviana <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/14 13:49:55 by eviana            #+#    #+#             */
-/*   Updated: 2019/03/01 11:15:22 by eviana           ###   ########.fr       */
+/*   Updated: 2019/03/01 11:48:47 by eviana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,11 +73,11 @@ int		ft_findprecision(char *tab)
 	i = 0;
 	n = -1;
 	while (tab[++i])
-		if (tab[i++] == '.')
+		if (tab[i] == '.')
 		{
 			n = 0;
-			while (tab[i] && tab[i] >= '0' && tab[i] <= '9')
-				n = 10 * n + (tab[i++] - '0');
+			while (tab[i + 1] && tab[i + 1] >= '0' && tab[i + 1] <= '9')
+				n = 10 * n + (tab[i++ + 1] - '0');
 		}
 	return (n);
 }
@@ -87,7 +87,7 @@ int		ft_findlength(char *tab)
 	size_t i;
 	
 	i = 0;
-	while (tab[++i]) // avant c'etait tab [++i + 1], pourquoi ?
+	while (tab[++i])
 	{
 		if (tab[i] && tab[i] == 'l')
 			return ((tab[i + 1] && tab[i + 1] == 'l' ? 2 : 1));
@@ -97,7 +97,7 @@ int		ft_findlength(char *tab)
 	return (0);
 }
 
-int		ft_findtype(char *tab) // Pour identifier la conversion
+int		ft_findtype(char *tab)
 {
 	size_t	i;
 	int		n;
@@ -106,7 +106,7 @@ int		ft_findtype(char *tab) // Pour identifier la conversion
 	n = 0;
 	if (!tab)
 		return (-1);
-	if (tab[i] == '%') //&& (tab[1] && tab[1] != '%')) // a verifier pour le %%
+	if (tab[i] == '%')
 	{
 		while (tab[i])
 			i++;
@@ -116,7 +116,7 @@ int		ft_findtype(char *tab) // Pour identifier la conversion
 	  	(tab[i] == 'u' ? n = 22 : 0);
 		(tab[i] == 'x' ? n = 23 : 0);
 		(tab[i] == 'X' ? n = 24 : 0);
-		(tab[i] == 'c' ? n = 3 : 0); // a verifier pour le %%
+		(tab[i] == 'c' ? n = 3 : 0);
 		(tab[i] == 's' ? n = 4 : 0);
 		(tab[i] == 'p' ? n = 5 : 0);
 		(tab[i] == 'f' ? n = 6 : 0);

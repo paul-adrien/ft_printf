@@ -6,7 +6,7 @@
 /*   By: eviana <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/07 10:07:11 by eviana            #+#    #+#             */
-/*   Updated: 2019/03/01 11:30:40 by eviana           ###   ########.fr       */
+/*   Updated: 2019/03/01 11:59:27 by eviana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,21 +21,33 @@ static int	st_print(char **print, char **tab)
 
 	i = 0;
 	printlength = 0;
+	c_width = ft_findwidth(tab[i]);
 	while (print[i])
 	{
 		if (ft_findtype(tab[i]) == 3) // A ajuster avec la width
 		{
-			if (print[i][0] == '\0' && (c_width = ft_findwidth(tab[i])) <= 1)
+			j = 0;
+			if (print[i][0] == '\0' && c_width <= 1)
 			{
 				ft_putchar('\0');
+				j++;
+				while (j < c_width)
+				{
+					ft_putchar(print[i][j]);
+					j++;
+				}
 				printlength = printlength + 1;
 			}
 			else
 			{
-				j = 0;
 				while (j < ft_strlen(print[i]))
 				{
 					ft_putchar(print[i][j]);
+					j++;
+				}
+				if (j < c_width)
+				{
+					ft_putchar('\0');
 					j++;
 				}
 				printlength = printlength + j;
