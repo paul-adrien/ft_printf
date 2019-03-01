@@ -6,7 +6,7 @@
 /*   By: plaurent <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 15:04:48 by plaurent          #+#    #+#             */
-/*   Updated: 2019/02/26 18:07:53 by plaurent         ###   ########.fr       */
+/*   Updated: 2019/03/01 11:04:35 by eviana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,47 +78,45 @@ char	*ft_s_width_preci(t_asset asset, char *str, int i, int j)
 	return (str2);
 }
 
-// ne pas oublier wchar!!!!!!!!
-
 // GERER LE CAS OU LE CARACTERE NULL EST ENVOYER
 char	*ft_conv_c(t_asset asset, va_list ap)
 {
-	char	*str;
+	char			*str;
 	unsigned char	c;
-	wint_t	w;
-	int		i;
-	int		j;
+	wint_t			w;
+	size_t			width;
+	size_t			j;
 
 	j = 0;
-	i = asset.width;
-	if (i < 0)
-		i = 0;
-	str = ft_strnew(i + 2);
+	width = asset.width;
+	str = ft_strnew(width);// a l'origine width + 2 ?
 	if (ft_strchr(asset.flags, 'l'))
 	{
-		if(!(w = va_arg(ap, wint_t)))
-			return (0);
-		while (j < i)
+		w = va_arg(ap, wint_t);
+		//if (!(w = va_arg(ap, wint_t)))
+		//	return (0);
+		while (j < width)
 			str[j++] = ' ';
-		if (ft_strchr(asset.flags, '-') || i == 0)
+		if (ft_strchr(asset.flags, '-') || width == 0)
 			str[0] = (char)w;
 		else
-			str[--i] = (char)w;
+			str[--width] = (char)w;
 	}
 	else
 	{
-		if(!(c = va_arg(ap, int)) && asset.width < 1)
-			return(0);
+		c = va_arg(ap, int);
+		//if (!(c = va_arg(ap, int)) && width < 1) // a voir pour asset.width
+		//	return (ft_strnew(0)); // a checker car peut etre dangereux
 		if (ft_strchr(asset.flags, '0') && !ft_strchr(asset.flags, '-'))
-			while (j < i)
+			while (j < width)
 				str[j++] = '0';
 		else //if (ft_strchr(asset.flags, '0')
-			while (j < i)
+			while (j < width)
 				str[j++] = ' ';
-		if ((ft_strchr(asset.flags, '-') || i == 0) && c)
+		if ((ft_strchr(asset.flags, '-') || width == 0) && c)
 			str[0] = c;
 		else
-			str[--i] = c;
+			str[--width] = c;
 	}
 	//ft_putstr(str);
 	return (str);
