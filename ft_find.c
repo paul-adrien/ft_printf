@@ -6,7 +6,7 @@
 /*   By: eviana <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/14 13:49:55 by eviana            #+#    #+#             */
-/*   Updated: 2019/03/01 11:48:47 by eviana           ###   ########.fr       */
+/*   Updated: 2019/03/01 18:07:50 by eviana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ char	*ft_findflags(char *tab)
 		}
 		if (tab[i] == '0' && (tab[i - 1] < '0' || tab[i - 1] > '9') &&
 				tab[i - 1] != '.')
-			if (!(str = sp_strnjoin(str, ft_strsub(tab, i, 1), 1, 0)))
+			if (!(str = sp_strnjoin(str, ft_strsub(tab, i, 1), 1, 2)))
 				return (NULL);
 	}
 	free(tmp);

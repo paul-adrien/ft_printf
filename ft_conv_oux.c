@@ -6,7 +6,7 @@
 /*   By: eviana <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/25 17:32:11 by eviana            #+#    #+#             */
-/*   Updated: 2019/02/26 16:08:01 by eviana           ###   ########.fr       */
+/*   Updated: 2019/03/01 16:06:45 by eviana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 char	*ft_converter(t_asset asset, char *str)
 {
-	char *str2;
+	char	*str2;
 
 	str2 = str;
 	if (asset.type == 21)
@@ -43,33 +43,18 @@ char	*ft_converter(t_asset asset, char *str)
 
 char	*ft_conv_oux(t_asset asset, va_list ap)
 {
-	char		*str;
+	char	*str;
 
-	if (asset.length == 1)
-	{
-		if (!(str = ft_ultoa(va_arg(ap, unsigned long))))
-			return (NULL);
-	}
-	else if (asset.length == 2)
-	{
-		if (!(str = ft_ulltoa(va_arg(ap, unsigned long long))))
-			return (NULL);
-	}
-	else if (asset.length == 3)
-	{
-		if (!(str = ft_itoa((unsigned short)va_arg(ap, int))))
-			return (NULL);
-	}
-	else if (asset.length == 4)
-	{
-		if (!(str = ft_itoa((unsigned char)va_arg(ap, int))))
-			return (NULL);
-	}
-	else
-	{
-		if (!(str = ft_utoa(va_arg(ap, unsigned int))))
-			return (NULL);
-	}
+	if ((asset.length == 1) && (!(str = ft_ultoa(va_arg(ap, unsigned long)))))
+		return (NULL);
+	if ((asset.length == 2) && (!(str = ft_ulltoa(va_arg(ap, unsigned long long)))))
+		return (NULL);
+	if ((asset.length == 3) && (!(str = ft_itoa((unsigned short)va_arg(ap, int)))))
+		return (NULL);
+	if ((asset.length == 4) && (!(str = ft_itoa((unsigned char)va_arg(ap, int)))))
+		return (NULL);
+	if ((asset.length == 0) && (!(str = ft_utoa(va_arg(ap, unsigned int)))))
+		return (NULL);
 	if (!(str = ft_converter(asset, str)))
 		return (NULL);
 	if (!(str = ft_build_str(str, asset, 0)))

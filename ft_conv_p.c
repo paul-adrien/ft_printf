@@ -6,7 +6,7 @@
 /*   By: plaurent <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/14 12:05:22 by plaurent          #+#    #+#             */
-/*   Updated: 2019/02/26 18:30:40 by plaurent         ###   ########.fr       */
+/*   Updated: 2019/03/01 18:21:33 by eviana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ static char	*ft_add_0x(char *res, int i, t_asset asset)
 		str[i + 2] = res[i];
 
 	}
+	//free(res);
 	return (str);
 }
 
@@ -67,8 +68,8 @@ char		*ft_conv_p(t_asset asset, va_list ap) // Remarque Etienne : pas sur que ca
 	}
 	res[i] = base[(adr % 16)];
 	if (i < asset.width)
-		res = ft_s_width_preci(asset, ft_add_0x(ft_strrev(res), i, asset), asset.width, i + 3);
+		res = ft_s_width_preci(asset, ft_add_0x(ft_strrev(res), i, asset), asset.width, i + 3); // FUITE MEMOIRE AVEC RES A CORRIGER
 	else
-		res = ft_add_0x(ft_strrev(res), i, asset);
+		res = ft_add_0x(ft_strrev(res), i, asset); // FUITE MEMOIRE A GERER
 	return (res);
 }

@@ -6,7 +6,7 @@
 /*   By: eviana <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 18:08:15 by eviana            #+#    #+#             */
-/*   Updated: 2019/03/01 09:34:09 by eviana           ###   ########.fr       */
+/*   Updated: 2019/03/01 17:57:38 by eviana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ char			*ft_noconv(t_asset asset, va_list ap);
 char			*ft_s_width_preci(t_asset asset, char *str, int i, int j);
 char			*ft_convp_width(t_asset asset, char *res);
 char			*ft_s_width_preci(t_asset asset, char *str, int i, int j);
+char			*ft_width_f(t_asset asset, char *str, int i, int j);
 int				ft_findtype(char *tab);
 char			*ft_findflags(char *tab);
 int				ft_findlength(char *tab);
@@ -58,7 +59,7 @@ t_asset			ft_digest(char *tab);
 char			**ft_dispatcher(char **tab, va_list ap, char **print);
 void			ft_printasset(t_asset asset);
 int				ft_printf(const char *restrict format, ...);
-char			*sp_strnjoin(char const *s1, char const *s2,
+char			*sp_strnjoin(char  *s1, char  *s2,
 					size_t n, int mode);
 
 #endif

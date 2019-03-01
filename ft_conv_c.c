@@ -6,7 +6,7 @@
 /*   By: plaurent <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 15:04:48 by plaurent          #+#    #+#             */
-/*   Updated: 2019/03/01 11:04:35 by eviana           ###   ########.fr       */
+/*   Updated: 2019/03/01 18:20:22 by eviana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ char	*ft_s_width_preci(t_asset asset, char *str, int i, int j)
 			while (k > 0)
 				str2[--k] = ' ';
 	}
+	//free(str);
 	return (str2);
 }
 
