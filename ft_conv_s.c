@@ -6,7 +6,7 @@
 /*   By: plaurent <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/14 12:07:13 by plaurent          #+#    #+#             */
-/*   Updated: 2019/03/01 16:50:50 by eviana           ###   ########.fr       */
+/*   Updated: 2019/03/04 13:56:03 by eviana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ char	*ft_conv_s(t_asset asset, va_list ap)
 	{
 		if (!(str = ft_strnew(6)))
 			return (NULL);
-		return (str = sp_strnjoin(str, "(null)", 6, 0));
+		return ((str = sp_strnjoin(str, "(null)", 6, 0)));
 	}
 	i = ft_strlen(str);
 	if ((int)asset.width > i || (asset.precision < i &&

@@ -6,7 +6,7 @@
 /*   By: plaurent <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 11:29:05 by plaurent          #+#    #+#             */
-/*   Updated: 2019/03/01 11:54:38 by plaurent         ###   ########.fr       */
+/*   Updated: 2019/03/04 14:17:50 by eviana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ char	*ft_s_width_preci(t_asset asset, char *str, int i, int j)
 		while (i > 0 && !ft_strchr(asset.flags, '0'))
 			str2[--i] = ' ';
 	}
-	//free(str);
+	//free(str); // A NE PAS METTRE CAR UTILISE PAR CONV_S ET CONV_P DE MANIERE DIFFERENTE 
 	return (str2);
 }
 

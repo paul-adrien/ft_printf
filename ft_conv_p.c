@@ -6,33 +6,34 @@
 /*   By: plaurent <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/14 12:05:22 by plaurent          #+#    #+#             */
-/*   Updated: 2019/03/01 18:21:33 by eviana           ###   ########.fr       */
+/*   Updated: 2019/03/04 14:13:34 by eviana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static char	*ft_add_0x(char *res, int i, t_asset asset)
+static char	*ft_add_0x(char *initial, int i, t_asset asset)
 {
 	char	*str;
 
-	str = ft_strnew(i++ + 2);
+	if (!(str = ft_strnew(i + 3)))
+		return (NULL); // +3 pour laisser la place au \0 car un i++ a ete oublie plus bas
+	i++;
 	if (!ft_strchr(asset.flags, '0'))
 	{
 		while (--i >= 0)
-			str[i + 2] = res[i];
-	str[0] = '0';
-	str[1] = 'x';
+			str[i + 2] = initial[i];
+		str[0] = '0';
+		str[1] = 'x';
 	}
 	else
 	{
-	str[i] = '0';
-	str[i + 1] = 'x';
-	while (--i >= 0)
-		str[i + 2] = res[i];
-
+		str[i] = '0';
+		str[i + 1] = 'x';
+		while (--i >= 0)
+			str[i + 2] = initial[i];
 	}
-	//free(res);
+	ft_strdel(&initial);
 	return (str);
 }
 
@@ -53,23 +54,33 @@ char		*ft_conv_p(t_asset asset, va_list ap) // Remarque Etienne : pas sur que ca
 {
 	long	adr;
 	char	*base;
-	char	*res;
+	char	*final;
+	char	*additional;
 	size_t	i;
 
 	adr = va_arg(ap, long);
-	res = ft_strnew(i = ft_compt(adr) + 2); // Pourquoi i = ft_compt ?
+	final = ft_strnew(i = ft_compt(adr) + 2); // Pourquoi i = ft_compt ?
 	base = "0123456789abcdef";
 	i = 0;
 	while ((adr / 16) > 0)
 	{
-		res[i] = base[(adr % 16)];
+		final[i] = base[(adr % 16)];
 		adr /= 16;
 		i++;
 	}
-	res[i] = base[(adr % 16)];
+	final[i] = base[(adr % 16)]; // voir plus haut (un i++ aurait du arriver ici sinon)
 	if (i < asset.width)
-		res = ft_s_width_preci(asset, ft_add_0x(ft_strrev(res), i, asset), asset.width, i + 3); // FUITE MEMOIRE AVEC RES A CORRIGER
+	{
+		if (!(additional = ft_add_0x(ft_strrev(final), i, asset)))
+			return (NULL);
+		if (!(final = ft_s_width_preci(asset, additional, asset.width, i + 3)))	// FUITE MEMOIRE AVEC RES A CORRIGER
+		{
+			free(additional);
+			return (NULL);
+		}
+		ft_strdel(&additional);
+	}
 	else
-		res = ft_add_0x(ft_strrev(res), i, asset); // FUITE MEMOIRE A GERER
-	return (res);
+		final = ft_add_0x(ft_strrev(final), i, asset); // FUITE MEMOIRE A GERER
+	return (final);
 }

@@ -6,7 +6,7 @@
 /*   By: eviana <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/25 16:40:38 by eviana            #+#    #+#             */
-/*   Updated: 2019/03/01 15:03:40 by eviana           ###   ########.fr       */
+/*   Updated: 2019/03/04 14:46:03 by eviana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char	*ft_conv_percent(t_asset asset, va_list ap)
 	size_t			j;
 
 	j = 0;
-	width = asset.width;
+	width = (!(width = asset.width) ? 1 : width);
 	str = ft_strnew(width);
 	if (ft_strchr(asset.flags, 'l'))
 	{

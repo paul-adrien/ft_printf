@@ -6,7 +6,7 @@
 /*   By: plaurent <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/14 14:30:31 by plaurent          #+#    #+#             */
-/*   Updated: 2019/03/04 11:59:38 by eviana           ###   ########.fr       */
+/*   Updated: 2019/03/04 12:08:26 by eviana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,21 +20,21 @@ char	*sp_strnjoin(char *s1, char *s2, size_t n, int mode)
 	{
 		if (mode == 2)
 		{
-			free(s1);
-			free(s2);
+			ft_strdel(&s1);
+			ft_strdel(&s2);
 		}
 		else
-			(mode == 0 ? free(s1) : free(s2));
+			(mode == 0 ? ft_strdel(&s1) : ft_strdel(&s2));
 		return (NULL);
 	}
 	str = ft_strcpy(str, s1);
 	str = ft_strncat(str, s2, n);
 	if (mode == 2)
 	{
-		free(s1);
-		free(s2);
+		ft_strdel(&s1);
+		ft_strdel(&s2);
 	}
 	else
-		(mode == 0 ? free(s1) : free(s2));
+		(mode == 0 ? ft_strdel(&s1) : ft_strdel(&s2));
 	return (str);
 }
