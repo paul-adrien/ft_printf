@@ -6,7 +6,7 @@
 /*   By: eviana <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/14 13:39:38 by eviana            #+#    #+#             */
-/*   Updated: 2019/03/01 17:42:49 by eviana           ###   ########.fr       */
+/*   Updated: 2019/03/04 11:16:01 by eviana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,12 +102,12 @@ int             main(int ac, char **av)
 	}
 	else if (ac == 4)
 	{
-		ft_printf("\n");
+		/*ft_printf("\n");
 		ft_printf("%%\n");
 		ft_printf("%d\n", 42);
-		ft_printf("%d%d\n", 42, 41);
+		ft_printf("%d%d\n", 42, 41);*/
 		ft_printf("%d%d%d\n", 42, 43, 44);
-		ft_printf("%ld\n", 2147483647);
+		/*ft_printf("%ld\n", 2147483647);
 		ft_printf("%lld\n", 9223372036854775807);
 		ft_printf("%x\n", 505);
 		ft_printf("%X\n", 505);
@@ -131,7 +131,7 @@ int             main(int ac, char **av)
 		ft_printf("%S\n", L"ݗݜशব");
 		ft_printf("%s%s\n", "test", "test");
 		ft_printf("%s%s%s\n", "test", "test", "test");
-		ft_printf("%C\n", 15000);
+		ft_printf("%C\n", 15000);*/
 	}
 	//else
 	//	ft_putstr("wrong number of inputs");

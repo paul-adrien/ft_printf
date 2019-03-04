@@ -6,7 +6,7 @@
 /*   By: plaurent <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/14 17:43:02 by plaurent          #+#    #+#             */
-/*   Updated: 2019/03/01 11:30:24 by plaurent         ###   ########.fr       */
+/*   Updated: 2019/03/04 11:15:06 by eviana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ static char		*ft_precision(t_asset asset, char *str)
 	return (str);
 }
 
-static char		*ft_conv(char *str, long k, double n, int s)
+static char		*st_conv(char *str, long k, double n, int s)
 {
 	unsigned long	j;
 	int				i;
@@ -115,7 +115,7 @@ static char		*ft_ftoa(double n)
 	}
 	if (!(str = ft_strnew(st_countsize(n) + 19)))
 		return (NULL);
-	str = ft_conv(str, n, n, i);
+	str = st_conv(str, n, n, i);
 	return (str);
 }
 

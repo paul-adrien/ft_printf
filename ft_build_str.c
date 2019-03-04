@@ -6,7 +6,7 @@
 /*   By: plaurent <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/14 14:19:12 by plaurent          #+#    #+#             */
-/*   Updated: 2019/03/01 18:21:54 by eviana           ###   ########.fr       */
+/*   Updated: 2019/03/04 11:20:29 by eviana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,15 +100,15 @@ char		*ft_addbuild(char *initial, char *additional, t_asset asset)
 	{
 		if (!(build = sp_strnjoin(initial, additional, ft_strlen(additional), 0)))
 		{
-			free(additional);
-			free(initial);
+			ft_strdel(&additional);
+			ft_strdel(&initial);
 			return (NULL);
 		}
 	}
 	else if (!(build = sp_strnjoin(additional, initial, ft_strlen(initial), 1)))
 	{
-		free(additional);
-		free(initial);
+		ft_strdel(&additional);
+		ft_strdel(&initial);
 		return (NULL);
 	}
 	return (build);
@@ -157,12 +157,12 @@ char	*ft_build_str(char *initial, t_asset asset, int signmode)
 		return (NULL);
 	if (!(final = ft_preparewidth(final, asset, signmode)))
 		return (NULL);
-	free(additional);
+	ft_strdel(&additional);
 	if (!(additional = ft_set_width(final, asset, signmode)))
 		return (NULL);
 	if (!(final = ft_addbuild(final, additional, asset)))
 		return (NULL);
-	free(additional);
-	free(initial);
+	ft_strdel(&additional);
+	ft_strdel(&initial);
 	return (final);
 }
