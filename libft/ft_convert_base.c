@@ -6,7 +6,7 @@
 /*   By: eviana <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/14 15:17:51 by eviana            #+#    #+#             */
-/*   Updated: 2019/02/26 16:07:33 by eviana           ###   ########.fr       */
+/*   Updated: 2019/03/04 10:30:32 by eviana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,13 +70,6 @@ static unsigned long long	sp_atoull_base(char *str, char *base)
 	while (str_len > 0)
 	{
 		j = 0;
-	/*	while (str_len > 0 && base[0] == str[str_len - 1])
-		{
-			i++;
-			str_len--;
-		}
-		if (str_len == 0)
-			break;*/
 		while (base[j] && base[j] != str[str_len - 1])
 			j++;
 		res = res + (j * sp_power(base_len, i));
@@ -102,7 +95,8 @@ static int					sp_strlen_base(unsigned long long nbr, size_t base)
 	return (res);
 }
 
-char				*ft_convert_base(char *nbr, char *base_from, char *base_to)
+char						*ft_convert_base
+	(char *nbr, char *base_from, char *base_to)
 {
 	char				*str;
 	unsigned long long	decimal_nb;

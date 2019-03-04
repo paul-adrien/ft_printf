@@ -6,7 +6,7 @@
 /*   By: eviana <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 14:03:07 by eviana            #+#    #+#             */
-/*   Updated: 2019/02/26 14:04:19 by eviana           ###   ########.fr       */
+/*   Updated: 2019/03/04 09:37:37 by eviana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static char	*st_set_str(char *str, long newnb, int i, int limitmemory)
 char		*ft_ltoa(long int n)
 {
 	char			*str;
-	long int	newnb;
+	long int		newnb;
 	int				limitmemory;
 	int				i;
 

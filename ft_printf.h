@@ -6,7 +6,7 @@
 /*   By: eviana <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 18:08:15 by eviana            #+#    #+#             */
-/*   Updated: 2019/03/01 17:57:38 by eviana           ###   ########.fr       */
+/*   Updated: 2019/03/04 09:51:14 by eviana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ typedef struct	s_asset
 char			**ft_formattotab(const char *restrict s);
 int				ft_isconv(char c);
 int				ft_charcount(const char *restrict s, int i, int mode);
-unsigned int	ft_strcountparts(const char *s);
+unsigned int	ft_partsnbr(const char *s);
 int				ft_check_arg_nb(char **tab, va_list ap);
 char			**ft_setprint(char **tab);
 char			*ft_conv_p(t_asset asset, va_list ap);

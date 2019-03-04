@@ -6,7 +6,7 @@
 /*   By: eviana <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/14 13:49:55 by eviana            #+#    #+#             */
-/*   Updated: 2019/03/01 18:07:50 by eviana           ###   ########.fr       */
+/*   Updated: 2019/03/04 09:36:31 by eviana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ int		ft_findprecision(char *tab)
 int		ft_findlength(char *tab)
 {
 	size_t i;
-	
+
 	i = 0;
 	while (tab[++i])
 	{

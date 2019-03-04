@@ -6,7 +6,7 @@
 /*   By: eviana <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/14 13:46:34 by eviana            #+#    #+#             */
-/*   Updated: 2019/02/25 16:10:04 by eviana           ###   ########.fr       */
+/*   Updated: 2019/03/04 10:06:30 by eviana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int				ft_isconv(char c)
 	return (0);
 }
 
-unsigned int	ft_strcountparts(const char *s) // ATTENTION AU DOUBLE %% / A TRAITER COMME %c ???
+unsigned int	ft_partsnbr(const char *s)
 {
 	unsigned int	i;
 	unsigned int	j;
@@ -32,11 +32,9 @@ unsigned int	ft_strcountparts(const char *s) // ATTENTION AU DOUBLE %% / A TRAIT
 	while (s[i])
 	{
 		j = 0;
-		while (s[i] && s[i] != '%')// || ((s[i] && s[i] == '%') && (s[i + 1] && s[i + 1] == '%')))
+		while (s[i] && s[i] != '%')
 			i++;
-			//((s[i] && s[i] == '%') && (s[i + 1] && s[i + 1] == '%') == 1 ? i = i + 2 : i++);
-		if (i != 0)
-			k++;
+		k = ((i != 0) ? k + 1 : k);
 		if (s[i] && s[i] == '%')
 		{
 			j++;
@@ -45,23 +43,21 @@ unsigned int	ft_strcountparts(const char *s) // ATTENTION AU DOUBLE %% / A TRAIT
 		}
 		if (s[i + j] && ft_isconv(s[i + j]))
 			j++;
-		if (j != 0)
-			k++;
+		k = ((j != 0) ? k + 1 : k);
 		i = i + j;
 	}
 	return (k);
 }
 
-int				ft_charcount(const char * restrict s, int i, int mode)
+int				ft_charcount(const char *restrict s, int i, int mode)
 {
 	int j;
 
 	j = 0;
 	if (mode == 1)
 	{
-		while (s[i + j] && s[i + j] != '%')// || ((s[i + j] && s[i + j] == '%') && (s[i + j + 1] && s[i + j + 1] == '%')))
+		while (s[i + j] && s[i + j] != '%')
 			j++;
-			//((s[i + j] && s[i + j] == '%') && (s[i + j + 1] && s[i + j + 1] == '%') == 1 ? j = j + 2 : j++);
 		return (j);
 	}
 	else
@@ -78,7 +74,7 @@ int				ft_charcount(const char * restrict s, int i, int mode)
 	}
 }
 
-char			**ft_formattotab(const char * restrict s) // ATTENTION A TRAITER LE % comme un %c avec un % en param
+char			**ft_formattotab(const char *restrict s)
 {
 	int		i;
 	int		j;
@@ -87,7 +83,7 @@ char			**ft_formattotab(const char * restrict s) // ATTENTION A TRAITER LE % com
 
 	i = 0;
 	k = 0;
-	if (!s || !(tab = (char**)malloc(sizeof(char*) * (ft_strcountparts(s) + 1))))
+	if (!s || !(tab = (char**)malloc(sizeof(char*) * (ft_partsnbr(s) + 1))))
 		return (NULL);
 	while (s[i])
 	{
@@ -96,8 +92,7 @@ char			**ft_formattotab(const char * restrict s) // ATTENTION A TRAITER LE % com
 			tab[k] = ft_strsub(s, i, (size_t)j);
 			k++;
 		}
-		i = i + j;
-		if ((j = ft_charcount(s, i , 2)))
+		else if ((j = ft_charcount(s, i, 2)))
 		{
 			tab[k] = ft_strsub(s, i, (size_t)j);
 			k++;
