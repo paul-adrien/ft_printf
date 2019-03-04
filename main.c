@@ -6,7 +6,7 @@
 /*   By: eviana <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/14 13:39:38 by eviana            #+#    #+#             */
-/*   Updated: 2019/03/04 12:04:07 by eviana           ###   ########.fr       */
+/*   Updated: 2019/03/04 15:06:52 by plaurent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,8 @@ int             main(int ac, char **av)
 	char    *str5;
 	char    str6[1] = "d";
 	char    *str7;
-	//double	i = 1.1234567890123456789;
+	double	i = 1.42;
+	double	j = 1444565444646.6465424242242;
 
 	if (ac == 1)
 	{
@@ -96,9 +97,9 @@ int             main(int ac, char **av)
 	{
 		ft_putstr("MANUAL MODE :\n");
 		ft_putstr("R1 |");
-		ft_printf(av[1], atoi(av[2]));
-		//ft_putstr("|\nR2 |");
-		//printf(av[1], atoi(av[2]));
+		ft_printf(av[1], i, j);
+		ft_putstr("|\nR2 |");
+		printf(av[1], i, j);
 	}
 	else if (ac == 4)
 	{
