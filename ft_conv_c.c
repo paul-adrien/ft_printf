@@ -41,7 +41,7 @@
 	return (str);
 }*/
 
-char	*ft_s_width_preci(t_asset asset, char *str, int i, int j)
+/*char	*ft_s_width_preci(t_asset asset, char *str, int i, int j)
 {
 	char	*str2;
 	int		k;
@@ -77,48 +77,31 @@ char	*ft_s_width_preci(t_asset asset, char *str, int i, int j)
 	}
 	//free(str);
 	return (str2);
-}
+}*/
 
 // GERER LE CAS OU LE CARACTERE NULL EST ENVOYER
 char	*ft_conv_c(t_asset asset, va_list ap)
 {
 	char			*str;
 	unsigned char	c;
-	wint_t			w;
 	size_t			width;
 	size_t			j;
 
 	j = 0;
 	width = asset.width;
 	str = ft_strnew(width);// a l'origine width + 2 ?
-	if (ft_strchr(asset.flags, 'l'))
-	{
-		w = va_arg(ap, wint_t);
-		//if (!(w = va_arg(ap, wint_t)))
-		//	return (0);
+	c = va_arg(ap, int);
+	//if (!(c = va_arg(ap, int)) && width < 1) // a voir pour asset.width
+	//	return (ft_strnew(0)); // a checker car peut etre dangereux
+	if (ft_strchr(asset.flags, '0') && !ft_strchr(asset.flags, '-'))
+		while (j < width)
+			str[j++] = '0';
+	else //if (ft_strchr(asset.flags, '0')
 		while (j < width)
 			str[j++] = ' ';
-		if (ft_strchr(asset.flags, '-') || width == 0)
-			str[0] = (char)w;
-		else
-			str[--width] = (char)w;
-	}
+	if ((ft_strchr(asset.flags, '-') || width == 0) && c)
+		str[0] = c;
 	else
-	{
-		c = va_arg(ap, int);
-		//if (!(c = va_arg(ap, int)) && width < 1) // a voir pour asset.width
-		//	return (ft_strnew(0)); // a checker car peut etre dangereux
-		if (ft_strchr(asset.flags, '0') && !ft_strchr(asset.flags, '-'))
-			while (j < width)
-				str[j++] = '0';
-		else //if (ft_strchr(asset.flags, '0')
-			while (j < width)
-				str[j++] = ' ';
-		if ((ft_strchr(asset.flags, '-') || width == 0) && c)
-			str[0] = c;
-		else
-			str[--width] = c;
-	}
-	//ft_putstr(str);
+		str[--width] = c;
 	return (str);
 }

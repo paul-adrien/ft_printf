@@ -43,8 +43,6 @@ static char		*ft_precision(t_asset asset, char *str)
 	int		i;
 
 	i = 0;
-	//ft_putstr(str);
-	//ft_putchar('|');
 	while (str[i] != '.')
 		i++;
 	if (asset.precision < 16)
@@ -62,10 +60,6 @@ static char		*ft_precision(t_asset asset, char *str)
 			str[i++ + 18] = '0';
 		str[i + asset.precision] = '\0';
 	}
-	//ft_putnbr(ft_strlen(str));
-	//ft_putchar('|');
-	//ft_putnbr(i);
-	//ft_putchar('|');
 	return (str);
 }
 
@@ -93,8 +87,6 @@ static char		*ft_conv(char *str, long k, double n, int s)
 	if (s == 1)
 		str[i++] = '-';
 	str[i] = '\0';
-	//ft_putstr(str);
-	//ft_putchar('|');
 	return (ft_strrev(str));
 }
 
