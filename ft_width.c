@@ -6,7 +6,7 @@
 /*   By: plaurent <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 11:29:05 by plaurent          #+#    #+#             */
-/*   Updated: 2019/03/04 15:08:50 by plaurent         ###   ########.fr       */
+/*   Updated: 2019/03/05 14:54:15 by plaurent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,9 +65,9 @@ char			*ft_width_f(t_asset asset, char *str, int i/*width*/, int j/*strlen*/)
 	}
 	if (ft_strchr(asset.flags, '-') || i == j)
 	{
-		if (ft_strchr(asset.flags, '+'))
+		if (ft_strchr(asset.flags, '+') && !ft_strchr(str, '-'))
 			str2[n++] = '+';
-		else if (ft_strchr(asset.flags, ' '))
+		else if (ft_strchr(asset.flags, ' ') && !ft_strchr(str, '-'))
 			str2[n++] = ' ';
 		while (++k < j)
 			str2[k + n] = str[k];
@@ -88,16 +88,17 @@ char			*ft_width_f(t_asset asset, char *str, int i/*width*/, int j/*strlen*/)
 				str2[--k] = ' ';
 		}
 		if (ft_strchr(asset.flags, '+') && ft_strchr(asset.flags, '0')
-				&& str[0] != '-')
+				&& !ft_strchr(str, '-'))
 			str2[0] = '+';
-		else if (ft_strchr(asset.flags, '+') && str[0] != '-')
+		else if (ft_strchr(asset.flags, '+') && !ft_strchr(str, '-'))
 			str2[n - 1] = '+';
-		else if (str[0] == '-' && ft_strchr(asset.flags, '0'))
+		else if (ft_strchr(str, '-') && ft_strchr(asset.flags, '0'))
 		{
 			str2[0] = '-';
 			str2[n] = '0';
 		}
-		else if (ft_strchr(asset.flags, ' ') && ft_strchr(asset.flags, '0'))
+		else if (ft_strchr(asset.flags, ' ') && ft_strchr(asset.flags, '0') &&
+				!ft_strchr(str, '-'))
 			str2[0] = ' ';
 	}
 	return (str2);

@@ -6,7 +6,7 @@
 /*   By: plaurent <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/04 15:01:42 by plaurent          #+#    #+#             */
-/*   Updated: 2019/03/04 15:22:28 by plaurent         ###   ########.fr       */
+/*   Updated: 2019/03/05 15:50:13 by plaurent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,12 @@ static char		*ft_ftoa(double n)
 	char	*str;
 
 	i = 0;
+	/*if (n == 1.0/0.0)
+		return ("inf");
+	if (n == -1.0/0.0)
+		return ("-inf");
+	if (n == 0.0/0.0)
+		return ("nan");*/
 	if (n == 0)
 	{
 		if (!(str = ft_strnew(19)))
@@ -120,25 +126,30 @@ static char		*ft_ftoa(double n)
 	return (str);
 }
 
-static char		*ft_preci_0(t_asset asset, long k)
+static char		*ft_preci_0(t_asset asset, double n, long k)
 {
 	int		i;
 	char	*str;
 
-	i = st_countsize(k);
+	k = n * 10;
+	i = st_countsize(k) - 1;
 	if (!(str = ft_strnew(i + 2)))
 		return (NULL);
 	if (ft_strchr(asset.flags, '#') && k != 0)
 		str[i] = '.';
 	else if (ft_strchr(asset.flags, '#') && k == 0)
-		str[i] = '.';
+		str[1] = '.';
 	if (k == 0)
-		str[1] = '0';
+		str[0] = '0';
 	if (k < 0)
 	{
 		k = -k;
 		str[0] = '-';
 	}
+	if (k % 10 > 4)
+		k = (k / 10) + 1;
+	else
+		k = k / 10;
 	while (k != 0)
 	{
 		str[--i] = (k % 10) + '0';
@@ -154,7 +165,7 @@ char			*ft_conv_f(t_asset asset, va_list ap)
 	if (asset.precision == -1)
 		asset.precision = 6;
 	if (asset.precision == 0)
-		str = ft_preci_0(asset, va_arg(ap, double));
+		str = ft_preci_0(asset, va_arg(ap, double), 0);
 	else
 	{
 		str = ft_ftoa(va_arg(ap, double));
