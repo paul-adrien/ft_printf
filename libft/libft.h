@@ -6,7 +6,7 @@
 /*   By: plaurent <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/08 10:40:57 by plaurent          #+#    #+#             */
-/*   Updated: 2019/02/26 15:08:00 by eviana           ###   ########.fr       */
+/*   Updated: 2019/03/06 18:06:32 by plaurent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ typedef struct	s_list
 	struct s_list	*next;
 }				t_list;
 
+int				ft_size_long(long n);
 char			*ft_strrev(char *str);
 char			*ft_lltoa(long long n);
 char			*ft_ltoa(long n);

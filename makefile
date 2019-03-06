@@ -6,7 +6,7 @@
 #    By: plaurent <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/14 14:54:18 by plaurent          #+#    #+#              #
-#    Updated: 2019/03/04 15:27:03 by plaurent         ###   ########.fr        #
+#    Updated: 2019/03/06 18:21:54 by plaurent         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ CFLAGS = -Wall -Werror -Wextra
 SRC1 = ft_build_str.c ft_conv_di.c ft_conv_p.c ft_conv_s.c				\
 	  ft_conv_c.c ft_dispatch.c ft_find.c ft_formattotab.c ft_printf.c	\
 	  ft_print_asset.c ft_special.c ft_conv_oux.c ft_conv_percent.c		\
-	  ft_conv_f.c ft_noconv.c ft_setprint.c ft_width.c
+	  ft_conv_f.c ft_noconv.c ft_setprint.c ft_width.c ft_inf_f.c
 
 SRC2 = libft/ft_putchar_fd.c libft/ft_putnbr.c libft/ft_putendl.c libft/ft_putstr.c libft/ft_putchar.c	\
 	  libft/ft_itoa.c libft/ft_strsplit.c libft/ft_strtrim.c libft/ft_strjoin.c libft/ft_strsub.c		\
@@ -32,7 +32,7 @@ SRC2 = libft/ft_putchar_fd.c libft/ft_putnbr.c libft/ft_putendl.c libft/ft_putst
 	  libft/ft_putstr_fd.c libft/ft_strdup.c libft/ft_ltoa.c libft/ft_lltoa.c libft/ft_strrev.c 		\
 	  libft/ft_lstnew.c libft/ft_lstdelone.c libft/ft_lstdel.c libft/ft_lstadd.c libft/ft_lstiter.c		\
 	  libft/ft_lstmap.c libft/ft_foreach.c libft/ft_factorial.c	libft/ft_strcount.c						\
-	  libft/ft_power.c libft/ft_fibonacci.c libft/ft_sqrt.c libft/ft_is_prime.c							\
+	  libft/ft_power.c libft/ft_fibonacci.c libft/ft_sqrt.c libft/ft_is_prime.c libft/ft_size_long.c	\
 	  libft/ft_utoa.c libft/ft_ultoa.c libft/ft_ulltoa.c libft/ft_convert_base.c libft/ft_putull.c		\
 
 SRC3 = $(SRC1) $(SRC2)
@@ -42,7 +42,7 @@ HEADER = ft_printf.h libft/libft.h
 OBJ1 = ft_build_str.o ft_conv_di.o ft_conv_p.o ft_conv_s.o				\
 	  ft_conv_c.o ft_dispatch.o ft_find.o ft_formattotab.o ft_printf.o	\
 	  ft_print_asset.o ft_special.o ft_conv_oux.o ft_conv_percent.o		\
-	  ft_conv_f.o ft_noconv.o ft_setprint.o ft_width.o
+	  ft_conv_f.o ft_noconv.o ft_setprint.o ft_width.o ft_inf_f.o
 
 OBJ2 = ft_putchar_fd.o ft_putnbr.o ft_putendl.o ft_putstr.o ft_putchar.o\
 	  ft_itoa.o ft_strsplit.o ft_strtrim.o ft_strjoin.o ft_strsub.o		\
@@ -57,7 +57,7 @@ OBJ2 = ft_putchar_fd.o ft_putnbr.o ft_putendl.o ft_putstr.o ft_putchar.o\
 	  ft_putstr_fd.o ft_strdup.o ft_ltoa.o ft_lltoa.o ft_strrev.o		\
 	  ft_lstnew.o ft_lstdelone.o ft_lstdel.o ft_lstadd.o ft_lstiter.o	\
 	  ft_lstmap.o ft_foreach.o ft_factorial.o	ft_strcount.o			\
-	  ft_power.o ft_fibonacci.o ft_sqrt.o ft_is_prime.o					\
+	  ft_power.o ft_fibonacci.o ft_sqrt.o ft_is_prime.o ft_size_long.o	\
 	  ft_utoa.o ft_ultoa.o ft_ulltoa.o ft_convert_base.o ft_putull.o	\
 
 OBJ3 = $(OBJ1) $(OBJ2)

@@ -6,13 +6,24 @@
 /*   By: plaurent <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/14 14:30:31 by plaurent          #+#    #+#             */
-/*   Updated: 2019/03/04 12:08:26 by eviana           ###   ########.fr       */
+/*   Updated: 2019/03/06 18:12:01 by plaurent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-char	*sp_strnjoin(char *s1, char *s2, size_t n, int mode)
+unsigned long	sp_power(long nb, int power)
+{
+	if (power > 1)
+		return (nb * sp_power(nb, (power - 1)));
+	if (power < 0)
+		return (0);
+	if (power == 0)
+		return (1);
+	return (nb);
+}
+
+char			*sp_strnjoin(char *s1, char *s2, size_t n, int mode)
 {
 	char	*str;
 

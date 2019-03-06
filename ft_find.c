@@ -6,7 +6,7 @@
 /*   By: eviana <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/14 13:49:55 by eviana            #+#    #+#             */
-/*   Updated: 2019/03/04 14:55:24 by eviana           ###   ########.fr       */
+/*   Updated: 2019/03/06 17:40:07 by plaurent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ size_t	ft_findwidth(char *tab)
 			j = 1;
 			while (tab[i - j] == '0')
 				j++;
-			if (tab[i - j] != '.' && (tab[i - j] < '0' || tab[i - j] > '9')) // || tab[i - j] == '%')
+			if (tab[i - j] != '.' && (tab[i - j] < '0' || tab[i - j] > '9'))
 			{
 				n = 0;
 				while (tab[i] <= '9' && tab[i] >= '0')
@@ -112,7 +112,7 @@ int		ft_findtype(char *tab)
 		i--;
 		(tab[i] == 'd' || tab[i] == 'i' ? n = 1 : 0);
 		(tab[i] == 'o' ? n = 21 : 0);
-	  	(tab[i] == 'u' ? n = 22 : 0);
+		(tab[i] == 'u' ? n = 22 : 0);
 		(tab[i] == 'x' ? n = 23 : 0);
 		(tab[i] == 'X' ? n = 24 : 0);
 		(tab[i] == 'c' ? n = 3 : 0);

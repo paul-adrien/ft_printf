@@ -6,37 +6,11 @@
 /*   By: plaurent <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/04 15:01:42 by plaurent          #+#    #+#             */
-/*   Updated: 2019/03/06 13:15:47 by plaurent         ###   ########.fr       */
+/*   Updated: 2019/03/06 18:24:24 by plaurent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-
-static unsigned long	sp_power(long nb, int power)
-{
-		if (power > 1)
-					return (nb * sp_power(nb, (power - 1)));
-			if (power < 0)
-				return (0);
-			if (power == 0)
-				return (1);
-			return (nb);
-}
-
-static int	st_countsize(long n)
-{
-	int i;
-
-	i = 0;
-	if (n <= 0)
-		i++;
-	while (n != 0)
-	{
-		n = n / 10;
-		i++;
-	}
-	return (i);
-}
 
 static char		*ft_precision(t_asset asset, char *str)
 {
@@ -91,37 +65,6 @@ static char		*st_conv(char *str, long k, double n, int s)
 	return (ft_strrev(str));
 }
 
-static char		*st_inf(t_asset asset, char *str2)
-{
-	size_t	i;
-	int		j;
-	char	*str;
-
-	j = 0;
-	if (ft_strlen(str2) > asset.width)
-		i = ft_strlen(str2);
-	else
-		i = asset.width;
-	if (!(str = ft_strnew(i)))
-			return (NULL);
-	i = -1;
-	if (ft_strchr(asset.flags, '-'))
-	{
-		while (str2[++i])
-			str[i] = str2[i];
-		while (i < asset.width)
-			str[i++] = ' ';
-	}
-	else
-	{
-		while (i + 1 < (asset.width - ft_strlen(str2)) && asset.width > ft_strlen(str2))
-			str[++i] = ' ';
-		while (str2[j])
-			str[++i] = str2[j++];
-	}
-	return (str);
-}
-
 static char		*ft_ftoa(double n)
 {
 	int		i;
@@ -144,19 +87,18 @@ static char		*ft_ftoa(double n)
 		n = -n;
 		i = 1;
 	}
-	if (!(str = ft_strnew(st_countsize(n) + 19)))
+	if (!(str = ft_strnew(ft_size_long(n) + 19)))
 		return (NULL);
 	str = st_conv(str, n, n, i);
 	return (str);
 }
 
-static char		*ft_preci_0(t_asset asset, double n, long k)
+static char		*ft_preci_0(t_asset asset, double n, long k, int i)
 {
-	int		i;
 	char	*str;
 
 	k = n * 10;
-	i = st_countsize(k) - 1;
+	i = ft_size_long(k) - 1;
 	if (!(str = ft_strnew(i + 2)))
 		return (NULL);
 	if (ft_strchr(asset.flags, '#') && k != 0)
@@ -174,11 +116,9 @@ static char		*ft_preci_0(t_asset asset, double n, long k)
 		k = (k / 10) + 1;
 	else
 		k = k / 10;
-	while (k != 0)
-	{
+	k = k * 10;
+	while ((k = k / 10) != 0)
 		str[--i] = (k % 10) + '0';
-		k = k / 10;
-	}
 	return (str);
 }
 
@@ -190,14 +130,14 @@ char			*ft_conv_f(t_asset asset, va_list ap)
 	n = va_arg(ap, double);
 	if (asset.precision == -1)
 		asset.precision = 6;
-	if (n == 1.0/0.0)
-		return (str = st_inf(asset, "inf"));
-	if (n == -1.0/0.0)
-		return (str = st_inf(asset, "-inf"));
-	if (n == 0.0/0.0)
-		return (str = st_inf(asset, "nan"));
+	if (n == 1.0 / 0.0)
+		return (str = ft_inf_f(asset, "inf", 0, 0));
+	if (n == -1.0 / 0.0)
+		return (str = ft_inf_f(asset, "-inf", 0, 0));
+	if (n == 0.0 / 0.0)
+		return (str = ft_inf_f(asset, "nan", 0, 0));
 	else if (asset.precision == 0)
-		str = ft_preci_0(asset, n, 0);
+		str = ft_preci_0(asset, n, 0, 0);
 	else
 	{
 		str = ft_ftoa(n);
