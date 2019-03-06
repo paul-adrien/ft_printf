@@ -6,7 +6,7 @@
 /*   By: plaurent <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/04 15:01:42 by plaurent          #+#    #+#             */
-/*   Updated: 2019/03/05 15:50:13 by plaurent         ###   ########.fr       */
+/*   Updated: 2019/03/06 13:15:47 by plaurent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,36 @@ static char		*st_conv(char *str, long k, double n, int s)
 	return (ft_strrev(str));
 }
 
+static char		*st_inf(t_asset asset, char *str2)
+{
+	size_t	i;
+	int		j;
+	char	*str;
+
+	j = 0;
+	if (ft_strlen(str2) > asset.width)
+		i = ft_strlen(str2);
+	else
+		i = asset.width;
+	if (!(str = ft_strnew(i)))
+			return (NULL);
+	i = -1;
+	if (ft_strchr(asset.flags, '-'))
+	{
+		while (str2[++i])
+			str[i] = str2[i];
+		while (i < asset.width)
+			str[i++] = ' ';
+	}
+	else
+	{
+		while (i + 1 < (asset.width - ft_strlen(str2)) && asset.width > ft_strlen(str2))
+			str[++i] = ' ';
+		while (str2[j])
+			str[++i] = str2[j++];
+	}
+	return (str);
+}
 
 static char		*ft_ftoa(double n)
 {
@@ -98,12 +128,6 @@ static char		*ft_ftoa(double n)
 	char	*str;
 
 	i = 0;
-	/*if (n == 1.0/0.0)
-		return ("inf");
-	if (n == -1.0/0.0)
-		return ("-inf");
-	if (n == 0.0/0.0)
-		return ("nan");*/
 	if (n == 0)
 	{
 		if (!(str = ft_strnew(19)))
@@ -161,14 +185,22 @@ static char		*ft_preci_0(t_asset asset, double n, long k)
 char			*ft_conv_f(t_asset asset, va_list ap)
 {
 	char	*str;
+	double	n;
 
+	n = va_arg(ap, double);
 	if (asset.precision == -1)
 		asset.precision = 6;
-	if (asset.precision == 0)
-		str = ft_preci_0(asset, va_arg(ap, double), 0);
+	if (n == 1.0/0.0)
+		return (str = st_inf(asset, "inf"));
+	if (n == -1.0/0.0)
+		return (str = st_inf(asset, "-inf"));
+	if (n == 0.0/0.0)
+		return (str = st_inf(asset, "nan"));
+	else if (asset.precision == 0)
+		str = ft_preci_0(asset, n, 0);
 	else
 	{
-		str = ft_ftoa(va_arg(ap, double));
+		str = ft_ftoa(n);
 		str = ft_precision(asset, str);
 	}
 	str = ft_width_f(asset, str, asset.width, ft_strlen(str));

@@ -6,7 +6,7 @@
 /*   By: eviana <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 18:08:15 by eviana            #+#    #+#             */
-/*   Updated: 2019/03/04 09:51:14 by eviana           ###   ########.fr       */
+/*   Updated: 2019/03/06 11:41:00 by plaurent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,7 @@ char			*ft_conv_oux(t_asset asset, va_list ap);
 char			*ft_conv_f(t_asset asset, va_list ap);
 char			*ft_conv_percent(t_asset asset, va_list ap);
 char			*ft_noconv(t_asset asset, va_list ap);
-char			*ft_s_width_preci(t_asset asset, char *str, int i, int j);
 char			*ft_convp_width(t_asset asset, char *res);
-char			*ft_s_width_preci(t_asset asset, char *str, int i, int j);
 char			*ft_width_f(t_asset asset, char *str, int i, int j);
 int				ft_findtype(char *tab);
 char			*ft_findflags(char *tab);

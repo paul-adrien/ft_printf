@@ -6,11 +6,43 @@
 /*   By: plaurent <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/14 12:05:22 by plaurent          #+#    #+#             */
-/*   Updated: 2019/03/04 14:13:34 by eviana           ###   ########.fr       */
+/*   Updated: 2019/03/06 11:42:33 by plaurent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+
+char	*st_width_preci(t_asset asset, char *str, int i, int j)
+{
+	char	*str2;
+	int		k;
+
+	// i = taille final de str
+	// j = taille de str a ecrire
+	k = -1;
+	if (i < j && i != 0)
+		i = j;
+	if (!(str2 = ft_strnew(i + 1)))
+		return (NULL);
+	if (ft_strchr(asset.flags, '-') || i == j)
+	{
+		while (++k < j)
+			str2[k] = str[k];
+		while (k < i)
+			str2[k++] = ' ';
+	}
+	else
+	{
+		while (--j >= 0)
+			str2[--i] = str[j];
+		while (i > 0 && ft_strchr(asset.flags, '0'))
+			str2[--i] = '0';
+		while (i > 0 && !ft_strchr(asset.flags, '0'))
+			str2[--i] = ' ';
+	}
+	//free(str); // A NE PAS METTRE CAR UTILISE PAR CONV_S ET CONV_P DE MANIERE DIFFERENTE
+	return (str2);
+}
 
 static char	*ft_add_0x(char *initial, int i, t_asset asset)
 {
@@ -73,7 +105,7 @@ char		*ft_conv_p(t_asset asset, va_list ap) // Remarque Etienne : pas sur que ca
 	{
 		if (!(additional = ft_add_0x(ft_strrev(final), i, asset)))
 			return (NULL);
-		if (!(final = ft_s_width_preci(asset, additional, asset.width, i + 3)))	// FUITE MEMOIRE AVEC RES A CORRIGER
+		if (!(final = st_width_preci(asset, additional, asset.width, i + 3)))	// FUITE MEMOIRE AVEC RES A CORRIGER
 		{
 			free(additional);
 			return (NULL);
