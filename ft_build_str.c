@@ -6,7 +6,7 @@
 /*   By: plaurent <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/14 14:19:12 by plaurent          #+#    #+#             */
-/*   Updated: 2019/03/04 12:05:16 by eviana           ###   ########.fr       */
+/*   Updated: 2019/03/06 16:06:23 by eviana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,13 @@ char		*ft_set_precision(char *initial, t_asset *asset, int signmode)
 
 	if (asset->type == 21 && ft_strchr(asset->flags, '#'))
 	{
-		asset->precision = (asset->precision <= (int)(ft_strlen(initial))
+		//if (asset->precision > (int)asset->width) // NEW
+		//if (asset->precision != -1 || asset->precision < (int)asset->width) // NEW
+		if (!(asset->precision == -1 && ft_strchr(asset->flags, '0') && asset->width > ft_strlen(initial))
+				&& !(asset->precision == -1 && asset->width == 0 && ft_atoi(initial) == 0))//pour hash seul avec 0
+			asset->precision = (asset->precision < (int)(ft_strlen(initial))// avant <=
 				? ft_strlen(initial) + 1 : asset->precision);
-		asset->precision = (ft_atoi(initial) == 0 ? 1 : asset->precision);
+		//asset->precision = (ft_atoi(initial) == 0 ? 1 : asset->precision);
 	}
 	if (asset->precision > 0)
 	{
@@ -146,22 +150,40 @@ char	*ft_build_str(char *initial, t_asset asset, int signmode)
 
 	if (signmode)
 		signmode = (initial[0] == '-' ? -1 : 1);
+	//ft_putstr("I : "); // TEST
+	//ft_putstr(initial); // TEST
+	//ft_putstr("|\n"); // TEST
 	if (!(additional = ft_set_precision(initial, &asset, signmode)))
 		return (NULL);
+	//ft_putstr("A : "); // TEST
+	//ft_putstr(additional); // TEST
+	//ft_putstr("|\n"); // TEST
 	if (!(asset.precision == 0 && ft_atoi(initial) == 0))
 	{
 		if (!(final = ft_strjoin(additional, initial)))
 			return (NULL);
+		//ft_putstr("F : "); // TEST
+		//ft_putstr(final); // TEST
+		//ft_putstr("|\n"); // TEST
 	}
 	else if (!(final = ft_strnew(0)))
 		return (NULL);
 	if (!(final = ft_preparewidth(final, asset, signmode)))
 		return (NULL);
+	//ft_putstr("F : "); // TEST
+	//ft_putstr(final); // TEST
+	//ft_putstr("|\n"); // TEST
 	ft_strdel(&additional);
 	if (!(additional = ft_set_width(final, asset, signmode)))
 		return (NULL);
+	//ft_putstr("A : "); // TEST
+	//ft_putstr(additional); // TEST
+	//ft_putstr("|\n"); // TEST
 	if (!(final = ft_addbuild(final, additional, asset)))
 		return (NULL);
+	//ft_putstr("F : "); // TEST
+	//ft_putstr(final); // TEST
+	//ft_putstr("|\n"); // TEST
 	ft_strdel(&additional);
 	ft_strdel(&initial);
 	return (final);
