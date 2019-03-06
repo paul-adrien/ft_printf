@@ -6,19 +6,17 @@
 /*   By: plaurent <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/14 12:05:22 by plaurent          #+#    #+#             */
-/*   Updated: 2019/03/06 11:42:33 by plaurent         ###   ########.fr       */
+/*   Updated: 2019/03/06 16:13:37 by plaurent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-char	*st_width_preci(t_asset asset, char *str, int i, int j)
+char		*st_width_preci(t_asset asset, char *str, int i, int j)
 {
 	char	*str2;
 	int		k;
 
-	// i = taille final de str
-	// j = taille de str a ecrire
 	k = -1;
 	if (i < j && i != 0)
 		i = j;
@@ -40,7 +38,6 @@ char	*st_width_preci(t_asset asset, char *str, int i, int j)
 		while (i > 0 && !ft_strchr(asset.flags, '0'))
 			str2[--i] = ' ';
 	}
-	//free(str); // A NE PAS METTRE CAR UTILISE PAR CONV_S ET CONV_P DE MANIERE DIFFERENTE
 	return (str2);
 }
 
@@ -49,7 +46,7 @@ static char	*ft_add_0x(char *initial, int i, t_asset asset)
 	char	*str;
 
 	if (!(str = ft_strnew(i + 3)))
-		return (NULL); // +3 pour laisser la place au \0 car un i++ a ete oublie plus bas
+		return (NULL);
 	i++;
 	if (!ft_strchr(asset.flags, '0'))
 	{
@@ -69,43 +66,47 @@ static char	*ft_add_0x(char *initial, int i, t_asset asset)
 	return (str);
 }
 
-static int	ft_compt(long adr)
+static char	*st_conv(long adr)
 {
 	int		i;
+	char	*str;
+	char	*base;
+	long	tmp;
 
+	i = 0;
+	tmp = adr;
+	base = "0123456789abcdef";
+	while ((tmp / 16) > 0)
+	{
+		tmp /= 16;
+		i++;
+	}
+	if (!(str = ft_strnew(i + 2)))
+		return (NULL);
 	i = 0;
 	while ((adr / 16) > 0)
 	{
+		str[i++] = base[(adr % 16)];
 		adr /= 16;
-		i++;
 	}
-	return (i);
+	str[i] = base[(adr % 16)];
+	return (str);
 }
 
-char		*ft_conv_p(t_asset asset, va_list ap) // Remarque Etienne : pas sur que ca marche
+char		*ft_conv_p(t_asset asset, va_list ap)
 {
-	long	adr;
-	char	*base;
 	char	*final;
 	char	*additional;
 	size_t	i;
 
-	adr = va_arg(ap, long);
-	final = ft_strnew(i = ft_compt(adr) + 2); // Pourquoi i = ft_compt ?
-	base = "0123456789abcdef";
-	i = 0;
-	while ((adr / 16) > 0)
-	{
-		final[i] = base[(adr % 16)];
-		adr /= 16;
-		i++;
-	}
-	final[i] = base[(adr % 16)]; // voir plus haut (un i++ aurait du arriver ici sinon)
+	if (!(final = st_conv(va_arg(ap, long))))
+		return (NULL);
+	i = ft_strlen(final) - 1;
 	if (i < asset.width)
 	{
 		if (!(additional = ft_add_0x(ft_strrev(final), i, asset)))
 			return (NULL);
-		if (!(final = st_width_preci(asset, additional, asset.width, i + 3)))	// FUITE MEMOIRE AVEC RES A CORRIGER
+		if (!(final = st_width_preci(asset, additional, asset.width, i + 3)))
 		{
 			free(additional);
 			return (NULL);
@@ -113,6 +114,6 @@ char		*ft_conv_p(t_asset asset, va_list ap) // Remarque Etienne : pas sur que ca
 		ft_strdel(&additional);
 	}
 	else
-		final = ft_add_0x(ft_strrev(final), i, asset); // FUITE MEMOIRE A GERER
+		final = ft_add_0x(ft_strrev(final), i, asset);
 	return (final);
 }
