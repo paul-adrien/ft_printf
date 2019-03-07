@@ -6,7 +6,7 @@
 /*   By: plaurent <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 11:29:05 by plaurent          #+#    #+#             */
-/*   Updated: 2019/03/06 18:15:46 by plaurent         ###   ########.fr       */
+/*   Updated: 2019/03/07 14:04:08 by plaurent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,5 +116,6 @@ char		*ft_width_f(t_asset asset, char *str, int i, int j)
 		if (!(str2 = ft_ft2(asset, str, i, j)))
 			return (NULL);
 	}
+	free(str);
 	return (str2);
 }
