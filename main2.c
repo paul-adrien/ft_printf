@@ -6,7 +6,7 @@
 /*   By: eviana <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/14 13:39:38 by eviana            #+#    #+#             */
-/*   Updated: 2019/03/07 14:10:16 by plaurent         ###   ########.fr       */
+/*   Updated: 2019/03/07 15:28:01 by eviana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,48 +105,122 @@ int             main(int ac, char **av)
 	}
 	else if (ac == 4)
 	{
-		ft_printf("test o:%o\n", nb);
-		ft_printf("hash:%#o\n", nb);
-		ft_printf("precision / grande:%.5o\n", nb);
-		ft_printf("Prec + hash / grande:%#.5o\n", nb);
-		ft_printf("Prec + hash / petite:%#.1o\n", nb);
-		ft_printf("Prec + 0:%0.5o\n", nb);
-		ft_printf("Prec + minus:%-.5o\n", nb);
-		ft_printf("Size:%5o\n", nb);
-		ft_printf("size + prec:%7.3o\n", nb);
-		ft_printf("size + minus:%-5o\n", nb);
-		ft_printf("size + zero:%05o\n", nb);
-		ft_printf("size + zero + hash:%#05o\n", nb);
-		ft_printf("size + zero + prec:%05.3o\n", nb);
-		ft_printf("size + minus + prec:%-5.3o\n", nb);
-		ft_printf("size + hash + zero + prec:%#05.3o\n", nb);
-		ft_printf("size + hash + zero + prec:%0#5.3o\n", nb);
-		ft_printf("size + hash + minus + prec:%-#7.3o\n", nb);
+		nb = 0;
+		ft_printf("null prec : %.0x\n", nb);
+		ft_printf("null prec : %.x\n", nb);
+		ft_printf("null prec : %12.0x\n", nb);
+		ft_printf("null prec : %-5.x\n", nb);
+		ft_printf("null prec : %#.0x\n", nb);
+		ft_printf("null prec : %#.x\n", nb);
+		ft_printf("null prec : %#12.0x\n", nb);
+		ft_printf("null prec : %#-5.x\n", nb);
+		ft_printf("null prec : %.0X\n", nb);
+		ft_printf("null prec : %.X\n", nb);
+		ft_printf("null prec : %12.0X\n", nb);
+		ft_printf("null prec : %-5.X\n", nb);
+		ft_printf("null prec : %#.0X\n", nb);
+		ft_printf("null prec : %#.X\n", nb);
+		ft_printf("null prec : %#12.0X\n", nb);
+		ft_printf("null prec : %#-5.X\n", nb);
+		ft_printf("null prec : %.0o\n", nb);
+		ft_printf("null prec : %.o\n", nb);
+		ft_printf("null prec : %12.0o\n", nb);
+		ft_printf("null prec : %-5.o\n", nb);
+		ft_printf("null prec : %#.0o\n", nb);
+		ft_printf("null prec : %#.o\n", nb);
+		ft_printf("null prec : %#12.0o\n", nb);
+		ft_printf("null prec : %#-5.o\n", nb);
 
-		printf("test o:%o\n", nb);
-		printf("hash:%#o\n", nb);
-		printf("precision / grande:%.5o\n", nb);
-		printf("Prec + hash / grande:%#.5o\n", nb);
-		printf("Prec + hash / petite:%#.1o\n", nb);
-		printf("Prec + 0:%0.5o\n", nb);
-		printf("Prec + minus:%-.5o\n", nb);
-		printf("Size:%5o\n", nb);
-		printf("size + prec:%7.3o\n", nb);
-		printf("size + minus:%-5o\n", nb);
-		printf("size + zero:%05o\n", nb);
-		printf("size + zero + hash:%#05o\n", nb);
-		printf("size + zero + prec:%05.3o\n", nb);
-		printf("size + minus + prec:%-5.3o\n", nb);
-		printf("size + hash + zero + prec:%#05.3o\n", nb);
-		printf("size + hash + zero + prec:%0#5.3o\n", nb);
-		printf("size + hash + minus + prec:%-#7.3o\n", nb);
+		nb = 21;
+		ft_printf("null prec : %.0x\n", nb);
+		ft_printf("null prec : %.x\n", nb);
+		ft_printf("null prec : %12.0x\n", nb);
+		ft_printf("null prec : %-5.x\n", nb);
+		ft_printf("null prec : %.0X\n", nb);
+		ft_printf("null prec : %.X\n", nb);
+		ft_printf("null prec : %12.0X\n", nb);
+		ft_printf("null prec : %-5.X\n", nb);
+		ft_printf("null prec : %.0o\n", nb);
+		ft_printf("null prec : %.o\n", nb);
+		ft_printf("null prec : %12.0o\n", nb);
+		ft_printf("null prec : %-5.o\n", nb);
+
+		nb = -543;
+		ft_printf("null prec : %.0x\n", nb);
+		ft_printf("null prec : %.x\n", nb);
+		ft_printf("null prec : %12.0x\n", nb);
+		ft_printf("null prec : %-5.x\n", nb);
+		ft_printf("null prec : %.0X\n", nb);
+		ft_printf("null prec : %.X\n", nb);
+		ft_printf("null prec : %12.0X\n", nb);
+		ft_printf("null prec : %-5.X\n", nb);
+		ft_printf("null prec : %.0o\n", nb);
+		ft_printf("null prec : %.o\n", nb);
+		ft_printf("null prec : %12.0o\n", nb);
+		ft_printf("null prec : %-5.o\n", nb);
+
+		nb = 0;
+		printf("null prec : %.0x\n", nb);
+		printf("null prec : %.x\n", nb);
+		printf("null prec : %12.0x\n", nb);
+		printf("null prec : %-5.x\n", nb);
+		printf("null prec : %#.0x\n", nb);
+		printf("null prec : %#.x\n", nb);
+		printf("null prec : %#12.0x\n", nb);
+		printf("null prec : %#-5.x\n", nb);
+		printf("null prec : %.0X\n", nb);
+		printf("null prec : %.X\n", nb);
+		printf("null prec : %12.0X\n", nb);
+		printf("null prec : %-5.X\n", nb);
+		printf("null prec : %#.0X\n", nb);
+		printf("null prec : %#.X\n", nb);
+		printf("null prec : %#12.0X\n", nb);
+		printf("null prec : %#-5.X\n", nb);
+		printf("null prec : %.0o\n", nb);
+		printf("null prec : %.o\n", nb);
+		printf("null prec : %12.0o\n", nb);
+		printf("null prec : %-5.o\n", nb);
+		printf("null prec : %#.0o\n", nb);
+		printf("null prec : %#.o\n", nb);
+		printf("null prec : %#12.0o\n", nb);
+		printf("null prec : %#-5.o\n", nb);
+
+		nb = 21;
+		printf("null prec : %.0x\n", nb);
+		printf("null prec : %.x\n", nb);
+		printf("null prec : %12.0x\n", nb);
+		printf("null prec : %-5.x\n", nb);
+		printf("null prec : %.0X\n", nb);
+		printf("null prec : %.X\n", nb);
+		printf("null prec : %12.0X\n", nb);
+		printf("null prec : %-5.X\n", nb);
+		printf("null prec : %.0o\n", nb);
+		printf("null prec : %.o\n", nb);
+		printf("null prec : %12.0o\n", nb);
+		printf("null prec : %-5.o\n", nb);
+
+		nb = -543;
+		printf("null prec : %.0x\n", nb);
+		printf("null prec : %.x\n", nb);
+		printf("null prec : %12.0x\n", nb);
+		printf("null prec : %-5.x\n", nb);
+		printf("null prec : %.0X\n", nb);
+		printf("null prec : %.X\n", nb);
+		printf("null prec : %12.0X\n", nb);
+		printf("null prec : %-5.X\n", nb);
+		printf("null prec : %.0o\n", nb);
+		printf("null prec : %.o\n", nb);
+		printf("null prec : %12.0o\n", nb);
+		printf("null prec : %-5.o\n", nb);
+
 	}
 	else
 	{
-		ft_printf("size + hash + zero + prec:%#05.3o\n", nb);
-		ft_printf("size + zero + hash:%#05o\n", nb);
-		printf("size + hash + zero + prec:%#05.3o\n", nb);
-		printf("size + zero + hash:%#05o\n", nb);
+		nb = 0;
+		ft_printf("null prec : %#12.0o\n", nb);
+		ft_printf("null prec : %#-5.o\n", nb);
+		printf("null prec : %#12.0o\n", nb);
+		printf("null prec : %#-5.o\n", nb);
 	}
 	(void)ac;
 	(void)av;

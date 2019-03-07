@@ -6,7 +6,7 @@
 /*   By: plaurent <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/14 12:07:13 by plaurent          #+#    #+#             */
-/*   Updated: 2019/03/06 16:30:51 by plaurent         ###   ########.fr       */
+/*   Updated: 2019/03/07 15:08:14 by eviana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,16 +44,21 @@ static char	*st_width_preci(t_asset asset, char *str, int i, int j)
 char		*ft_conv_s(t_asset asset, va_list ap)
 {
 	char	*str;
+	char 	*str2;
+	int		mem;
 	int		k;
 	int		j;
 
 	k = 0;
+	mem = 0;
 	j = asset.precision;
 	if (!(str = va_arg(ap, char*)))
 	{
 		if (!(str = ft_strnew(6)))
 			return (NULL);
-		str = sp_strnjoin(str, "(null)", 6, 0);
+		if (!(str = sp_strnjoin(str, "(null)", 6, 0)))
+			return (NULL);
+		mem = 1;
 	}
 	if (asset.width > ft_strlen(str) || (asset.precision < (int)ft_strlen(str)
 				&& asset.precision < (int)asset.width
@@ -67,5 +72,9 @@ char		*ft_conv_s(t_asset asset, va_list ap)
 		k = ft_strlen(str);
 	if (j == -1 || j >= (int)ft_strlen(str))
 		j = ft_strlen(str);
-	return (st_width_preci(asset, str, k, j));
+	if (!(str2 = st_width_preci(asset, str, k, j)))
+		return (NULL);
+	if (mem == 1)
+		free(str);
+	return (str2);
 }
