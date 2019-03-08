@@ -6,7 +6,7 @@
 /*   By: plaurent <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/14 12:07:13 by plaurent          #+#    #+#             */
-/*   Updated: 2019/03/07 15:08:14 by eviana           ###   ########.fr       */
+/*   Updated: 2019/03/08 11:18:13 by plaurent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,25 +41,11 @@ static char	*st_width_preci(t_asset asset, char *str, int i, int j)
 	return (str2);
 }
 
-char		*ft_conv_s(t_asset asset, va_list ap)
+static int	st_length_final(t_asset asset, int j, char *str)
 {
-	char	*str;
-	char 	*str2;
-	int		mem;
 	int		k;
-	int		j;
 
 	k = 0;
-	mem = 0;
-	j = asset.precision;
-	if (!(str = va_arg(ap, char*)))
-	{
-		if (!(str = ft_strnew(6)))
-			return (NULL);
-		if (!(str = sp_strnjoin(str, "(null)", 6, 0)))
-			return (NULL);
-		mem = 1;
-	}
 	if (asset.width > ft_strlen(str) || (asset.precision < (int)ft_strlen(str)
 				&& asset.precision < (int)asset.width
 				&& asset.width > ft_strlen(str)))
@@ -70,6 +56,28 @@ char		*ft_conv_s(t_asset asset, va_list ap)
 		k = asset.width;
 	if (k == 0 && asset.precision != 0)
 		k = ft_strlen(str);
+	return (k);
+}
+
+char		*ft_conv_s(t_asset asset, va_list ap)
+{
+	char	*str;
+	char	*str2;
+	int		mem;
+	int		k;
+	int		j;
+
+	mem = 0;
+	j = asset.precision;
+	if (!(str = va_arg(ap, char*)))
+	{
+		if (!(str = ft_strnew(6)))
+			return (NULL);
+		if (!(str = sp_strnjoin(str, "(null)", 6, 0)))
+			return (NULL);
+		mem = 1;
+	}
+	k = st_length_final(asset, j, str);
 	if (j == -1 || j >= (int)ft_strlen(str))
 		j = ft_strlen(str);
 	if (!(str2 = st_width_preci(asset, str, k, j)))

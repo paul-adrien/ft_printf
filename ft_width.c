@@ -6,7 +6,7 @@
 /*   By: plaurent <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 11:29:05 by plaurent          #+#    #+#             */
-/*   Updated: 2019/03/07 14:04:08 by plaurent         ###   ########.fr       */
+/*   Updated: 2019/03/08 10:59:39 by plaurent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static char	*ft_alloc(int i, int j)
 	return (str);
 }
 
-static char	*ft_ft(t_asset asset, char *str, int i, int j)
+static char	*st_left_align(t_asset asset, char *str, int i, int j)
 {
 	int		n;
 	int		k;
@@ -55,7 +55,7 @@ static char	*ft_ft(t_asset asset, char *str, int i, int j)
 	return (str2);
 }
 
-static char	*ft_ft3(t_asset asset, char *str, char *str2, int n)
+static char	*st_apply_flags(t_asset asset, char *str, char *str2, int n)
 {
 	if (ft_strchr(asset.flags, '+') && ft_strchr(asset.flags, '0')
 			&& !ft_strchr(str, '-'))
@@ -73,7 +73,7 @@ static char	*ft_ft3(t_asset asset, char *str, char *str2, int n)
 	return (str2);
 }
 
-static char	*ft_ft2(t_asset asset, char *str, int i, int j)
+static char	*st_right_align(t_asset asset, char *str, int i, int j)
 {
 	int		k;
 	int		n;
@@ -92,7 +92,7 @@ static char	*ft_ft2(t_asset asset, char *str, int i, int j)
 		else
 			str2[--k] = ' ';
 	}
-	str2 = ft_ft3(asset, str, str2, n);
+	str2 = st_apply_flags(asset, str, str2, n);
 	return (str2);
 }
 
@@ -108,12 +108,12 @@ char		*ft_width_f(t_asset asset, char *str, int i, int j)
 		i = j;
 	if (ft_strchr(asset.flags, '-') || i == j)
 	{
-		if (!(str2 = ft_ft(asset, str, i, j)))
+		if (!(str2 = st_left_align(asset, str, i, j)))
 			return (NULL);
 	}
 	else
 	{
-		if (!(str2 = ft_ft2(asset, str, i, j)))
+		if (!(str2 = st_right_align(asset, str, i, j)))
 			return (NULL);
 	}
 	free(str);

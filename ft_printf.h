@@ -6,7 +6,7 @@
 /*   By: eviana <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 18:08:15 by eviana            #+#    #+#             */
-/*   Updated: 2019/03/06 18:21:22 by plaurent         ###   ########.fr       */
+/*   Updated: 2019/03/08 11:26:48 by plaurent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ typedef struct	s_asset
 	char	*copy;
 }				t_asset;
 
-char			*ft_inf_f(t_asset asset, char *str2, size_t i, int j);
+char			*ft_preci_0(t_asset asset, double n, long k, int i);
+char			*ft_inf_f(t_asset asset, char *str2);
 unsigned long	sp_power(long nb, int power);
 char			**ft_formattotab(const char *restrict s);
 int				ft_isconv(char c);

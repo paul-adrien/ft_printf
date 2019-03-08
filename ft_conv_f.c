@@ -6,7 +6,7 @@
 /*   By: plaurent <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/04 15:01:42 by plaurent          #+#    #+#             */
-/*   Updated: 2019/03/07 19:21:18 by plaurent         ###   ########.fr       */
+/*   Updated: 2019/03/08 11:26:26 by plaurent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,40 +94,6 @@ static char		*ft_ftoa(double n)
 	return (str);
 }
 
-static char		*ft_preci_0(t_asset asset, double n, long k, int i)
-{
-	char	*str;
-
-	k = n * 10;
-	i = ft_size_long(k) - 1;
-	if (!(str = ft_strnew(i + 2)))
-		return (NULL);
-	if (ft_strchr(asset.flags, '#') && k != 0)
-		str[i] = '.';
-	else if (ft_strchr(asset.flags, '#') && k == 0)
-		str[1] = '.';
-	if (k == 0)
-		str[0] = '0';
-	if (k < 0 || 1.0 / n < 0)
-	{
-		k = -k;
-		str[0] = '-';
-		if (1.0 / n < 0)
-		{
-			str[1] = '0';
-			str[2] = '.';
-		}
-	}
-	if ((n - (k/10)) > 0.5000000000000000 || (n + (k/10)) < -0.5000000000000000)
-		k = (k / 10) + 1;
-	else
-		k = k / 10;
-	k = k * 10;
-	while ((k = k / 10) != 0)
-		str[--i] = (k % 10) + '0';
-	return (str);
-}
-
 char			*ft_conv_f(t_asset asset, va_list ap)
 {
 	char	*str;
@@ -137,11 +103,11 @@ char			*ft_conv_f(t_asset asset, va_list ap)
 	if (asset.precision == -1)
 		asset.precision = 6;
 	if (n == 1.0 / 0.0)
-		return (str = ft_inf_f(asset, "inf", 0, 0));
+		return (str = ft_inf_f(asset, "inf"));
 	if (n == -1.0 / 0.0)
-		return (str = ft_inf_f(asset, "-inf", 0, 0));
+		return (str = ft_inf_f(asset, "-inf"));
 	if (n != n)
-		return (str = ft_inf_f(asset, "nan", 0, 0));
+		return (str = ft_inf_f(asset, "nan"));
 	else if (asset.precision == 0)
 		str = ft_preci_0(asset, n, 0, 0);
 	else
