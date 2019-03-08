@@ -6,7 +6,7 @@
 /*   By: eviana <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/14 13:39:38 by eviana            #+#    #+#             */
-/*   Updated: 2019/03/07 18:13:48 by plaurent         ###   ########.fr       */
+/*   Updated: 2019/03/08 13:48:13 by eviana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,8 @@ int             main(int ac, char **av)
 	char    *str5;
 	char    str6[1] = "d";
 	char    *str7;
-	double	i = 1.0/0.0;
-	double	j = -1.0/0.0;
-	double	k = 0.0/0.0;
-	double	n = -0.000;
+	double	i = 1.42;
+	double	j = 1444565444646.6465424242242;
 	int		nb;
 
 	nb = 45;
@@ -101,9 +99,9 @@ int             main(int ac, char **av)
 	{
 		ft_putstr("MANUAL MODE :\n");
 		ft_putstr("R1 |");
-		ft_printf(av[1], i, j, k, n);
+		ft_printf(av[1], i, j);
 		ft_putstr("|\nR2 |");
-		printf(av[1], i, j, k, n);
+		printf(av[1], i, j);
 	}
 	else if (ac == 4)
 	{
@@ -215,14 +213,89 @@ int             main(int ac, char **av)
 		printf("null prec : %12.0o\n", nb);
 		printf("null prec : %-5.o\n", nb);
 
+		nb = 0;
+		ft_printf("null prec : %+.0d\n", nb);
+		nb = 8;
+		ft_printf("null prec : %+.0d\n", nb);
+		nb = -1234212;
+		ft_printf("null prec : %+.0d\n", nb);
+
+		nb = 0;
+		ft_printf("null prec : %.0d\n", nb);
+		nb = 8;
+		ft_printf("null prec : %.0d\n", nb);
+		nb = -1234212;
+		ft_printf("null prec : %.0d\n", nb);
+
+		nb = 0;
+		ft_printf("null prec : %+.0d\n", nb);
+		ft_printf("null prec : %+.d\n", nb);
+		ft_printf("null prec : %.0d\n", nb);
+		ft_printf("null prec : %012.0d\n", nb);
+		ft_printf("null prec : %-.0d\n", nb);
+		ft_printf("null prec : %-12.0d\n", nb);
+
+		nb = 0;
+		ft_printf("big prec : %+.420d ", nb);
+		nb = 8;
+		ft_printf("big prec : %+.42d ", nb);
+		nb = -1234212;
+		ft_printf("big prec : %.12d ", nb);
+		nb = -1;
+		ft_printf("big prec : %+.23d ", nb);
+		nb = 12354;
+		ft_printf("big prec : %+.250d ", nb);
+
+		i = 1234.12345;
+		ft_printf("%12.15f\n", i);
+		i = -1654.586855;
+		ft_printf("%12.18f\n", i);
+		i = 123121.51421;
+		ft_printf("%12.11f\n", i);
+
+		nb = 12312;
+		ft_printf("%13.34o", nb);
+		ft_printf("%13.34x", nb);
+		ft_printf("%13.34X", nb);
+
+		nb = -1;
+		ft_printf("%13.52o", nb);
+		ft_printf("%13.52x", nb);
+		ft_printf("%13.52X", nb);
+
+		nb = 0;
+		ft_printf("null prec : %.0u\n", nb);
+		nb = 8;
+		ft_printf("null prec : %.0u\n", nb);
+		nb = -1234212;
+		ft_printf("null prec : %.0u\n", nb);
+		nb = -1;
+		ft_printf("null prec : %.0u\n", nb);
+		nb = 12354;
+		ft_printf("null prec : %.0u\n", nb);
+
+		i = 0;
+		ft_printf("null prec : %+.0f\n", i);
+		i = 12.5;
+		ft_printf("null prec : %+.0f\n", i);
+		i = -25632.2541;
+		ft_printf("null prec : %+.0f\n", i);
+		i = -1.0123;
+		ft_printf("null prec : %+.0f\n", i);
+		i = 12354.569874;
+		ft_printf("null prec : %+.0f\n", i);
+
+		ft_printf("%.0s\n", "");
+		ft_printf("%.0s\n", NULL);
+		ft_printf("%.0s\n", "Okalm");
+		ft_printf("%.0s\n", "asd34a");
+
 	}
 	else
 	{
-		nb = 0;
-		ft_printf("null prec : %#12.0o\n", nb);
-		ft_printf("null prec : %#-5.o\n", nb);
-		printf("null prec : %#12.0o\n", nb);
-		printf("null prec : %#-5.o\n", nb);
+		i = -1654.586855;
+		ft_printf("%12.18f\n", i);
+		printf("%12.18f\n", i);
 	}
 	(void)ac;
 	(void)av;

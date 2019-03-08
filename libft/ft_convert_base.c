@@ -6,7 +6,7 @@
 /*   By: eviana <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/14 15:17:51 by eviana            #+#    #+#             */
-/*   Updated: 2019/03/04 10:30:32 by eviana           ###   ########.fr       */
+/*   Updated: 2019/03/07 15:59:03 by eviana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,10 +107,11 @@ char						*ft_convert_base
 	is_neg = (nbr[0] == '-' ? 1 : 0);
 	if (!nbr || !(ft_base_analysis(base_from, nbr, 1)) ||
 			!(ft_base_analysis(base_to, nbr, 0)))
-		return (0);
+		return (NULL);
 	decimal_nb = sp_atoull_base(nbr, base_from);
 	base_to_len = ft_strlen(base_to);
 	str_len = sp_strlen_base(decimal_nb, base_to_len) + is_neg;
+	str_len = (str_len == 0 ? 1 : str_len); // NEW pour invalid read valgrind
 	if (!(str = ft_strnew(str_len)))
 		return (NULL);
 	str[0] = (decimal_nb == 0 ? base_to[0] : str[0]);

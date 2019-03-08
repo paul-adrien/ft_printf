@@ -6,7 +6,7 @@
 /*   By: plaurent <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/14 14:19:12 by plaurent          #+#    #+#             */
-/*   Updated: 2019/03/07 15:34:03 by eviana           ###   ########.fr       */
+/*   Updated: 2019/03/07 15:38:51 by eviana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,11 +148,14 @@ int			ft_strallchr(char *str, char c)
 	int i;
 
 	i = 0;
-	while (str[i])
+	if (str)
 	{
-		if (str[i] != c)
-			return (0);
-		i++;
+		while (str[i])
+		{
+			if (str[i] != c)
+				return (0);
+			i++;
+		}
 	}
 	return (1);
 }
