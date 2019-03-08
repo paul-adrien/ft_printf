@@ -6,7 +6,7 @@
 /*   By: plaurent <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/04 15:01:42 by plaurent          #+#    #+#             */
-/*   Updated: 2019/03/07 15:27:20 by plaurent         ###   ########.fr       */
+/*   Updated: 2019/03/07 19:21:18 by plaurent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ static char		*st_conv(char *str, long k, double n, int s)
 	}
 	if (s == 1)
 		str[i++] = '-';
-	str[i] = '\0';
+	ft_bzero(str + i, ft_strlen(str + i));
 	return (ft_strrev(str));
 }
 
@@ -73,21 +73,22 @@ static char		*ft_ftoa(double n)
 	i = 0;
 	if (n == 0)
 	{
-		if (!(str = ft_strnew(19)))
+		if (!(str = ft_strnew(20)))
 			return (NULL);
-		str[0] = '0';
-		str[1] = '.';
-		i = 0;
-		while (i < 17)
-			str[i++ + 2] = '0';
+		if (1.0 / n < 0)
+			str[i++] = '-';
+		str[i++] = '0';
+		str[i++] = '.';
+		while (i < 19)
+			str[i++] = '0';
 		return (str);
 	}
-	if (n < 0)
+	if (n < 0 || 1.0 / n < 0)
 	{
 		n = -n;
 		i = 1;
 	}
-	if (!(str = ft_strnew(ft_size_long(n) + 19)))
+	if (!(str = ft_strnew(ft_size_long(n) + 19 + i)))
 		return (NULL);
 	str = st_conv(str, n, n, i);
 	return (str);
@@ -107,10 +108,15 @@ static char		*ft_preci_0(t_asset asset, double n, long k, int i)
 		str[1] = '.';
 	if (k == 0)
 		str[0] = '0';
-	if (k < 0)
+	if (k < 0 || 1.0 / n < 0)
 	{
 		k = -k;
 		str[0] = '-';
+		if (1.0 / n < 0)
+		{
+			str[1] = '0';
+			str[2] = '.';
+		}
 	}
 	if ((n - (k/10)) > 0.5000000000000000 || (n + (k/10)) < -0.5000000000000000)
 		k = (k / 10) + 1;
@@ -134,7 +140,7 @@ char			*ft_conv_f(t_asset asset, va_list ap)
 		return (str = ft_inf_f(asset, "inf", 0, 0));
 	if (n == -1.0 / 0.0)
 		return (str = ft_inf_f(asset, "-inf", 0, 0));
-	if (n == 0.0 / 0.0)
+	if (n != n)
 		return (str = ft_inf_f(asset, "nan", 0, 0));
 	else if (asset.precision == 0)
 		str = ft_preci_0(asset, n, 0, 0);
