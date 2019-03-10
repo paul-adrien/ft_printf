@@ -6,7 +6,7 @@
 /*   By: eviana <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 18:08:15 by eviana            #+#    #+#             */
-/*   Updated: 2019/03/08 11:26:48 by plaurent         ###   ########.fr       */
+/*   Updated: 2019/03/09 16:38:02 by plaurent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ typedef struct	s_asset
 	char	*copy;
 }				t_asset;
 
+int				ft_fill_buff(char *str, int end);
 char			*ft_preci_0(t_asset asset, double n, long k, int i);
 char			*ft_inf_f(t_asset asset, char *str2);
 unsigned long	sp_power(long nb, int power);
@@ -57,7 +58,7 @@ char			*ft_addbuild(char *initial, char *additional, t_asset asset);
 char			*ft_preparewidth(char *processed, t_asset asset, int signmode);
 char			*ft_build_str(char *initial, t_asset asset, int signmode);
 t_asset			ft_digest(char *tab);
-char			**ft_dispatcher(char **tab, va_list ap, char **print);
+int				ft_dispatcher(char **tab, va_list ap);
 void			ft_printasset(t_asset asset);
 int				ft_printf(const char *restrict format, ...);
 char			*sp_strnjoin(char  *s1, char  *s2,

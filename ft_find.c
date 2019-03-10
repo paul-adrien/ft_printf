@@ -6,7 +6,7 @@
 /*   By: eviana <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/14 13:49:55 by eviana            #+#    #+#             */
-/*   Updated: 2019/03/06 17:40:07 by plaurent         ###   ########.fr       */
+/*   Updated: 2019/03/10 14:59:29 by plaurent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ int		ft_findtype(char *tab)
 	i = 0;
 	n = 0;
 	if (!tab)
-		return (-1);
+		ft_putchar('a');
 	if (tab[i] == '%')
 	{
 		while (tab[i])

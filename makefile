@@ -6,7 +6,7 @@
 #    By: plaurent <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/14 14:54:18 by plaurent          #+#    #+#              #
-#    Updated: 2019/03/08 13:52:57 by eviana           ###   ########.fr        #
+#    Updated: 2019/03/10 15:16:28 by plaurent         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,15 +35,15 @@ ifeq ($(DEBUG),0)
 		ft_conv_c.c ft_dispatch.c ft_find.c ft_formattotab.c ft_printf.c	\
 		ft_print_asset.c ft_special.c ft_conv_oux.c ft_conv_percent.c		\
 		ft_conv_f.c ft_noconv.c ft_setprint.c ft_width.c ft_inf_f.c			\
-		ft_preci_0_f.c
+		ft_preci_0_f.c ft_fill_buff.c
 	HEADER = ft_printf.h libft/libft.h
 else
 	SRC = $(wildcard libft/*.c)													\
-		main2.c ft_build_str.c ft_conv_di.c ft_conv_p.c ft_conv_s.c				\
+		main.c ft_build_str.c ft_conv_di.c ft_conv_p.c ft_conv_s.c				\
 		ft_conv_c.c ft_dispatch.c ft_find.c ft_formattotab.c ft_printf.c		\
 		ft_print_asset.c ft_special.c ft_conv_oux.c ft_conv_percent.c			\
 		ft_noconv.c ft_conv_f.c ft_setprint.c ft_width.c ft_inf_f.c				\
-		ft_preci_0_f.c
+		ft_preci_0_f.c ft_fill_buff.c
 	HEADER = ft_printf.h
 endif
 

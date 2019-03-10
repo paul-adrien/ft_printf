@@ -6,7 +6,7 @@
 /*   By: plaurent <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/14 14:38:09 by plaurent          #+#    #+#             */
-/*   Updated: 2019/03/07 14:03:18 by plaurent         ###   ########.fr       */
+/*   Updated: 2019/03/10 15:04:51 by plaurent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,15 @@ static void	st_assetdel(t_asset asset)
 	ft_strdel(&asset.copy);
 }
 
-char	**ft_dispatcher(char **tab, va_list ap, char **print)
+int			ft_dispatcher(char **tab, va_list ap)
 {
 	char	*(*list_ft[8])(t_asset, va_list);
 	t_asset	asset;
 	size_t	n;
 	int		i;
+	size_t	print_length;
 
+	print_length = 0;
 	list_ft[0] = &ft_noconv;
 	list_ft[1] = &ft_conv_di;
 	list_ft[2] = &ft_conv_oux;
@@ -51,27 +53,20 @@ char	**ft_dispatcher(char **tab, va_list ap, char **print)
 	list_ft[5] = &ft_conv_p;
 	list_ft[6] = &ft_conv_f;
 	list_ft[7] = &ft_conv_percent;
-	i = 0;
-	while (tab[i])
+	i = -1;
+	while (tab[++i])
 	{
 		if ((n = ft_findtype(tab[i])) == -1)
-			return (NULL);
+			return (-1);
 		n = (n == 21 || n == 22 || n == 23 || n == 24 ? 2 : n);
 		asset = ft_digest(tab[i]);
 		if (asset.type == -1)
 		{
 			st_assetdel(asset);
-			return (NULL);
+			return (0);
 		}
-		if (!(print[i] = list_ft[n](asset, ap)))
-		{
-			st_assetdel(asset);
-			return (NULL);
-		}
-		// if ((asset.type == 0))
-		//		// FREE ASSET SUR 2 DIMENSIONS
+		(ft_fill_buff(list_ft[n](asset, ap), 0));
 		st_assetdel(asset);
-		i++; // A VERIFIER
 	}
-	return (print); // ex return (print[0])
+	return (ft_fill_buff("", 1) + print_length); // ex return (print[0])
 }
