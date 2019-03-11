@@ -6,7 +6,7 @@
 /*   By: plaurent <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 15:04:48 by plaurent          #+#    #+#             */
-/*   Updated: 2019/03/10 15:23:19 by plaurent         ###   ########.fr       */
+/*   Updated: 2019/03/10 17:03:45 by plaurent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@ char		*ft_conv_c(t_asset asset, va_list ap)
 	width = asset.width;
 	str = ft_strnew(width);
 	c = va_arg(ap, int);
-	if (ft_strchr(asset.flags, '0') && !ft_strchr(asset.flags, '-') && c != '\0')
+	if (ft_strchr(asset.flags, '0')
+			&& !ft_strchr(asset.flags, '-') && c != '\0')
 		while (j < width)
 			str[j++] = '0';
 	else if (c != '\0')
