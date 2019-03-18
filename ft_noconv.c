@@ -6,13 +6,13 @@
 /*   By: eviana <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/25 18:16:43 by eviana            #+#    #+#             */
-/*   Updated: 2019/03/04 10:03:21 by eviana           ###   ########.fr       */
+/*   Updated: 2019/03/11 11:18:10 by eviana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-char	*ft_noconv(t_asset asset, va_list ap)
+char	*ft_no_conv(t_asset asset, va_list ap)
 {
 	char *str;
 

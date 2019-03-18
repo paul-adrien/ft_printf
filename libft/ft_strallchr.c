@@ -1,40 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_check_arg_nb.c                                  :+:      :+:    :+:   */
+/*   ft_strallchr.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eviana <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/26 12:40:10 by eviana            #+#    #+#             */
-/*   Updated: 2019/03/11 10:57:09 by eviana           ###   ########.fr       */
+/*   Created: 2019/03/18 15:14:37 by eviana            #+#    #+#             */
+/*   Updated: 2019/03/18 15:15:25 by eviana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
-int		ft_check_arg_nb(char **tab, va_list ap)
+int		ft_strallchr(char *str, char c)
 {
-	va_list	ap2;
-	int		type;
-	int		i;
-	int		j;
-	int		k;
+	int i;
 
 	i = 0;
-	j = 0;
-	k = 0;
-	va_copy(ap2, ap);
-	while (tab[i])
+	if (str)
 	{
-		type = ft_findtype(tab[i], 0);
-		if (type && type != 7)
-			j++;
-		i++;
+		while (str[i])
+		{
+			if (str[i] != c)
+				return (0);
+			i++;
+		}
 	}
-	while (va_arg(ap2, int))
-		k++;
-	va_end(ap2);
-	if (j != k)
-		return (0);
 	return (1);
 }

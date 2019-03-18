@@ -6,7 +6,7 @@
 /*   By: eviana <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 18:08:15 by eviana            #+#    #+#             */
-/*   Updated: 2019/03/10 17:06:35 by plaurent         ###   ########.fr       */
+/*   Updated: 2019/03/18 15:36:10 by eviana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ char			*ft_conv_di(t_asset asset, va_list ap);
 char			*ft_conv_oux(t_asset asset, va_list ap);
 char			*ft_conv_f(t_asset asset, va_list ap);
 char			*ft_conv_percent(t_asset asset, va_list ap);
-char			*ft_noconv(t_asset asset, va_list ap);
+char			*ft_no_conv(t_asset asset, va_list ap);
 char			*ft_convp_width(t_asset asset, char *res);
 char			*ft_width_f(t_asset asset, char *str, int i, int j);
 int				ft_findtype(char *tab);
@@ -58,8 +58,8 @@ char			*ft_addbuild(char *initial, char *additional, t_asset asset);
 char			*ft_preparewidth(char *processed, t_asset asset, int signmode);
 char			*ft_build_str(char *initial, t_asset asset, int signmode);
 t_asset			ft_digest(char *tab);
-int				ft_dispatcher(char **tab, va_list ap);
+int				ft_pre_dispatch(char **tab, va_list ap);
 void			ft_printasset(t_asset asset);
 int				ft_printf(const char *restrict format, ...);
-char			*sp_strnjoin(char  *s1, char  *s2, size_t n, int mode);
+char			*sp_strnjoin(char *s1, char *s2, size_t n, int mode);
 #endif

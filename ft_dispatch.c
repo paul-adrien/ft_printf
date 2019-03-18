@@ -6,7 +6,7 @@
 /*   By: plaurent <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/14 14:38:09 by plaurent          #+#    #+#             */
-/*   Updated: 2019/03/10 17:08:17 by plaurent         ###   ########.fr       */
+/*   Updated: 2019/03/18 15:35:26 by eviana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ t_asset		ft_digest(char *tab)
 	asset.width = ft_findwidth(tab);
 	asset.precision = ft_findprecision(tab);
 	asset.length = ft_findlength(tab);
-	asset.type = ft_findtype(tab); // IF PAS BON CHAR A LA FIN => wrong format
+	asset.type = ft_findtype(tab);
 	if (!(asset.copy = ft_strsub(tab, 0, ft_strlen(tab))))
 		asset.copy = ft_strnew(0);
 	return (asset);
@@ -36,11 +36,11 @@ static void	st_assetdel(t_asset asset)
 	ft_strdel(&asset.copy);
 }
 
-static void	st_(t_asset asset, size_t n, va_list ap)
+static int	st_dispatch(t_asset asset, size_t n, va_list ap)
 {
 	char	*(*list_ft[8])(t_asset, va_list);
 
-	list_ft[0] = &ft_noconv;
+	list_ft[0] = &ft_no_conv;
 	list_ft[1] = &ft_conv_di;
 	list_ft[2] = &ft_conv_oux;
 	list_ft[3] = &ft_conv_c;
@@ -48,17 +48,15 @@ static void	st_(t_asset asset, size_t n, va_list ap)
 	list_ft[5] = &ft_conv_p;
 	list_ft[6] = &ft_conv_f;
 	list_ft[7] = &ft_conv_percent;
-	(ft_fill_buff(list_ft[n](asset, ap), 0));
+	return (ft_fill_buff(list_ft[n](asset, ap), 0));
 }
 
-int			ft_dispatcher(char **tab, va_list ap)
+int			ft_pre_dispatch(char **tab, va_list ap)
 {
 	t_asset	asset;
 	size_t	n;
 	int		i;
-	size_t	print_length;
 
-	print_length = 0;
 	i = -1;
 	while (tab[++i])
 	{
@@ -69,10 +67,14 @@ int			ft_dispatcher(char **tab, va_list ap)
 		if (asset.type == -1)
 		{
 			st_assetdel(asset);
-			return (0);
+			return (-1);
 		}
-		st_(asset, n, ap);
+		if (st_dispatch(asset, n, ap) == -1)
+		{
+			st_assetdel(asset);
+			return (-1);
+		}
 		st_assetdel(asset);
 	}
-	return (ft_fill_buff("", 1) + print_length);
+	return (ft_fill_buff("", 1));
 }

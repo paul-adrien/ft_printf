@@ -6,7 +6,7 @@
 /*   By: eviana <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/07 10:07:11 by eviana            #+#    #+#             */
-/*   Updated: 2019/03/10 17:07:11 by plaurent         ###   ########.fr       */
+/*   Updated: 2019/03/11 11:20:06 by eviana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int			ft_printf(const char *restrict format, ...)
 	i = 0;
 	va_start(ap, format);
 	tab = ft_formattotab(format);
-	if ((print_length = ft_dispatcher(tab, ap)) == -1)
+	if ((print_length = ft_pre_dispatch(tab, ap)) == -1)
 	{
 		va_end(ap);
 		return (-1);

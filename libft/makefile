@@ -6,7 +6,7 @@
 #    By: pa <marvin@42.fr>                          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/14 18:08:54 by pa                #+#    #+#              #
-#    Updated: 2019/03/06 18:08:50 by plaurent         ###   ########.fr        #
+#    Updated: 2019/03/18 15:15:49 by eviana           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,7 @@ SRC = ft_putchar_fd.c ft_putnbr.c ft_putendl.c ft_putstr.c ft_putchar.c	\
 	  ft_lstmap.c ft_foreach.c ft_factorial.c	ft_strcount.c			\
 	  ft_power.c ft_fibonacci.c ft_sqrt.c ft_is_prime.c					\
 	  ft_utoa.c ft_ultoa.c ft_ulltoa.c ft_convert_base.c ft_putull.c	\
-	  ft_size_long.c
+	  ft_size_long.c ft_strallchr.c
 
 HEADER = libft.h
 
@@ -48,7 +48,7 @@ OBJ = ft_putchar_fd.o ft_putnbr.o ft_putendl.o ft_putstr.o ft_putchar.o	\
 	  ft_lstmap.o ft_foreach.o ft_factorial.o	ft_strcount.o			\
 	  ft_power.o ft_fibonacci.o ft_sqrt.o ft_is_prime.o					\
 	  ft_utoa.o ft_ultoa.o ft_ulltoa.o ft_convert_base.o ft_putull.o	\
-	  ft_size_long.o
+	  ft_size_long.o ft_strallchr.o
 
 all: $(NAME)
 
