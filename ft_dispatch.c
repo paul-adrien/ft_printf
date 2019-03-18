@@ -6,7 +6,7 @@
 /*   By: plaurent <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/14 14:38:09 by plaurent          #+#    #+#             */
-/*   Updated: 2019/03/18 13:42:53 by plaurent         ###   ########.fr       */
+/*   Updated: 2019/03/18 17:40:00 by plaurent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ t_asset		ft_digest(char *tab)
 	asset.width = ft_findwidth(tab);
 	asset.precision = ft_findprecision(tab);
 	asset.length = ft_findlength(tab);
-	asset.type = ft_findtype(tab); // IF PAS BON CHAR A LA FIN => wrong format
+	asset.type = ft_findtype(tab);
 	if (!(asset.copy = ft_strsub(tab, 0, ft_strlen(tab))))
 		asset.copy = ft_strnew(0);
 	return (asset);
@@ -36,7 +36,7 @@ static void	st_assetdel(t_asset asset)
 	ft_strdel(&asset.copy);
 }
 
-static void	st_(t_asset asset, size_t n, va_list ap)
+static void	st_dispatch(t_asset asset, size_t n, va_list ap)
 {
 	char	*(*list_ft[8])(t_asset, va_list);
 	char	*str;
@@ -54,7 +54,7 @@ static void	st_(t_asset asset, size_t n, va_list ap)
 	free(str);
 }
 
-int			ft_dispatcher(char **tab, va_list ap)
+int			ft_pre_dispatch(char **tab, va_list ap)
 {
 	t_asset	asset;
 	size_t	n;
@@ -72,7 +72,7 @@ int			ft_dispatcher(char **tab, va_list ap)
 			st_assetdel(asset);
 			return (0);
 		}
-		st_(asset, n, ap);
+		st_dispatch(asset, n, ap);
 		st_assetdel(asset);
 	}
 	return (ft_fill_buff("", 1));

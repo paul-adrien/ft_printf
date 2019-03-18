@@ -6,13 +6,13 @@
 /*   By: eviana <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/25 18:16:43 by eviana            #+#    #+#             */
-/*   Updated: 2019/03/18 17:25:52 by plaurent         ###   ########.fr       */
+/*   Updated: 2019/03/18 17:39:08 by plaurent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static char	*st_strstr(const char *haystack, const char *needle)
+static char		*st_strstr(const char *haystack, const char *needle)
 {
 	size_t i;
 	size_t j;
@@ -34,7 +34,7 @@ static char	*st_strstr(const char *haystack, const char *needle)
 	return (NULL);
 }
 
-static char	*st_choose_color(char *str)
+static char		*st_choose_color(char *str)
 {
 	char	*tmp;
 	char	*tmp2;
@@ -86,7 +86,7 @@ static size_t	st_apply_color(char *str)
 	return (n);
 }
 
-char	*ft_noconv(t_asset asset, va_list ap)
+char			*ft_noconv(t_asset asset, va_list ap)
 {
 	char	*str;
 	char	*str2;
