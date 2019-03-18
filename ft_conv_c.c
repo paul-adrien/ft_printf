@@ -6,7 +6,7 @@
 /*   By: plaurent <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 15:04:48 by plaurent          #+#    #+#             */
-/*   Updated: 2019/03/10 17:03:45 by plaurent         ###   ########.fr       */
+/*   Updated: 2019/03/18 19:02:35 by eviana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@ char		*ft_conv_c(t_asset asset, va_list ap)
 	size_t			j;
 
 	j = 0;
-	width = asset.width;
+	if (!(width = asset.width))
+		width++;
 	str = ft_strnew(width);
 	c = va_arg(ap, int);
 	if (ft_strchr(asset.flags, '0')

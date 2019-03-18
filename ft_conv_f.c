@@ -6,7 +6,7 @@
 /*   By: plaurent <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/04 15:01:42 by plaurent          #+#    #+#             */
-/*   Updated: 2019/03/11 15:21:49 by plaurent         ###   ########.fr       */
+/*   Updated: 2019/03/18 18:45:39 by eviana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ static char		*ft_ftoa(double n)
 		n = -n;
 		i = 1;
 	}
-	if (!(str = ft_strnew(ft_size_long(n) + 19 + i)))
+	if (!(str = ft_strnew(ft_size_long(n) + 19 + i + 2)))
 		return (NULL);
 	str = st_conv(str, n, n, i);
 	return (str);

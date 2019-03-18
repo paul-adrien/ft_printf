@@ -6,7 +6,7 @@
 #    By: plaurent <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/14 14:54:18 by plaurent          #+#    #+#              #
-#    Updated: 2019/03/18 17:35:10 by plaurent         ###   ########.fr        #
+#    Updated: 2019/03/18 17:51:11 by eviana           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,7 +39,7 @@ ifeq ($(DEBUG),0)
 	HEADER = ft_printf.h libft/libft.h
 else
 	SRC = $(wildcard libft/*.c)													\
-		main.c ft_build_str.c ft_conv_di.c ft_conv_p.c ft_conv_s.c				\
+		main2.c ft_build_str.c ft_conv_di.c ft_conv_p.c ft_conv_s.c				\
 		ft_conv_c.c ft_dispatch.c ft_find.c ft_formattotab.c ft_printf.c		\
 		ft_print_asset.c ft_special.c ft_conv_oux.c ft_conv_percent.c			\
 		ft_noconv.c ft_conv_f.c ft_setprint.c ft_width.c ft_inf_f.c				\

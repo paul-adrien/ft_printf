@@ -6,7 +6,7 @@
 /*   By: eviana <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/14 13:39:38 by eviana            #+#    #+#             */
-/*   Updated: 2019/03/10 14:54:59 by plaurent         ###   ########.fr       */
+/*   Updated: 2019/03/18 18:54:02 by eviana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,61 +158,7 @@ int             main(int ac, char **av)
 		ft_printf("null prec : %.o\n", nb);
 		ft_printf("null prec : %12.0o\n", nb);
 		ft_printf("null prec : %-5.o\n", nb);
-
-		nb = 0;
-		printf("null prec : %.0x\n", nb);
-		printf("null prec : %.x\n", nb);
-		printf("null prec : %12.0x\n", nb);
-		printf("null prec : %-5.x\n", nb);
-		printf("null prec : %#.0x\n", nb);
-		printf("null prec : %#.x\n", nb);
-		printf("null prec : %#12.0x\n", nb);
-		printf("null prec : %#-5.x\n", nb);
-		printf("null prec : %.0X\n", nb);
-		printf("null prec : %.X\n", nb);
-		printf("null prec : %12.0X\n", nb);
-		printf("null prec : %-5.X\n", nb);
-		printf("null prec : %#.0X\n", nb);
-		printf("null prec : %#.X\n", nb);
-		printf("null prec : %#12.0X\n", nb);
-		printf("null prec : %#-5.X\n", nb);
-		printf("null prec : %.0o\n", nb);
-		printf("null prec : %.o\n", nb);
-		printf("null prec : %12.0o\n", nb);
-		printf("null prec : %-5.o\n", nb);
-		printf("null prec : %#.0o\n", nb);
-		printf("null prec : %#.o\n", nb);
-		printf("null prec : %#12.0o\n", nb);
-		printf("null prec : %#-5.o\n", nb);
-
-		nb = 21;
-		printf("null prec : %.0x\n", nb);
-		printf("null prec : %.x\n", nb);
-		printf("null prec : %12.0x\n", nb);
-		printf("null prec : %-5.x\n", nb);
-		printf("null prec : %.0X\n", nb);
-		printf("null prec : %.X\n", nb);
-		printf("null prec : %12.0X\n", nb);
-		printf("null prec : %-5.X\n", nb);
-		printf("null prec : %.0o\n", nb);
-		printf("null prec : %.o\n", nb);
-		printf("null prec : %12.0o\n", nb);
-		printf("null prec : %-5.o\n", nb);
-
-		nb = -543;
-		printf("null prec : %.0x\n", nb);
-		printf("null prec : %.x\n", nb);
-		printf("null prec : %12.0x\n", nb);
-		printf("null prec : %-5.x\n", nb);
-		printf("null prec : %.0X\n", nb);
-		printf("null prec : %.X\n", nb);
-		printf("null prec : %12.0X\n", nb);
-		printf("null prec : %-5.X\n", nb);
-		printf("null prec : %.0o\n", nb);
-		printf("null prec : %.o\n", nb);
-		printf("null prec : %12.0o\n", nb);
-		printf("null prec : %-5.o\n", nb);
-
+	
 		nb = 0;
 		ft_printf("null prec : %+.0d\n", nb);
 		nb = 8;
@@ -290,6 +236,26 @@ int             main(int ac, char **av)
 		ft_printf("%.0s\n", "Okalm");
 		ft_printf("%.0s\n", "asd34a");
 
+		c = '!';
+				ft_printf( "%c ", c);
+						ft_printf( "%1c ", c);
+								ft_printf( "%7c ", c);
+										ft_printf( "%-1c ", c);
+												ft_printf( "%-5c ", c);
+
+		c = 'A';
+		ft_printf("%c", c);
+		ft_printf("%12c", c);
+		ft_printf("%-1c", c);
+		ft_printf("%1c", c);
+		ft_printf("%5c", c);
+		ft_printf("%-5c", c);
+
+		ft_printf(" %c\n", 0);
+		ft_printf("%c\n", 0);
+
+		ft_printf("%%\n");
+		ft_printf("%%%%%d\n", -120);
 	}
 	else
 	{

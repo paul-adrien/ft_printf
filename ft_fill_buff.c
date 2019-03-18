@@ -6,7 +6,7 @@
 /*   By: plaurent <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/08 14:28:09 by plaurent          #+#    #+#             */
-/*   Updated: 2019/03/18 17:11:32 by plaurent         ###   ########.fr       */
+/*   Updated: 2019/03/18 18:37:45 by eviana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static char	*ft_write_refresh(char *buff, size_t length)
 	return (buff);
 }
 
-static char	*st_(char *buff, char *str)
+static char	*st_buff_overload(char *buff, char *str)
 {
 	size_t		length;
 	size_t		size;
@@ -58,10 +58,12 @@ int			ft_fill_buff(char *str, int end)
 	size_t			size;
 
 	if (end == 2)
-		return (length_total = 0);
-	if (!buff)
-		if (!(buff = ft_strnew(4096)))
-			return (0);
+	{
+		ft_strdel(&buff);
+		return ((length_total = 0));
+	}
+	if (!buff && !(buff = ft_strnew(4096)))
+		return (0);
 	length = ft_strlen(buff);
 	size = 0;
 	if (str)
@@ -73,6 +75,6 @@ int			ft_fill_buff(char *str, int end)
 	else if (length + size < 4096)
 		buff = ft_strncat(buff, str, size);
 	else if (length + size >= 4096)
-		buff = st_(buff, str);
+		buff = st_buff_overload(buff, str);
 	return (length_total = length_total + size);
 }
