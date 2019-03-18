@@ -6,7 +6,7 @@
 /*   By: eviana <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/14 13:49:55 by eviana            #+#    #+#             */
-/*   Updated: 2019/03/10 14:59:29 by plaurent         ###   ########.fr       */
+/*   Updated: 2019/03/18 12:18:49 by plaurent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,8 @@ int		ft_findlength(char *tab)
 			return ((tab[i + 1] && tab[i + 1] == 'l' ? 2 : 1));
 		else if (tab[i] && tab[i] == 'h')
 			return ((tab[i + 1] && tab[i + 1] == 'h' ? 4 : 3));
+		else if (tab[i] && tab[i] == 'L' && ft_strchr(tab, 'f'))
+			return (5);
 	}
 	return (0);
 }
@@ -120,7 +122,6 @@ int		ft_findtype(char *tab)
 		(tab[i] == 'p' ? n = 5 : 0);
 		(tab[i] == 'f' ? n = 6 : 0);
 		(tab[i] == '%' && i != 0 ? n = 7 : 0);
-		return (n);
 	}
 	return (n);
 }

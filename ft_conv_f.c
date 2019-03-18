@@ -6,7 +6,7 @@
 /*   By: plaurent <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/04 15:01:42 by plaurent          #+#    #+#             */
-/*   Updated: 2019/03/10 17:04:08 by plaurent         ###   ########.fr       */
+/*   Updated: 2019/03/11 15:21:49 by plaurent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,10 +96,13 @@ static char		*ft_ftoa(double n)
 
 char			*ft_conv_f(t_asset asset, va_list ap)
 {
-	char	*str;
-	double	n;
+	char		*str;
+	long double	n;
 
-	n = va_arg(ap, double);
+	if (asset.length == 5)
+		n = va_arg(ap, long double);
+	else
+		n = va_arg(ap, double);
 	if (asset.precision == -1)
 		asset.precision = 6;
 	if (n == 1.0 / 0.0)

@@ -6,7 +6,7 @@
 /*   By: plaurent <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/08 14:28:09 by plaurent          #+#    #+#             */
-/*   Updated: 2019/03/10 17:07:59 by plaurent         ###   ########.fr       */
+/*   Updated: 2019/03/18 17:11:32 by plaurent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static char	*st_(char *buff, char *str)
 		buff = ft_write_refresh(buff, 4096);
 		length = 0;
 	}
-	buff = ft_strncat(buff, str, size);
+	buff = ft_strncat(buff, str + size_tmp, size);
 	return (buff);
 }
 
